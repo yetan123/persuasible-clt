@@ -6,8 +6,8 @@ mybatis:
   type-aliases-package: com.simplify.model.entity
 spring:
   datasource:
-    username: root
-    password: lb962464.
-    url: jdbc:mysql://localhost:3306/user_db?useSSL=false&serverTimezone=UTC
+    username: persuasible
+    password: 962464
+    url: jdbc:oracle:thin:@47.106.177.220:1521:orcl
     type: com.mchange.v2.c3p0.ComboPooledDataSource
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    driver-class-name: oracle.jdbc.driver.OracleDriver

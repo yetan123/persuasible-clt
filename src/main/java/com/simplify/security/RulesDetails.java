@@ -1,7 +1,6 @@
 package com.simplify.security;
 
 import com.simplify.model.entity.User;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -16,10 +15,16 @@ public class RulesDetails extends User implements UserDetails {
     public RulesDetails() {
     }
 
-    public RulesDetails(Integer userId, String userName, String password) {
-        this.setUserId(userId);
-        this.setUserName(userName);
+    public RulesDetails(Long id, String account, String username, String password, String gender, String phone, String job, Long deptId, Integer userState) {
+        this.setId(id);
+        this.setAccount(account);
+        this.setUsername(username);
         this.setPassword(password);
+        this.setGender(gender);
+        this.setPhone(phone);
+        this.setJob(job);
+        this.setDeptId(deptId);
+        this.setUserState(userState);
     }
 
     @Override
@@ -34,7 +39,7 @@ public class RulesDetails extends User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return super.getUserName();
+        return super.getUsername();
     }
 
     @Override

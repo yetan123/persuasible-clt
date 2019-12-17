@@ -18,9 +18,22 @@ import javax.persistence.Table;
 @NoArgsConstructor
 public class User {
     @Id
-    private Integer userId;
+    private Long id;
 
-    private String userName;
+    private String account;
+
+    private String username;
 
     private String password;
+
+    private String gender;
+
+    private String phone;
+
+    private String job;
+
+    private Long deptId;
+
+    private Integer userState;
+
 }

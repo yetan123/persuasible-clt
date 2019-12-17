@@ -25,7 +25,9 @@ public class RulesDetailsServiceImpl implements UserDetailsService {
         if(Objects.isNull(user)){
             throw new UsernameNotFoundException(String.format("%s.这个用户不存在", s));
         }
-        RulesDetails rulesDetails = new RulesDetails(user.getUserId(),user.getUserName(),user.getPassword());
+        RulesDetails rulesDetails = new RulesDetails(user.getId(),user.getAccount()
+                ,user.getUsername(),user.getPassword(),user.getGender()
+                ,user.getPhone(),user.getJob(),user.getDeptId(),user.getUserState());
         return rulesDetails;
     }
 }

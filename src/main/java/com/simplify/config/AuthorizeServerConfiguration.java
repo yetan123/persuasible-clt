@@ -1,6 +1,7 @@
 package com.simplify.config;
 
 
+import com.simplify.security.UserTokenEnhancer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,13 +31,17 @@ public class AuthorizeServerConfiguration extends AuthorizationServerConfigurerA
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     @Autowired
     private AuthenticationManager authenticationManager;
-
+    @Autowired
+    private UserTokenEnhancer userTokenEnhancer;
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints)
             throws Exception {
         endpoints.accessTokenConverter(accessTokenConverter())
                 .tokenStore(tokenStore())
                 .authenticationManager(authenticationManager);
+        TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
+        tokenEnhancerChain.setTokenEnhancers(Arrays.asList(userTokenEnhancer));
+        endpoints.tokenEnhancer(tokenEnhancerChain);
 
     }
 
