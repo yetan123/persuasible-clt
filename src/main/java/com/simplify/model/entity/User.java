@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 /**
  * 用户表实体类
- * @author yuntian
+ * @author biaoerzi
  * @date 2019-11-30
  */
 @Table(name="tb_user")
@@ -26,7 +26,7 @@ public class User {
 
     private String password;
 
-    private String gender;
+    private String genders;
 
     private String phone;
 

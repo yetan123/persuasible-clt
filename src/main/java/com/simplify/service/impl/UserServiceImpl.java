@@ -18,15 +18,10 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
     @Override
-    public User findUserByUserNameAndPassword(User user) {
-        return userMapper.selectOne(user);
-    }
-
-    @Override
-    public User findUserByUserName(String userName) {
+    public User findUserByAccount(String account) {
         Example  example =new Example(User.class);
         Example.Criteria criteria = example.createCriteria();
-        criteria.andEqualTo("userName",userName);
+        criteria.andEqualTo("account",account);
         return userMapper.selectOneByExample(example);
     }
 }

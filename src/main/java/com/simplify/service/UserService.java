@@ -8,6 +8,5 @@ import com.simplify.model.entity.User;
  * @date 2019-1130
  */
 public interface UserService {
-    User findUserByUserNameAndPassword(User user);
-    User findUserByUserName(String userName);
+    User findUserByAccount(String account);
 }
