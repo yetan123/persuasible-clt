@@ -40,7 +40,7 @@ public class AuthorizeServerConfiguration extends AuthorizationServerConfigurerA
                 .tokenStore(tokenStore())
                 .authenticationManager(authenticationManager);
         TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
-        tokenEnhancerChain.setTokenEnhancers(Arrays.asList(userTokenEnhancer));
+        tokenEnhancerChain.setTokenEnhancers(Arrays.asList(userTokenEnhancer,accessTokenConverter()));
         endpoints.tokenEnhancer(tokenEnhancerChain);
 
     }

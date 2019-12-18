@@ -3,7 +3,7 @@ server:
 mybatis:
   configuration:
     map-underscore-to-camel-case: true
-  type-aliases-package: com.simplify.model.entity
+  type-aliases-package: com.simplify.model.entity,com.simplify.model.dto
 spring:
   datasource:
     username: persuasible

@@ -21,12 +21,12 @@ public class RulesDetailsServiceImpl implements UserDetailsService {
     private UserService userServiceImpl;
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        User user = userServiceImpl.findUserByUserName(s);
+        User user = userServiceImpl.findUserByAccount(s);
         if(Objects.isNull(user)){
             throw new UsernameNotFoundException(String.format("%s.这个用户不存在", s));
         }
         RulesDetails rulesDetails = new RulesDetails(user.getId(),user.getAccount()
-                ,user.getUsername(),user.getPassword(),user.getGender()
+                ,user.getUsername(),user.getPassword(),user.getGenders()
                 ,user.getPhone(),user.getJob(),user.getDeptId(),user.getUserState());
         return rulesDetails;
     }

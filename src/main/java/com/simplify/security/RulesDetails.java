@@ -15,12 +15,12 @@ public class RulesDetails extends User implements UserDetails {
     public RulesDetails() {
     }
 
-    public RulesDetails(Long id, String account, String username, String password, String gender, String phone, String job, Long deptId, Integer userState) {
+    public RulesDetails(Long id, String account, String username, String password, String genders, String phone, String job, Long deptId, Integer userState) {
         this.setId(id);
         this.setAccount(account);
         this.setUsername(username);
         this.setPassword(password);
-        this.setGender(gender);
+        this.setGenders(genders);
         this.setPhone(phone);
         this.setJob(job);
         this.setDeptId(deptId);
