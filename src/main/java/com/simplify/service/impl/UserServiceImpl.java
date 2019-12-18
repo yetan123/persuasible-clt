@@ -1,11 +1,11 @@
 package com.simplify.service.impl;
 
 import com.simplify.mapper.UserMapper;
-import com.simplify.model.entity.User;
-import com.simplify.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import tk.mybatis.mapper.entity.Example;
+        import com.simplify.model.entity.User;
+        import com.simplify.service.UserService;
+        import org.springframework.beans.factory.annotation.Autowired;
+        import org.springframework.stereotype.Service;
+        import tk.mybatis.mapper.entity.Example;
 
 /**
  * 用户业务实现类,是用户业务接口的具体实现
