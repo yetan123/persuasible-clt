@@ -21,7 +21,7 @@ public class UserTokenEnhancer implements TokenEnhancer {
         User user = (User) oAuth2Authentication.getUserAuthentication().getPrincipal();
         additionalInfo.put("username", user.getUsername());
         additionalInfo.put("account",user.getAccount());
-        additionalInfo.put("gender",user.getGender());
+        additionalInfo.put("gender",user.getGenders());
         additionalInfo.put("phone",user.getPhone());
         additionalInfo.put("job",user.getJob());
         additionalInfo.put("userState",user.getUserState());

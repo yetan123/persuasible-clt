@@ -1,11 +1,11 @@
 package com.simplify.service.impl;
 
 import com.simplify.mapper.UserMapper;
-import com.simplify.model.entity.User;
-import com.simplify.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import tk.mybatis.mapper.entity.Example;
+        import com.simplify.model.entity.User;
+        import com.simplify.service.UserService;
+        import org.springframework.beans.factory.annotation.Autowired;
+        import org.springframework.stereotype.Service;
+        import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
 
@@ -21,19 +21,19 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findUserByUserNameAndPassword(User user) {
-        return userMapper.selectOne(user);
+        return null;
     }
 
     @Override
     public User findUserByUserName(String userName) {
-        Example  example =new Example(User.class);
-        Example.Criteria criteria = example.createCriteria();
-        criteria.andEqualTo("username",userName);
-        return userMapper.selectOneByExample(example);
+        return null;
     }
 
     @Override
-    public List<User> findAll() {
-        return userMapper.selectAll();
+    public User findUserByAccount(String account) {
+        Example  example =new Example(User.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("account",account);
+        return userMapper.selectOneByExample(example);
     }
 }
