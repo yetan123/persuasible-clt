@@ -1,5 +1,6 @@
 package com.simplify.mapper;
 
+import com.simplify.model.dto.UserAuthorizeDTO;
 import com.simplify.model.entity.User;
 import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.common.Mapper;
@@ -11,4 +12,5 @@ import tk.mybatis.mapper.common.Mapper;
  */
 @Repository
 public interface UserMapper extends Mapper<User> {
+    UserAuthorizeDTO findUserAndRoleByUserId(String id);
 }
