@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
+import java.util.List;
+
 /**
  * 用户业务实现类,是用户业务接口的具体实现
  * @author yuntian
@@ -26,7 +28,12 @@ public class UserServiceImpl implements UserService {
     public User findUserByUserName(String userName) {
         Example  example =new Example(User.class);
         Example.Criteria criteria = example.createCriteria();
-        criteria.andEqualTo("userName",userName);
+        criteria.andEqualTo("username",userName);
         return userMapper.selectOneByExample(example);
+    }
+
+    @Override
+    public List<User> findAll() {
+        return userMapper.selectAll();
     }
 }
