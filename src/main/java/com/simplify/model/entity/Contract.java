@@ -26,7 +26,7 @@ public class Contract {
     private String remark;
     private Long commercialOpportunityId;
     private Long costomerId;
-    private Long linkmanID;
+    private Long linkmanId;
     private String contractType;
     private String paymentMethod;
     private String contractState;
