@@ -34,4 +34,8 @@ public class CustomerRecord {
     private Long customerId;
 
     private Long linkmanId;
+
+    private Linkman linkman;
+
+    private Customer customer;
 }
