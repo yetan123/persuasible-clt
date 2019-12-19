@@ -1,5 +1,6 @@
 package com.simplify.service;
 
+import com.simplify.model.dto.UserAuthorizeDTO;
 import com.simplify.model.entity.User;
 
 /**
@@ -9,4 +10,5 @@ import com.simplify.model.entity.User;
  */
 public interface UserService {
     User findUserByAccount(String account);
+    UserAuthorizeDTO findUserAuthorizeById(Long id);
 }

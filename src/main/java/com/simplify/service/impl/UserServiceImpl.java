@@ -1,6 +1,7 @@
 package com.simplify.service.impl;
 
 import com.simplify.mapper.UserMapper;
+import com.simplify.model.dto.UserAuthorizeDTO;
 import com.simplify.model.entity.User;
 import com.simplify.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,5 +24,10 @@ public class UserServiceImpl implements UserService {
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("account",account);
         return userMapper.selectOneByExample(example);
+    }
+
+    @Override
+    public UserAuthorizeDTO findUserAuthorizeById(Long id) {
+        return userMapper.findUserAndRoleByUserId(id);
     }
 }
