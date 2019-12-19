@@ -12,5 +12,5 @@ import tk.mybatis.mapper.common.Mapper;
  */
 @Repository
 public interface UserMapper extends Mapper<User> {
-    UserAuthorizeDTO findUserAndRoleByUserId(String id);
+    UserAuthorizeDTO findUserAndRoleByUserId(Long id);
 }

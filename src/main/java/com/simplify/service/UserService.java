@@ -1,8 +1,8 @@
 package com.simplify.service;
 
+import com.simplify.model.dto.UserAuthorizeDTO;
 import com.simplify.model.entity.User;
 
-import java.util.List;
 
 /**
  * 用户表业务接口,提供对用户表的抽象方法
@@ -10,7 +10,6 @@ import java.util.List;
  * @date 2019-1130
  */
 public interface UserService {
-        User findUserByUserNameAndPassword(User user);
-        User findUserByUserName(String userName);
-        User findUserByAccount(String account);
+    User findUserByAccount(String account);
+    UserAuthorizeDTO findUserAuthorizeById(Long id);
 }

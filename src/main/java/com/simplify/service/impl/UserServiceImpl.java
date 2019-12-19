@@ -1,13 +1,12 @@
 package com.simplify.service.impl;
 
 import com.simplify.mapper.UserMapper;
-        import com.simplify.model.entity.User;
-        import com.simplify.service.UserService;
-        import org.springframework.beans.factory.annotation.Autowired;
-        import org.springframework.stereotype.Service;
-        import tk.mybatis.mapper.entity.Example;
-
-import java.util.List;
+import com.simplify.model.dto.UserAuthorizeDTO;
+import com.simplify.model.entity.User;
+import com.simplify.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import tk.mybatis.mapper.entity.Example;
 
 /**
  * 用户业务实现类,是用户业务接口的具体实现
@@ -20,20 +19,15 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
     @Override
-    public User findUserByUserNameAndPassword(User user) {
-        return null;
-    }
-
-    @Override
-    public User findUserByUserName(String userName) {
-        return null;
-    }
-
-    @Override
     public User findUserByAccount(String account) {
         Example  example =new Example(User.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("account",account);
         return userMapper.selectOneByExample(example);
+    }
+
+    @Override
+    public UserAuthorizeDTO findUserAuthorizeById(Long id) {
+        return userMapper.findUserAndRoleByUserId(id);
     }
 }
