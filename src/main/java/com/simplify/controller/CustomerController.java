@@ -4,6 +4,7 @@ import com.simplify.model.entity.Customer;
 import com.simplify.service.CustomerService;
 import com.simplify.service.LinkmanService;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,16 +21,14 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("customer")
+@CrossOrigin
 public class CustomerController {
     @Resource
     CustomerService customerService;
-    @Resource
-    LinkmanService linkmanService;
 
     @GetMapping("/list")
     @ResponseBody
     public List<Customer> listCustomer() {
-        System.out.println(customerService.listCustomerAndLinkman());
-        return customerService.listCustomer();
+        return customerService.listCustomerAndLinkman();
     }
 }

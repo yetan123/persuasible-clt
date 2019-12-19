@@ -3,6 +3,7 @@ package com.simplify.model.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -30,25 +31,5 @@ public class Customer {
     private Long userId;
     private CustomerTasks customerTasks;
     private List<Linkman> linkmanList;
-
-    @Override
-    public String toString() {
-        return "Customer{" +
-                "id=" + id +
-                ", companyName='" + companyName + '\'' +
-                ", companyEmail='" + companyEmail + '\'' +
-                ", specialPlane='" + specialPlane + '\'' +
-                ", companyAddress='" + companyAddress + '\'' +
-                ", trade='" + trade + '\'' +
-                ", companyScale='" + companyScale + '\'' +
-                ", customerState='" + customerState + '\'' +
-                ", customerCategory='" + customerCategory + '\'' +
-                ", customerSourceId=" + customerSourceId +
-                ", customerRank='" + customerRank + '\'' +
-                ", createTime=" + createTime +
-                ", userId=" + userId +
-                ", customerTasks=" + customerTasks +
-                ", linkmanList=" + linkmanList +
-                '}';
-    }
+    private User user;
 }

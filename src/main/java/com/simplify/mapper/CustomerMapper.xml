@@ -3,37 +3,13 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.simplify.mapper.CustomerMapper">
-    <!--  客户字段列 -->
-    <sql id="customerSqlColumns" >
-        c.id as customerId,c.COMPANY_NAME as companyName, c.COMPANY_EMAIL as companyEmail,
-        c.SPECIAL_PLANE as specialPlane, c.COMPANY_ADDRESS as companyAddress,
-        c.trade as Trade, c.COMPANY_SCALE as companyScale, c.Customer_State as customerState,
-        c.CUSTOMER_CATEGORY as customerGategory, c.CUSTOMER_SOURCE_ID as customerSourceId,
-        c.CUSTOMER_RANK as customerRank, c.CREATE_TIME as createTime, c.USER_ID as userId
-    </sql>
-    <!--  联系人字段名 -->
-    <sql id="likemanSqlColumns" >
-       l.id as linkmanId, l.CuSTOMER_ID as linkmanOfCustomerId, l.CUSTOMER_NAME as linkmanOfCustomerName,
-        l.GENDERS as genders
-    </sql>
-    <!--  联系人字段名 -->
-    <sql id="customerTasksSqlColumns" >
-        t.id as customerTaskId,
-        t.TASK_END_TIME as taskEndTime
-    </sql>
-    <resultMap id="findLinkmansByCustomerId" type="Customer">
-
+    <resultMap id="findCustomerTasksById" type="Customer">
+      <id property="id" column="id"/>
+        <association property="customerTasks" column="id" select="com.simplify.mapper.CustomerTasksMapper.getCustomerTasksByCustomerId" />
+        <association property="user" column="user_id" select="com.simplify.mapper.UserMapper.selectByPrimaryKey"/>
+        <collection property="linkmanList" column="id" select="com.simplify.mapper.LinkmanMapper.listLinkmansByCustomerId"/>
     </resultMap>
-   <select id="listCustomerAndLinkmanAnd" >
-      select
-      <include refid="customerSqlColumns"/>,
-      <include refid="likemanSqlColumns"/>,
-      <include refid="customerTasksSqlColumns"/>,
-
-       from tb_customer c
-        left join TB_LINKMAN l
-        on c.id = l.CUSTOMER_ID
-        left join TB_CUSTOMER_TASKS t
-        on c.id = t.CUSTOMER_ID
+   <select id="listCustomerAndLinkman"  resultMap="findCustomerTasksById">
+      select * from tb_customer
    </select>
 </mapper>
