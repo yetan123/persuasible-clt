@@ -1,11 +1,12 @@
 package com.simplify.service.impl;
 
 import com.simplify.mapper.UserMapper;
-        import com.simplify.model.entity.User;
-        import com.simplify.service.UserService;
-        import org.springframework.beans.factory.annotation.Autowired;
-        import org.springframework.stereotype.Service;
-        import tk.mybatis.mapper.entity.Example;
+import com.simplify.model.dto.UserAuthorizeDTO;
+import com.simplify.model.entity.User;
+import com.simplify.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
 
@@ -31,4 +32,7 @@ public class UserServiceImpl implements UserService {
         return userMapper.selectAll();
     }
 
+    public UserAuthorizeDTO findUserAuthorizeById(Long id) {
+        return userMapper.findUserAndRoleByUserId(id);
+    }
 }

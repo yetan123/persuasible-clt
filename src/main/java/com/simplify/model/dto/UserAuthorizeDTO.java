@@ -22,7 +22,15 @@ public class UserAuthorizeDTO {
 
     private String username;
 
+    private String genders;
+
+    private String phone;
+
+    private String job;
+
+    private Long deptId;
+
     private Integer userState;
 
-    private List<Role> roles;
+    private List<String> roles;
 }

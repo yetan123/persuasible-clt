@@ -14,5 +14,5 @@ import java.util.List;
  */
 @Repository
 public interface UserMapper extends Mapper<User> {
-    UserAuthorizeDTO findUserAndRoleByUserId(String id);
+    UserAuthorizeDTO findUserAndRoleByUserId(Long id);
 }
