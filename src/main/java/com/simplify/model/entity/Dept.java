@@ -8,27 +8,21 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * 菜单资源类
- * @author yuntian
- * @date 2019-12-9
+ *
+ * @author 覃文强
+ * @date 2019-12-17
  */
-@Table(name = "tb_menu")
+@Table(name="tb_department")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Menu {
+public class Dept {
     @Id
     private Long id;
 
-    private String menuName;
+    private String dept_Name;
 
-    private String path;
+    private Integer enterprise_Id;
 
-    private Long parentId;
-
-    private Integer hidden;
-
-    private String component;
-
-    private String icon;
+    private String describe;
 }

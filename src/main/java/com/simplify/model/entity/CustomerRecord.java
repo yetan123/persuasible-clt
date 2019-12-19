@@ -7,28 +7,31 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.util.Date;
-
+import java.sql.Date;
 
 /**
  * @author water
  * @date 2019-12-18
  */
-@Table(name="tb_customer_tasks")
-
+@Table(name="tb_customer_record")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CustomerTasks {
+public class CustomerRecord {
     @Id
     private Long id;
+
+    private String recordContent;
+
+    private String recordType;
+
+    private String recordProgress;
+
+    private Date recordTime;
+
+    private Date recordNextTime;
+
     private Long customerId;
+
     private Long linkmanId;
-    private String taskName;
-    private String taskContent;
-    private Date taskStartTime;
-    private Date taskEndTime;
-    private String taskParticipant;
-
-
 }
