@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
+import java.util.List;
+
 /**
  * 用户业务实现类,是用户业务接口的具体实现
  * @author yuntian
@@ -17,7 +19,6 @@ import tk.mybatis.mapper.entity.Example;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
-
     @Override
     public User findUserByAccount(String account) {
         Example  example =new Example(User.class);
@@ -27,6 +28,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<User> findAll() {
+        return userMapper.selectAll();
+    }
+
     public UserAuthorizeDTO findUserAuthorizeById(Long id) {
         return userMapper.findUserAndRoleByUserId(id);
     }
