@@ -13,7 +13,8 @@ import java.util.List;
 
 @SpringBootTest
 class PersuasibleCrmApplicationTests {
-
+    @Autowired
+    UserService userService;
     @Test
     void contextLoads() {
         SnowFlake snowFlake = new SnowFlake(0,0);

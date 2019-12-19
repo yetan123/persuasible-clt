@@ -18,17 +18,6 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
-
-    @Override
-    public User findUserByUserNameAndPassword(User user) {
-        return null;
-    }
-
-    @Override
-    public User findUserByUserName(String userName) {
-        return null;
-    }
-
     @Override
     public User findUserByAccount(String account) {
         Example  example =new Example(User.class);
@@ -36,4 +25,10 @@ public class UserServiceImpl implements UserService {
         criteria.andEqualTo("account",account);
         return userMapper.selectOneByExample(example);
     }
+
+    @Override
+    public List<User> findAll() {
+        return userMapper.selectAll();
+    }
+
 }
