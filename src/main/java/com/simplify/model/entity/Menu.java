@@ -22,15 +22,13 @@ public class Menu {
 
     private String menuName;
 
-    private Integer requireAuth;
-
     private String path;
-
-    private String routeUrl;
 
     private Long parentId;
 
-    private Integer menuState;
+    private Integer hidden;
 
     private String component;
+
+    private String icon;
 }

@@ -5,6 +5,8 @@ import com.simplify.model.entity.User;
 import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.common.Mapper;
 
+import java.util.List;
+
 /**
  * 用户映射层
  * @author yuntian
@@ -12,5 +14,5 @@ import tk.mybatis.mapper.common.Mapper;
  */
 @Repository
 public interface UserMapper extends Mapper<User> {
-    UserAuthorizeDTO findUserAndRoleByUserId(String id);
+    UserAuthorizeDTO findUserAndRoleByUserId(Long id);
 }
