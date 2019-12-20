@@ -10,12 +10,13 @@
         <result property="hidden" column="hidden"/>
         <result property="component" column="component"/>
         <result property="icon" column="icon"/>
-        <collection property="children" column="id" ofType="RouteDTO" select="findChildrenByPid"/>
+        <collection property="children" column="id" ofType="RouteDTO" select="listRouteDTO"/>
     </resultMap>
     <select id="listRouteDTO" resultMap="routeDTO">
-        select id,menu_name,path,hidden,component,icon from tb_menu
-    </select>
-    <select id="findChildrenByPid" resultType="RouteDTO">
-        select id,menu_name,path,hidden,component,icon from tb_menu where parent_id = #{id}
+        select id,menu_name,path,hidden,component,icon from tb_menu <where>
+        <if test="parent_id != null">
+            parent_id = #{id}
+        </if>
+    </where>
     </select>
 </mapper>
