@@ -6,6 +6,7 @@ import com.simplify.mapper.UserMapper;
 import com.simplify.model.entity.User;
 
 import com.simplify.service.CustomerRecordService;
+import com.simplify.service.CustomerTasksService;
 import com.simplify.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +16,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class PersuasibleCrmApplicationTests {
     @Autowired
-    private CustomerRecordService customerRecordService;
+    private CustomerTasksService customerTasksService;
     @Test
     void contextLoads() {
-        System.out.println(customerRecordService.selectAllCustomerRecord());
+        System.out.println(customerTasksService.selectAllTasksCustomerTasks());
     }
 
 }
