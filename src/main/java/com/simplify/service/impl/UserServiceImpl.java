@@ -32,6 +32,15 @@ public class UserServiceImpl implements UserService {
         return userMapper.selectAll();
     }
 
+    @Override
+    public List<User> listUserByNotId(Long id) {
+        Example  example =new Example(User.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andNotEqualTo("id",id);
+        return userMapper.selectByExample(example);
+    }
+
+    @Override
     public UserAuthorizeDTO findUserAuthorizeById(Long id) {
         return userMapper.findUserAndRoleByUserId(id);
     }

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.simplify.mapper.CustomerRecordMapper">
+    <resultMap id="findCustomerRecord" type="CustomerRecord">
+        <id property="id" column="id"/>
+        <result property="recordContent" column="RECORD_CONTENT"/>
+        <result property="recordType" column="RECORD_TYPE"/>
+        <result property="recordProgress" column="RECORD_PROGRESS"/>
+        <result property="recordTime" column="RECORD_TIME"/>
+        <result property="recordNextTime" column="RECORD_NEXT_TIME"/>
+
+        <association property="linkman" javaType="linkman">
+            <id property="id" column="id"/>
+            <result property="customerName" column="CUSTOMER_NAME"/>
+        </association>
+
+        <association property="customer" javaType="customer">
+            <id property="id" column="id"/>
+            <result property="companyName" column="COMPANY_NAME"/>
+        </association>
+    </resultMap>
+    <select id="selectAllCustomerRecord"  resultMap="findCustomerRecord">
+    SELECT r.ID,r.RECORD_CONTENT,r.RECORD_TYPE,r.RECORD_PROGRESS,r.RECORD_TIME,r.RECORD_NEXT_TIME,l.CUSTOMER_NAME,s.COMPANY_NAME from PERSUASIBLE.TB_CUSTOMER_RECORD r
+inner join PERSUASIBLE.TB_LINKMAN l on r.LINKMAN_ID=l.CUSTOMER_ID
+inner join PERSUASIBLE.TB_CUSTOMER s on r.CUSTOMER_ID = s.ID
+   </select>
+
+</mapper>
+

@@ -4,6 +4,7 @@ import com.simplify.mapper.CustomerMapper;
 import com.simplify.model.entity.Customer;
 import com.simplify.service.CustomerService;
 import org.springframework.stereotype.Service;
+import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -30,7 +31,16 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public List<Customer> listCustomerAndLinkman() {
-        return customerMapper.listCustomerAndLinkman();
+    public List<Customer> listCustomerAndLinkman(Long id) {
+        return customerMapper.listCustomerAndLinkman(id);
+    }
+
+    @Override
+    public int updateCustomerUserIdById(Long id, Long uid) {
+        Customer customer = new Customer();
+        customer.setId(id);
+        customer.setUserId(uid);
+        return customerMapper.updateByPrimaryKey(customer);
+
     }
 }

@@ -16,9 +16,9 @@ import java.util.Date;
  * @date 2019/12/20
  * @author lanmu
  */
-public class ConvertCustomer {
+public class ConverCustomer {
     private Long id;
-    private Long convertUserId;
+    private Long converUserId;
     private Long receiveUserId;
     private Long customerId;
     private Date converTime;

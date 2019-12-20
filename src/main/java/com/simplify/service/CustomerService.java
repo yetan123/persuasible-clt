@@ -16,5 +16,6 @@ public interface CustomerService {
      * @return 全部联系人和客户
      * @author lanmu
      */
-    List<Customer> listCustomerAndLinkman();
+    List<Customer> listCustomerAndLinkman(Long id);
+    int updateCustomerUserIdById(Long id, Long uid);
 }

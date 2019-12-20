@@ -17,6 +17,8 @@ public interface UserService {
 
         List<User> findAll(); //查询全部
 
+        List<User> listUserByNotId(Long id);
+
         UserAuthorizeDTO findUserAuthorizeById(Long id);
 
 }

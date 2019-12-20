@@ -1,6 +1,6 @@
 package com.simplify.controller;
 
-import com.simplify.model.entity.Menu;
+import com.simplify.model.dto.RouteDTO;
 import com.simplify.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -23,8 +23,10 @@ public class MenuController {
     @Autowired
     private MenuService menuServiceImpl;
     @GetMapping("")
-    public List<Menu> getMenuList(){
-        List<Menu> menus = menuServiceImpl.listMenu();
+    public List<RouteDTO> getMenuList(){
+        List<RouteDTO> menus = menuServiceImpl.listMenu();
+        System.out.println(menus);
+        menus.forEach((menu)-> System.out.println(menu));
         return menus;
     }
 }
