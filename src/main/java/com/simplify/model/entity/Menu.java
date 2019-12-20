@@ -20,7 +20,7 @@ public class Menu {
     @Id
     private Long id;
 
-    private String menuName;
+    private String name;
 
     private String path;
 
