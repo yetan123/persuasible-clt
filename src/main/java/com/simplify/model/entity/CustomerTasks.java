@@ -29,6 +29,7 @@ public class CustomerTasks {
     private Date taskStartTime;
     private Date taskEndTime;
     private String taskParticipant;
-
+    private Linkman linkman;
+    private Customer customer;
 
 }
