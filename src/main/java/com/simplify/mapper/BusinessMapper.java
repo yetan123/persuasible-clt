@@ -5,6 +5,8 @@ import com.simplify.model.entity.Business;
 import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.common.Mapper;
 
+import java.util.List;
+
 /**
  * 商机映射层
  * @author 杨泓
@@ -13,5 +15,5 @@ import tk.mybatis.mapper.common.Mapper;
 
 @Repository
 public interface BusinessMapper extends Mapper<Business> {
-
+    List<Business> selectAll();
 }

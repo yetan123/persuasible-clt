@@ -21,33 +21,33 @@ public class Business {
     @Id
     private Long id;
 
-    private String business_Name;
+    private String businessName;
 
-    private Double estimated_Sales;
+    private Long estimatedSales;
 
-    private String estimated_Date;
+    private String estimatedDate;
 
-    private Double estimated_Success;
+    private Double estimatedSuccess;
 
-    private String customer_Decision;
+    private String customerDecision;
 
-    private String find_Date;
+    private String findDate;
 
-    private String business_Description;
+    private String businessDescription;
 
-    private Long user_Id;
+    private Long userId;
 
-    private Long business_Source_Id;
+    private Long businessSourceId;
 
-    private Long customer_Id;
+    private Long customerId;
 
-    private String business_Type;
+    private String buisnessType;
 
-    private String business_Phases;
+    private String businessPhases;
 
-    private Integer business_States;
+    private Integer businessState;
 
-    private String create_Time;
+    private String createTime;
 
 
 }

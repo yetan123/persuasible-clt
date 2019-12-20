@@ -19,15 +19,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
 
-    @Override
-    public User findUserByUserNameAndPassword(User user) {
-        return null;
-    }
-
-    @Override
-    public User findUserByUserName(String userName) {
-        return null;
-    }
 
     @Override
     public User findUserByAccount(String account) {

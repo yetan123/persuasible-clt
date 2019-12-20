@@ -10,7 +10,5 @@ import java.util.List;
  * @date 2019-1130
  */
 public interface UserService {
-        User findUserByUserNameAndPassword(User user);
-        User findUserByUserName(String userName);
         User findUserByAccount(String account);
 }

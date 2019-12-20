@@ -1,7 +1,9 @@
 package com.simplify.persuasiblecrm;
 
 import com.simplify.mapper.UserMapper;
+import com.simplify.model.entity.Business;
 import com.simplify.model.entity.User;
+import com.simplify.service.BusinessService;
 import com.simplify.service.UserService;
 import com.simplify.utils.SnowFlake;
 import org.junit.jupiter.api.Test;
@@ -13,11 +15,14 @@ import java.util.List;
 
 @SpringBootTest
 class PersuasibleCrmApplicationTests {
+    @Autowired
+    BusinessService businessService;
 
     @Test
     void contextLoads() {
         SnowFlake snowFlake = new SnowFlake(0,0);
         long id = snowFlake.nextId();
     }
+
 
 }
