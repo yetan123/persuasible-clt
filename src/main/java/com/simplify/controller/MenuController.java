@@ -25,8 +25,6 @@ public class MenuController {
     @GetMapping("")
     public List<RouteDTO> getMenuList(){
         List<RouteDTO> menus = menuServiceImpl.listMenu();
-        System.out.println(menus);
-        menus.forEach((menu)-> System.out.println(menu));
         return menus;
     }
 }

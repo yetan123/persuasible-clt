@@ -18,7 +18,7 @@ import java.util.List;
 public class RouteDTO {
     private Long id;
 
-    private String menuName;
+    private String name;
 
     private String path;
 

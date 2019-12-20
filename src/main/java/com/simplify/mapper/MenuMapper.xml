@@ -5,7 +5,7 @@
 <mapper namespace="com.simplify.mapper.MenuMapper">
     <resultMap id="routeDTO" type="RouteDTO">
         <id property="id" column="id"/>
-        <result property="menuName" column="menu_name"/>
+        <result property="name" column="name"/>
         <result property="path" column="path"/>
         <result property="hidden" column="hidden"/>
         <result property="component" column="component"/>
@@ -13,10 +13,14 @@
         <collection property="children" column="id" ofType="RouteDTO" select="listRouteDTO"/>
     </resultMap>
     <select id="listRouteDTO" resultMap="routeDTO">
-        select id,menu_name,path,hidden,component,icon from tb_menu <where>
-        <if test="parent_id != null">
+        select id,name ,path,hidden,component,icon from tb_menu <where>
+        <if test="id == null">
+            parent_id is NULL
+        </if>
+        <if test="id != null">
             parent_id = #{id}
         </if>
     </where>
+
     </select>
 </mapper>
