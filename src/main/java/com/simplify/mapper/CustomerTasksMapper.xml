@@ -3,5 +3,28 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.simplify.mapper.CustomerTasksMapper">
+        <resultMap id="findCustomerTasks" type="CustomerTasks">
+            <id property="id" column="ID"/>
+            <result property="taskName" column="TASK_NAME"/>
+            <result property="taskContent" column="TASK_CONTENT"/>
+            <result property="taskStartTime" column="TASK_START_TIME"/>
+            <result property="taskEndTime" column="TASK_END_TIME"/>
+            <result property="taskParticipant" column="TASK_PARTICIPANT"/>
+
+            <association property="linkman" javaType="linkman">
+                <id property="id" column="id"/>
+                <result property="customerName" column="CUSTOMER_NAME"/>
+            </association>
+
+            <association property="customer" javaType="customer">
+                <id property="id" column="id"/>
+                <result property="companyName" column="COMPANY_NAME"/>
+            </association>
+        </resultMap>
+        <select id="selectAllTasksCustomerTasks"  resultMap="findCustomerTasks">
+   SELECT t.ID,TASK_NAME,t.TASK_CONTENT,t.TASK_START_TIME,t.TASK_END_TIME,t.TASK_PARTICIPANT,l.CUSTOMER_NAME,s.COMPANY_NAME from PERSUASIBLE.TB_CUSTOMER_TASKS t
+inner join PERSUASIBLE.TB_LINKMAN l on t.LINKMAN_ID=l.CUSTOMER_ID
+inner join PERSUASIBLE.TB_CUSTOMER s on t.CUSTOMER_ID = s.ID
+   </select>
 
 </mapper>

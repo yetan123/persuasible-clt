@@ -10,6 +10,6 @@
         <collection property="linkmanList" column="id" select="com.simplify.mapper.LinkmanMapper.listLinkmansByCustomerId"/>
     </resultMap>
    <select id="listCustomerAndLinkman"  resultMap="findCustomerTasksById">
-      select * from tb_customer
+      select * from tb_customer where user_id = #{0}
    </select>
 </mapper>

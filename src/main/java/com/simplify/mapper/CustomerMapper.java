@@ -16,5 +16,6 @@ public interface CustomerMapper extends Mapper<Customer> {
     /**
      * @return 全部联系人和客户
      */
-    List<Customer> listCustomerAndLinkman();
+    List<Customer> listCustomerAndLinkman(Long id);
+
 }

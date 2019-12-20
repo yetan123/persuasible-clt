@@ -34,7 +34,6 @@ public class UserTokenEnhancer implements TokenEnhancer {
         additionalInfo.put("deptId",userAuthorizeDTO.getDeptId());
         additionalInfo.put("userState",userAuthorizeDTO.getUserState());
         additionalInfo.put("roles",userAuthorizeDTO.getRoles());
-
         ((DefaultOAuth2AccessToken) oAuth2AccessToken).setAdditionalInformation(additionalInfo);
         return oAuth2AccessToken;
     }

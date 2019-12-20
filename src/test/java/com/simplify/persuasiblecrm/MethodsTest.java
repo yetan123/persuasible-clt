@@ -18,7 +18,7 @@ class MethodsTest {
 
     @Test
     void contextLoads() {
-        List<Customer> customers = customerService.listCustomerAndLinkman();
+        List<Customer> customers = customerService.listCustomerAndLinkman(new Long(1));
         for(Customer customer: customers) {
             System.out.println(customer);
         }
