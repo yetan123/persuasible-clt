@@ -28,5 +28,9 @@ public class RouteDTO {
 
     private String icon;
 
+    private String title;
+
+    private String permission;
+
     private List<RouteDTO> children;
 }

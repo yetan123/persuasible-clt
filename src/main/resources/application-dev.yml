@@ -3,6 +3,7 @@ server:
 mybatis:
   configuration:
     map-underscore-to-camel-case: true
+    cache-enabled: true
   type-aliases-package: com.simplify.model.entity,com.simplify.model.dto
 # 指定log4j2作为日志记录
 logging:
