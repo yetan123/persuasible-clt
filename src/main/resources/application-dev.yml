@@ -18,3 +18,10 @@ spring:
     url: jdbc:oracle:thin:@47.106.177.220:1521:orcl
     type: com.mchange.v2.c3p0.ComboPooledDataSource
     driver-class-name: oracle.jdbc.driver.OracleDriver
+
+pagehelper:
+  helperDialect: oracle
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+

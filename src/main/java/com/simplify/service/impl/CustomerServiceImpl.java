@@ -8,6 +8,7 @@ import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 /***
  * 客户业务接口实现类
@@ -31,8 +32,13 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public List<Customer> listCustomerAndLinkman(Long id) {
-        return customerMapper.listCustomerAndLinkman(id);
+    public List<Customer> listCustomerAndLinkman(Map map) {
+        return customerMapper.listCustomerAndLinkman(map);
+    }
+
+    @Override
+    public Long listCountCustomerAndLinkman(Map params) {
+        return customerMapper.listCountCustomerAndLinkman(params);
     }
 
     @Override

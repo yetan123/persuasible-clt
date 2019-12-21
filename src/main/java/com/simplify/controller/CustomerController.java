@@ -1,5 +1,9 @@
 package com.simplify.controller;
 
+import com.github.pagehelper.IPage;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.simplify.model.entity.ConverCustomer;
 import com.simplify.model.entity.Customer;
 import com.simplify.model.entity.User;
@@ -12,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 客户控制器，负责对客户业务的分发
@@ -29,11 +34,32 @@ public class CustomerController {
     @Resource
     ConverCustomerService converCustomerService;
 
-    @GetMapping("/list")
+    /**
+     * 我的客户分页方法
+     * @param params
+     * @return
+     */
+    @PostMapping("/list")
     @ResponseBody
-    public List<Customer> listCustomer(Long id) {
-        System.out.println("login of id is " + id);
-        return customerService.listCustomerAndLinkman(id);
+    public PageInfo<Customer> listCustomer(@RequestBody Map params) {
+        PageInfo<Customer> pageInfo = getPageInfo(params);
+        return pageInfo;
+    }
+
+    private PageInfo<Customer> getPageInfo(Map params) {
+        int pageNum = 1;
+        int pageSize = 4;
+        if(params.get("pageNum") != null) {
+            pageNum = (Integer) params.get("pageNum");
+        }
+        if(params.get("pageSize") != null) {
+             pageSize = (Integer) params.get("pageSize");
+        }
+
+        PageHelper.startPage(pageNum, pageSize, true);
+        List<Customer> customers = customerService.listCustomerAndLinkman(params);
+        PageInfo<Customer> page = new PageInfo<>(customers);
+        return page;
     }
 
     @GetMapping("/listConvertUser")

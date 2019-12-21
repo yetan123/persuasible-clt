@@ -9,7 +9,12 @@
         <association property="user" column="user_id" select="com.simplify.mapper.UserMapper.selectByPrimaryKey"/>
         <collection property="linkmanList" column="id" select="com.simplify.mapper.LinkmanMapper.listLinkmansByCustomerId"/>
     </resultMap>
-   <select id="listCustomerAndLinkman"  resultMap="findCustomerTasksById">
-      select * from tb_customer where user_id = #{0}
+   <select id="listCustomerAndLinkman" parameterType="java.util.Map" resultMap="findCustomerTasksById">
+       SELECT * FROM tb_customer where user_id = #{userId}
+       <!-- &lt;=  小于等于 -->
+       <!-- &gt;= 大于于等于 -->
    </select>
+    <select id="listCountCustomerAndLinkman" resultType="java.lang.Long" parameterType="java.util.Map">
+         SELECT count(0) FROM tb_customer where user_id = #{userId}
+    </select>
 </mapper>
