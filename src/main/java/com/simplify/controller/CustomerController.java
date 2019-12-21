@@ -111,18 +111,20 @@ public class CustomerController {
     }
 
     public Map filterParamsConver(Map params) throws ParseException {
-        ArrayList listDate = (ArrayList) params.get("customerCreateDate");
-        DateFormat df2 = null;
-        if(listDate != null) {
-            DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-            Date createStartDate = df.parse(listDate.get(0).toString());
-            Date createEndDate = df.parse(listDate.get(1).toString());
-            SimpleDateFormat df1 = new SimpleDateFormat ("EEE MMM dd HH:mm:ss Z yyyy", Locale.UK);
-            Date date1 = df1.parse(createStartDate.toString());
-            Date date2 = df1.parse(createEndDate.toString());
-            df2 = new SimpleDateFormat("yyyy-MM-dd");
-            params.put("createStartDate", df2.format(date1));
-            params.put("createEndDate", df2.format(date2));
+        if(params.get("customerCreateDate") != null) {
+            ArrayList listDate = (ArrayList) params.get("customerCreateDate");
+            DateFormat df2 = null;
+            if (listDate != null) {
+                DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+                Date createStartDate = df.parse(listDate.get(0).toString());
+                Date createEndDate = df.parse(listDate.get(1).toString());
+                SimpleDateFormat df1 = new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy", Locale.UK);
+                Date date1 = df1.parse(createStartDate.toString());
+                Date date2 = df1.parse(createEndDate.toString());
+                df2 = new SimpleDateFormat("yyyy-MM-dd");
+                params.put("createStartDate", df2.format(date1));
+                params.put("createEndDate", df2.format(date2));
+            }
         }
         return params;
     }
