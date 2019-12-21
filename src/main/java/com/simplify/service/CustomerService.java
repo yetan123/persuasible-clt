@@ -1,6 +1,7 @@
 package com.simplify.service;
 
-import com.simplify.model.entity.Customer;
+import com.simplify.model.entity.*;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 import java.util.Map;
@@ -25,4 +26,9 @@ public interface CustomerService {
     Long listCountCustomerAndLinkman(Map params);
 
     int updateCustomerUserIdById(Long id, Long uid);
+
+    List<CustomerSource> listCustomerSource();
+    List<CustomerCategory> listCustomerCategory();
+    List<CustomerState> listCustomerState();
+    List<CustomerRank> listCustomerRank();
 }

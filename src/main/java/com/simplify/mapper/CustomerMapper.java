@@ -1,6 +1,7 @@
 package com.simplify.mapper;
 
-import com.simplify.model.entity.Customer;
+import com.simplify.model.entity.*;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.common.Mapper;
 
@@ -19,4 +20,13 @@ public interface CustomerMapper extends Mapper<Customer> {
      */
     List<Customer> listCustomerAndLinkman(Map params);
     Long listCountCustomerAndLinkman(Map params);
+
+    @Select("select * from TB_SOURCE")
+    List<CustomerSource> listCustomerSource();
+    @Select("select * from TB_CUSTOMER_CATEGORY")
+    List<CustomerCategory> listCustomerCategory();
+    @Select("select * from TB_CUSTOMER_STATE")
+    List<CustomerState> listCustomerState();
+    @Select("select * from TB_CUSTOMER_RANK")
+    List<CustomerRank> listCustomerRank();
 }
