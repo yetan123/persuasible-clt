@@ -27,6 +27,8 @@ public interface CustomerService {
 
     int updateCustomerUserIdById(Long id, Long uid);
 
+    List<Customer> listConver(Map params);
+
     List<CustomerSource> listCustomerSource();
     List<CustomerCategory> listCustomerCategory();
     List<CustomerState> listCustomerState();

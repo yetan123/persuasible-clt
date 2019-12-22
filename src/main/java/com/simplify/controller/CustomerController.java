@@ -1,15 +1,12 @@
 package com.simplify.controller;
 
-import com.github.pagehelper.IPage;
-import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.simplify.model.entity.*;
-import com.simplify.service.ConverCustomerService;
+import com.simplify.service.CustomerConverService;
 import com.simplify.service.CustomerService;
 import com.simplify.service.UserService;
 import com.simplify.utils.SnowFlake;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -32,7 +29,7 @@ public class CustomerController {
     @Resource
     UserService userService;
     @Resource
-    ConverCustomerService converCustomerService;
+    CustomerConverService customerConverService;
 
     /**
      * 我的客户分页方法
@@ -41,7 +38,7 @@ public class CustomerController {
      */
     @PostMapping("/list")
     public PageInfo<Customer> listCustomer(@RequestBody Map params) throws ParseException {
-        PageInfo<Customer> pageInfo = getPageInfo(filterParamsConver(params));
+        PageInfo<Customer> pageInfo = getPageInfo(filterParamsConver(params), params.get("pageType").toString());
         return pageInfo;
     }
 
@@ -53,11 +50,13 @@ public class CustomerController {
     }
 
     @PostMapping("/saveConvert")
-    public int saveConvert(@RequestBody ConverCustomer converCustomer) {
-        converCustomer.setId(new SnowFlake(0,0).nextId());
-        customerService.updateCustomerUserIdById(converCustomer.getConverUserId(), converCustomer.getReceiveUserId());
-        return converCustomerService.saveConverCustomer(converCustomer);
+    public int saveConvert(@RequestBody CustomerConver customerConver) {
+        customerConver.setId(new SnowFlake(0,0).nextId());
+        customerService.updateCustomerUserIdById(customerConver.getCustomerId(), customerConver.getReceiveUserId());
+        return customerConverService.saveConverCustomer(customerConver);
     }
+
+
 
     /**
      * 客户管理筛选数据的初始化
@@ -70,23 +69,36 @@ public class CustomerController {
 
     /**
      * 获取分页信息
-     * @param params
+     * @param params: 前端发送过来的参数
+     * pageType:用什么页面获取分页这里用来判断调用什么方法。
+     * 客户管理一共三个页面：我的客户,我转交的,转交我的
+     * 名称对应客户管理三个用来显示数据.vue文件
      * @return pageInfo
      * @auhor lanmu
      * @date 2019/12/21 17:29
      */
-    private PageInfo<Customer> getPageInfo(Map params) {
+    private PageInfo<Customer> getPageInfo(Map params, String pageType) {
         int pageNum = 1;
         int pageSize = 4;
+        List<Customer> customers = null;
         if(params.get("pageNum") != null) {
             pageNum = (Integer) params.get("pageNum");
         }
         if(params.get("pageSize") != null) {
             pageSize = (Integer) params.get("pageSize");
         }
-
         PageHelper.startPage(pageNum, pageSize, true);
-        List<Customer> customers = customerService.listCustomerAndLinkman(params);
+        // 我的客户
+        if("my".equals(pageType)) {
+            System.out.println("my");
+            customers = customerService.listCustomerAndLinkman(params);
+            // 我转交的
+        } else if("i_pass".equals(pageType)) {
+            System.out.println("i_pass");
+            customers = customerService.listConver(params);
+        } else if("pass_me".equals(pageType)) {
+
+        }
         PageInfo<Customer> page = new PageInfo<>(customers);
         return page;
     }

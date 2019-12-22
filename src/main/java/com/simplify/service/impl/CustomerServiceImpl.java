@@ -46,8 +46,12 @@ public class CustomerServiceImpl implements CustomerService {
         Customer customer = new Customer();
         customer.setId(id);
         customer.setUserId(uid);
-        return customerMapper.updateByPrimaryKey(customer);
+        return customerMapper.updateByPrimaryKeySelective(customer);
+    }
 
+    @Override
+    public List<Customer> listConver(Map params) {
+        return customerMapper.listConver(params);
     }
 
     @Override

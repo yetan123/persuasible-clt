@@ -20,7 +20,11 @@ public interface CustomerMapper extends Mapper<Customer> {
      */
     List<Customer> listCustomerAndLinkman(Map params);
     Long listCountCustomerAndLinkman(Map params);
+    List<Customer> listConver(Map params);
 
+    /**
+     * 筛选返回的json数据
+     */
     @Select("select * from TB_SOURCE")
     List<CustomerSource> listCustomerSource();
     @Select("select * from TB_CUSTOMER_CATEGORY")
