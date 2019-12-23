@@ -56,6 +56,10 @@ public class CustomerController {
         return customerConverService.saveConverCustomer(customerConver);
     }
 
+    @GetMapping("deleteCustomer")
+    public int deleteCustomer(Long id) {
+        return customerService.deleteCustomerById(id);
+    }
 
 
     /**
@@ -97,7 +101,10 @@ public class CustomerController {
             System.out.println("i_pass");
             customers = customerService.listConver(params);
         } else if("pass_me".equals(pageType)) {
-
+            System.out.println("pass_me");
+            customers = customerService.listConverToMe(params);
+        } else {
+            throw new RuntimeException("沒有指定分頁參數頁面");
         }
         PageInfo<Customer> page = new PageInfo<>(customers);
         return page;

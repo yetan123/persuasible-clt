@@ -19,8 +19,8 @@ public interface CustomerMapper extends Mapper<Customer> {
      * @return 全部联系人和客户
      */
     List<Customer> listCustomerAndLinkman(Map params);
-    Long listCountCustomerAndLinkman(Map params);
     List<Customer> listConver(Map params);
+    List<Customer> listConverToMe(Map params);
 
     /**
      * 筛选返回的json数据
