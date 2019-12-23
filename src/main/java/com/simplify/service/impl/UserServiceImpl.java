@@ -19,11 +19,6 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
-<<<<<<< HEAD
-
-
-=======
->>>>>>> c0271470b2cb1c7dce6085e7bac2e76abb827c72
     @Override
     public User findUserByAccount(String account) {
         Example  example =new Example(User.class);

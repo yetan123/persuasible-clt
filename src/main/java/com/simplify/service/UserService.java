@@ -12,10 +12,7 @@ import java.util.List;
  * @date 2019-1130
  */
 public interface UserService {
-<<<<<<< HEAD
-=======
 
->>>>>>> c0271470b2cb1c7dce6085e7bac2e76abb827c72
         User findUserByAccount(String account);
 
         List<User> findAll(); //查询全部
