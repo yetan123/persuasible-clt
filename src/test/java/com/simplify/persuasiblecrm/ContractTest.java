@@ -5,6 +5,7 @@ import com.simplify.service.impl.ContractServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.List;
 
@@ -16,9 +17,7 @@ public class ContractTest {
 
     @Test
     public void listContract(){
-
-        List<Contract> list = contractServiceImpl.listContract();
-        System.out.println(list);
+        System.out.println(new BCryptPasswordEncoder().encode("123456"));
     }
 
 }

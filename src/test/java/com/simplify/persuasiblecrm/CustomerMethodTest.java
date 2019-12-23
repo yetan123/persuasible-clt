@@ -1,24 +1,21 @@
 package com.simplify.persuasiblecrm;
 
-import com.simplify.model.entity.Customer;
 import com.simplify.service.CustomerService;
-import com.simplify.service.CustomerTasksService;
-import com.simplify.service.LinkmanService;
-import com.simplify.utils.SnowFlake;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 @SpringBootTest
-class MethodsTest {
+public class CustomerMethodTest {
     @Resource
     CustomerService customerService;
-
     @Test
-    void contextLoads() {
-
+    public void method() {
+        Map params = new HashMap();
+        params.put("userId", 1);
+        customerService.listConver(params);
     }
-
 }

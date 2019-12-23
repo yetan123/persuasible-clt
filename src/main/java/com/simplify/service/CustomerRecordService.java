@@ -10,7 +10,7 @@ public interface CustomerRecordService {
 
     int insertCustomerRecord(CustomerRecord customerRecord);
 
-    int deleteCustomerRecord(int id);
+    int deleteCustomerRecord(Long id);
 
     int updateCustomerRecord(CustomerRecord customerRecord);
 }
