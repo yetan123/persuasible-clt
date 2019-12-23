@@ -1,40 +1,36 @@
-package com.simplify.model.entity;
+package com.simplify.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Id;
-import javax.persistence.Table;
+import java.util.List;
+
 
 /**
- * 菜单资源类
+ * 封装路由相关信息
  * @author yuntian
- * @date 2019-12-9
+ * @date 2019-12-19
  */
-@Table(name = "tb_menu")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Menu {
-    @Id
+public class RouteDTO {
     private Long id;
 
     private String name;
 
     private String path;
 
-    private Long parentId;
-
-    private Integer hidden;
-
-    private String title;
+    private Boolean hidden;
 
     private String component;
 
     private String icon;
 
-    private Integer sort;
+    private String title;
 
     private String permission;
+
+    private List<RouteDTO> children;
 }

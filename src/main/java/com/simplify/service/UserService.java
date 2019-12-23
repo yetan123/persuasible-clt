@@ -18,6 +18,8 @@ public interface UserService {
 
         List<User> findAll(); //查询全部
 
+        List<User> listUserByNotId(Long id);
+
         UserAuthorizeDTO findUserAuthorizeById(Long id);
 
         List<UserAndDeptDTO> findUserAndDeptDeptId();//用户与部门多表查询
