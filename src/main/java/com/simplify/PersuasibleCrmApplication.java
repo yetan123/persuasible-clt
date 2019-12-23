@@ -13,5 +13,4 @@ public class PersuasibleCrmApplication {
     public static void main(String[] args) {
         SpringApplication.run(PersuasibleCrmApplication.class, args);
     }
-
 }
