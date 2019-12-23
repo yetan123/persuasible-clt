@@ -1,5 +1,6 @@
 package com.simplify.mapper;
 
+import com.simplify.model.dto.UserAndDeptDTO;
 import com.simplify.model.dto.UserAuthorizeDTO;
 import com.simplify.model.entity.User;
 import org.springframework.stereotype.Repository;
@@ -15,4 +16,6 @@ import java.util.List;
 @Repository
 public interface UserMapper extends Mapper<User> {
     UserAuthorizeDTO findUserAndRoleByUserId(Long id);
+
+    List<UserAndDeptDTO> findUserAndDeptDeptId();
 }

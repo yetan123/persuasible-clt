@@ -1,11 +1,10 @@
 package com.simplify.controller;
+import com.simplify.model.dto.UserAndDeptDTO;
 import com.simplify.model.entity.User;
 import com.simplify.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 /**
@@ -15,13 +14,15 @@ import java.util.List;
  */
 @RestController
 @CrossOrigin
+@RequestMapping("system")
 public class UserController {
     @Autowired
     UserService userService;
-    @RequestMapping(value = "getAllUser",method = RequestMethod.GET)
-    public List<User> getAllUser() {
-        System.out.println(userService.findAll());
-        return userService.findAll();
+    @GetMapping("/")
+    @ResponseBody
+    public List<UserAndDeptDTO> getAllUser() {
+        System.out.println("部门与用户的连表查询");
+        return userService.findUserAndDeptDeptId();
     }
 
 

@@ -1,5 +1,6 @@
 package com.simplify.service;
 
+import com.simplify.model.dto.UserAndDeptDTO;
 import com.simplify.model.dto.UserAuthorizeDTO;
 import com.simplify.model.entity.User;
 
@@ -18,5 +19,7 @@ public interface UserService {
         List<User> findAll(); //查询全部
 
         UserAuthorizeDTO findUserAuthorizeById(Long id);
+
+        List<UserAndDeptDTO> findUserAndDeptDeptId();//用户与部门多表查询
 
 }
