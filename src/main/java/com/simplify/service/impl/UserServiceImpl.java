@@ -1,6 +1,7 @@
 package com.simplify.service.impl;
 
 import com.simplify.mapper.UserMapper;
+import com.simplify.model.dto.UserAndDeptDTO;
 import com.simplify.model.dto.UserAuthorizeDTO;
 import com.simplify.model.entity.User;
 import com.simplify.service.UserService;
@@ -43,5 +44,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserAuthorizeDTO findUserAuthorizeById(Long id) {
         return userMapper.findUserAndRoleByUserId(id);
+    }
+
+    @Override
+    public List<UserAndDeptDTO> findUserAndDeptDeptId() {
+        return userMapper.findUserAndDeptDeptId();
     }
 }

@@ -16,11 +16,30 @@
             <result column="role_name"/>
         </collection>
     </resultMap>
+    <resultMap id="userAndDeptDTO" type="UserAndDeptDTO">
+        <id property="id" column="id"/>
+        <result property="account" column="account"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="genders" column="genders"/>
+        <result property="phone" column="phone"/>
+        <result property="job" column="job"/>
+        <result property="deptId" column="dept_id"/>
+        <result property="userState" column="user_state"/>
+        <collection property="depts"  ofType="String" >
+            <result column="dept_name"/>
+            <result column="enterprise_id"/>
+            <result column="describe"/>
+        </collection>
+    </resultMap>
     <select id="findUserAndRoleByUserId" resultMap="userAuthorizeDTO">
         select usr.id,usr.account,usr.username,usr.genders,usr.phone,usr.job,
         usr.dept_id,usr.user_state,rol.role_name
         from tb_user usr
         join tb_user_role usr_rol on usr.id = usr_rol.user_id
         join tb_role rol on rol.id = usr_rol.role_id where usr.id = #{id}
+    </select>
+    <select id="findUserAndDeptDeptId" resultMap="userAndDeptDTO">
+        select *from PERSUASIBLE.tb_User u inner join PERSUASIBLE.TB_DEPARTMENT d on u.dept_id=d.id
     </select>
 </mapper>
