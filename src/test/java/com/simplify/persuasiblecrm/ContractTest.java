@@ -21,4 +21,16 @@ public class ContractTest {
         System.out.println(list);
     }
 
+    @Test
+    public void listContractById(){
+        long id = 1;
+        List<Contract> list = contractServiceImpl.listContractById(id);
+        System.out.println(list);
+    }
+
+    @Test
+    public void deleteContractByContractCode(){
+        String contractCode = "";
+        contractServiceImpl.deleteContractByContractCode(contractCode);
+    }
 }

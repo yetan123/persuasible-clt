@@ -11,8 +11,8 @@ public class ContractController {
     @Autowired
     private ContractServiceImpl contractServiceImpl;
 
-    @RequestMapping(value = "")
-    public String listContract(){
-        return "";
-    }
+//    @RequestMapping(value = "")
+//    public String listContract(){
+//        return "";
+//    }
 }

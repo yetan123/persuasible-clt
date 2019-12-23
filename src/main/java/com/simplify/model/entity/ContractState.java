@@ -5,19 +5,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Table;
-import java.sql.Date;
-
 /*
-  合同转交类
+合同状态类
  */
-@Table(name="tb_contract_conver")
+@Table(name="tb_contract_state")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CntractConver {
+public class ContractState {
     private Long id;
-    private Long contractId;
-    private Long converUserId;
-    private Long receiveUserId;
-    private Date converTime;
+    private String contractState;
+    private String describe;
 }

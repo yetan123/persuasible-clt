@@ -16,6 +16,16 @@ public class ContractServiceImpl implements ContractService {
 
     @Override
     public List<Contract> listContract() {
-        return contractMapper.selectAll();
+        return contractMapper.listContract();
+    }
+
+    @Override
+    public List<Contract> listContractById(Long id) {
+        return contractMapper.listContractById(id);
+    }
+
+    @Override
+    public void deleteContractByContractCode(String contractCode) {
+        contractMapper.deleteContractByContractCode(contractCode);
     }
 }

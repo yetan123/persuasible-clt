@@ -25,6 +25,7 @@ public class UserTokenEnhancer implements TokenEnhancer {
         final Map<String, Object> additionalInfo = new HashMap<>();
         User user = (User) oAuth2Authentication.getUserAuthentication().getPrincipal();
         UserAuthorizeDTO userAuthorizeDTO = UserServiceImpl.findUserAuthorizeById(user.getId());
+        additionalInfo.put("id", userAuthorizeDTO.getId());
         additionalInfo.put("username", userAuthorizeDTO.getUsername());
         additionalInfo.put("genders", userAuthorizeDTO.getGenders());
         additionalInfo.put("phone", userAuthorizeDTO.getPhone());

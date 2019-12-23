@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.simplify.mapper.CustomerMapper">
+    <resultMap id="findCustomerTasksById" type="Customer">
+      <id property="id" column="id"/>
+        <association property="customerTasks" column="id" select="com.simplify.mapper.CustomerTasksMapper.getCustomerTasksByCustomerId" />
+        <association property="user" column="user_id" select="com.simplify.mapper.UserMapper.selectByPrimaryKey"/>
+        <collection property="linkmanList" column="id" select="com.simplify.mapper.LinkmanMapper.listLinkmansByCustomerId"/>
+    </resultMap>
+   <select id="listCustomerAndLinkman"  resultMap="findCustomerTasksById">
+      select * from tb_customer
+   </select>
+</mapper>

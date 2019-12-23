@@ -6,18 +6,21 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Table;
 import java.sql.Date;
-
 /*
-  合同转交类
+  合同跟进类
  */
-@Table(name="tb_contract_conver")
+
+@Table(name="tb_contract_task")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CntractConver {
+public class ContractTask {
     private Long id;
     private Long contractId;
-    private Long converUserId;
-    private Long receiveUserId;
-    private Date converTime;
+    private String scheduledTask;
+    private Date startTime;
+    private Date endTime;
+    private String state;
+    private Date completionTime;
+    private String participant;
 }
