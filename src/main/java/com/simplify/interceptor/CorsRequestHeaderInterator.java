@@ -15,7 +15,8 @@ import java.util.Objects;
 public class CorsRequestHeaderInterator implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        response.setHeader("Access-Control-Allow-Origin","http://localhost:9527");//允许ButterflyCloud访问
+        //允许ButterflyCloud访问
+        response.setHeader("Access-Control-Allow-Origin","http://localhost:9527");
         response.setHeader("Access-Control-Allow-Methods", "*");
         response.setHeader("Access-Control-Max-Age", "3600");
         response.setHeader("Access-Control-Allow-Headers", "*");

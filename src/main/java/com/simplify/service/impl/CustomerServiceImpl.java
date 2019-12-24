@@ -1,12 +1,14 @@
 package com.simplify.service.impl;
 
 import com.simplify.mapper.CustomerMapper;
-import com.simplify.model.entity.Customer;
+import com.simplify.model.entity.*;
 import com.simplify.service.CustomerService;
 import org.springframework.stereotype.Service;
+import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 /***
  * 客户业务接口实现类
@@ -30,7 +32,45 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public List<Customer> listCustomerAndLinkman() {
-        return customerMapper.listCustomerAndLinkman();
+    public List<Customer> listCustomerAndLinkman(Map map) {
+        return customerMapper.listCustomerAndLinkman(map);
+    }
+
+    @Override
+    public Long listCountCustomerAndLinkman(Map params) {
+        return customerMapper.listCountCustomerAndLinkman(params);
+    }
+
+    @Override
+    public int updateCustomerUserIdById(Long id, Long uid) {
+        Customer customer = new Customer();
+        customer.setId(id);
+        customer.setUserId(uid);
+        return customerMapper.updateByPrimaryKeySelective(customer);
+    }
+
+    @Override
+    public List<Customer> listConver(Map params) {
+        return customerMapper.listConver(params);
+    }
+
+    @Override
+    public List<CustomerSource> listCustomerSource() {
+        return customerMapper.listCustomerSource();
+    }
+
+    @Override
+    public List<CustomerCategory> listCustomerCategory() {
+        return customerMapper.listCustomerCategory();
+    }
+
+    @Override
+    public List<CustomerState> listCustomerState() {
+        return customerMapper.listCustomerState();
+    }
+
+    @Override
+    public List<CustomerRank> listCustomerRank() {
+        return customerMapper.listCustomerRank();
     }
 }

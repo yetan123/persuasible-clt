@@ -9,7 +9,98 @@
         <association property="user" column="user_id" select="com.simplify.mapper.UserMapper.selectByPrimaryKey"/>
         <collection property="linkmanList" column="id" select="com.simplify.mapper.LinkmanMapper.listLinkmansByCustomerId"/>
     </resultMap>
-   <select id="listCustomerAndLinkman"  resultMap="findCustomerTasksById">
-      select * from tb_customer
+    <resultMap id="findCustomerConverById" type="Customer">
+        <id property="id" column="id"/>
+        <association property="user" column="conver_user_id" select="com.simplify.mapper.UserMapper.selectByPrimaryKey"/>
+        <collection property="linkmanList" column="id" select="com.simplify.mapper.LinkmanMapper.listLinkmansByCustomerId"/>
+        <collection property="customerConver" column="id" select="com.simplify.mapper.CustomerConverMapper.findCustomerConverByUserId"/>
+    </resultMap>
+
+   <select id="listCustomerAndLinkman" parameterType="java.util.Map" resultMap="findCustomerTasksById">
+       select * from TB_CUSTOMER c left join TB_LINKMAN l
+       on c.id = l.CUSTOMER_ID left join TB_CUSTOMER_TASKS t
+       on c.id = t.CUSTOMER_ID where c.user_id = #{userId}
+       <if test="name!=null and name!= ''">
+            <bind name="name" value="'%'+name+'%'"/>
+           and c.company_name like #{name} or l.customer_name like #{name}
+       </if>
+
+       <if test="customerSource!=null and customerSource!=''">
+           and c.customer_source_id = #{customerSource}
+       </if>
+       <if test="customerCategory!=null and customerCategory!=''">
+           <bind name="customerCategory" value="'%'+customerCategory+'%'"/>
+           and c.customer_category like #{customerCategory}
+       </if>
+       <if test="customerState!=null and customerState!=''">
+           <bind name="customerState" value="'%'+customerState+'%'"/>
+           and c.customer_state like #{customerState}
+       </if>
+       <if test="customerRank!=null and customerRank!=''">
+           <bind name="customerRank" value="'%'+customerRank+'%'"/>
+           and c.customer_rank like #{customerRank}
+       </if>
+       <if test="customerFollowDate!=null and customerFollowDate!=''">
+           and t.task_end_time = #{customerFollowDate}
+       </if>
+       <if test="createStartDate!=null and createStartDate!='' and createEndDate==null or createEndDate==''">
+           and c.CREATE_TIME &gt;= to_date(${createStartDate},'yyyy-mm-dd')
+       </if>
+       <if test="createEndDate!=null and createEndDate!='' and createStartDate==null or createStartDate==''">
+           and c.CREATE_TIME &lt;= to_date(${createEndDate},'yyyy-mm-dd')
+       </if>
+        <if test="createStartDate!=null and createStartDate!='' and createEndDate!=null and createEndDate!=''">
+            and c.CREATE_TIME &gt;= to_date(#{createStartDate},'yyyy-mm-dd')
+            and c.CREATE_TIME &lt;= to_date(#{createEndDate},'yyyy-mm-dd')
+        </if>
+       <!-- &lt;=  小于等于 -->
+       <!-- &gt;= 大于于等于 -->
    </select>
+
+
+    <select id="listConver" parameterType="java.util.Map" resultMap="findCustomerConverById">
+        select * from TB_CUSTOMER c left join TB_LINKMAN l
+        on c.id = l.CUSTOMER_ID left join TB_CUSTOMER_TASKS t
+        on c.id = t.CUSTOMER_ID left join TB_CUSTOMER_CONVER cc
+        on c.id = cc.CUSTOMER_ID  where cc.CONVER_USER_ID = #{userId}
+        <if test="name!=null and name!= ''">
+            <bind name="name" value="'%'+name+'%'"/>
+            and c.company_name like #{name} or l.customer_name like #{name}
+        </if>
+
+        <if test="customerSource!=null and customerSource!=''">
+            and c.customer_source_id = #{customerSource}
+        </if>
+        <if test="customerCategory!=null and customerCategory!=''">
+            <bind name="customerCategory" value="'%'+customerCategory+'%'"/>
+            and c.customer_category like #{customerCategory}
+        </if>
+        <if test="customerState!=null and customerState!=''">
+            <bind name="customerState" value="'%'+customerState+'%'"/>
+            and c.customer_state like #{customerState}
+        </if>
+        <if test="customerRank!=null and customerRank!=''">
+            <bind name="customerRank" value="'%'+customerRank+'%'"/>
+            and c.customer_rank like #{customerRank}
+        </if>
+        <if test="customerFollowDate!=null and customerFollowDate!=''">
+            and t.task_end_time = #{customerFollowDate}
+        </if>
+        <if test="createStartDate!=null and createStartDate!='' and createEndDate==null or createEndDate==''">
+            and c.CREATE_TIME &gt;= to_date(${createStartDate},'yyyy-mm-dd')
+        </if>
+        <if test="createEndDate!=null and createEndDate!='' and createStartDate==null or createStartDate==''">
+            and c.CREATE_TIME &lt;= to_date(${createEndDate},'yyyy-mm-dd')
+        </if>
+        <if test="createStartDate!=null and createStartDate!='' and createEndDate!=null and createEndDate!=''">
+            and c.CREATE_TIME &gt;= to_date(#{createStartDate},'yyyy-mm-dd')
+            and c.CREATE_TIME &lt;= to_date(#{createEndDate},'yyyy-mm-dd')
+        </if>
+        <!-- &lt;=  小于等于 -->
+        <!-- &gt;= 大于于等于 -->
+    </select>
+
+    <select id="listCountCustomerAndLinkman" resultType="java.lang.Long" parameterType="java.util.Map">
+         SELECT count(0) FROM tb_customer where user_id = #{userId}
+    </select>
 </mapper>

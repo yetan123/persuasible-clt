@@ -27,7 +27,7 @@ public class CustomerRecordServiceImpl implements CustomerRecordService {
     }
 
     @Override
-    public int deleteCustomerRecord(int id) {
+    public int deleteCustomerRecord(Long id) {
         int i = customerRecordMapper.deleteByPrimaryKey(id);
         return i;
     }

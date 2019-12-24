@@ -20,7 +20,7 @@ public class Menu {
     @Id
     private Long id;
 
-    private String menuName;
+    private String name;
 
     private String path;
 
@@ -28,7 +28,13 @@ public class Menu {
 
     private Integer hidden;
 
+    private String title;
+
     private String component;
 
     private String icon;
+
+    private Integer sort;
+
+    private String permission;
 }

@@ -18,7 +18,7 @@ import java.util.List;
 public class RouteDTO {
     private Long id;
 
-    private String menuName;
+    private String name;
 
     private String path;
 
@@ -27,6 +27,10 @@ public class RouteDTO {
     private String component;
 
     private String icon;
+
+    private String title;
+
+    private String permission;
 
     private List<RouteDTO> children;
 }

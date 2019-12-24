@@ -5,19 +5,22 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Table;
-import java.sql.Date;
+import java.util.Date;
 
-/*
-  合同转交类
- */
-@Table(name="tb_contract_conver")
+@Table(name="TB_CUSTOMER_CONVER")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CntractConver {
+/**
+ * 客户转交
+ * @date 2019/12/20
+ * @author lanmu
+ */
+public class CustomerConver {
     private Long id;
-    private Long contractId;
     private Long converUserId;
     private Long receiveUserId;
+    private Long customerId;
     private Date converTime;
+
 }

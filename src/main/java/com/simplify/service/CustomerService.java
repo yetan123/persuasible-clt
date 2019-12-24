@@ -1,8 +1,10 @@
 package com.simplify.service;
 
-import com.simplify.model.entity.Customer;
+import com.simplify.model.entity.*;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
+import java.util.Map;
 
 /***
  * 客户接口类，提供对客户的抽象方法
@@ -16,5 +18,19 @@ public interface CustomerService {
      * @return 全部联系人和客户
      * @author lanmu
      */
-    List<Customer> listCustomerAndLinkman();
+    List<Customer> listCustomerAndLinkman(Map params);
+
+    /**
+     * 获取分页的总行数
+     */
+    Long listCountCustomerAndLinkman(Map params);
+
+    int updateCustomerUserIdById(Long id, Long uid);
+
+    List<Customer> listConver(Map params);
+
+    List<CustomerSource> listCustomerSource();
+    List<CustomerCategory> listCustomerCategory();
+    List<CustomerState> listCustomerState();
+    List<CustomerRank> listCustomerRank();
 }

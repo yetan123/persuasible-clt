@@ -1,9 +1,12 @@
 package com.simplify.mapper;
 
+import com.simplify.model.entity.CustomerRecord;
 import com.simplify.model.entity.CustomerTasks;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.common.Mapper;
+
+import java.util.List;
 
 @Repository
 public interface CustomerTasksMapper extends Mapper<CustomerTasks> {
@@ -17,4 +20,6 @@ public interface CustomerTasksMapper extends Mapper<CustomerTasks> {
      */
     @Select("select * from TB_CUSTOMER_TASKS where CUSTOMER_ID = #{0}")
     CustomerTasks getCustomerTasksByCustomerId(Long customerId);
+
+    List<CustomerTasks> selectAllTasksCustomerTasks();
 }

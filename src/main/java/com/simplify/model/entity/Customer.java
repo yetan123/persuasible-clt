@@ -32,4 +32,5 @@ public class Customer {
     private CustomerTasks customerTasks;
     private List<Linkman> linkmanList;
     private User user;
+    private CustomerConver customerConver;
 }
