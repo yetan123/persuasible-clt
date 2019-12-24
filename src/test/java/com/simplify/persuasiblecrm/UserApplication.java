@@ -19,7 +19,6 @@ public class UserApplication {
     private UserService userService;
     @Test
     void contextLoads() {
-        List<RouteDTO> routeDTOS = menuServiceImpl.listMenu();
-        System.out.println(routeDTOS);
+
     }
 }
