@@ -19,14 +19,16 @@ public interface CustomerService {
      * @author lanmu
      */
     List<Customer> listCustomerAndLinkman(Map params);
+    List<Customer> listConverToMe(Map params);
 
     /**
-     * 获取分页的总行数
+     * 更改l客户负责人
+     * @param id
+     * @param uid
+     * @return
      */
-    Long listCountCustomerAndLinkman(Map params);
-
     int updateCustomerUserIdById(Long id, Long uid);
-
+    int deleteCustomerById(Long id);
     List<Customer> listConver(Map params);
 
     List<CustomerSource> listCustomerSource();
