@@ -2,9 +2,11 @@ package com.simplify.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.simplify.model.dto.CustomerAddRequestParameterDTO;
 import com.simplify.model.entity.*;
 import com.simplify.service.CustomerConverService;
 import com.simplify.service.CustomerService;
+import com.simplify.service.LinkmanService;
 import com.simplify.service.UserService;
 import com.simplify.utils.SnowFlake;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +15,8 @@ import javax.annotation.Resource;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.*;
 
 /**
@@ -30,15 +34,14 @@ public class CustomerController {
     UserService userService;
     @Resource
     CustomerConverService customerConverService;
+    @Resource
+    LinkmanService linkmanService;
 
-    /**
-     * 我的客户分页方法
-     * @param params
-     * @return
-     */
+
     @PostMapping("/list")
     public PageInfo<Customer> listCustomer(@RequestBody Map params) throws ParseException {
-        PageInfo<Customer> pageInfo = getPageInfo(filterParamsConver(params), params.get("pageType").toString());
+        String pageType = params.get("pageType").toString();
+        PageInfo<Customer> pageInfo = getPageInfo(filterParamsConver(params), pageType);
         return pageInfo;
     }
 
@@ -61,6 +64,25 @@ public class CustomerController {
         return customerService.deleteCustomerById(id);
     }
 
+    @PostMapping("saveCustomer")
+    public int saveCustomer(@RequestBody Customer customer) {
+        customer.setId(new SnowFlake(0, 0).nextId());
+        //获取当前时间
+        LocalDateTime nowTime= LocalDateTime.now();
+        Date createTime = Date.from(nowTime.atZone(ZoneId.systemDefault()).toInstant());
+        customer.setCreateTime(createTime);
+        if(Objects.equals("",customer.getCustomerState()) || customer.getCustomerState() == null) {
+            customer.setCustomerState("无状态");
+        }
+        int customerResult = customerService.saveCustomer(customer);
+
+        Linkman linkman = customer.getLinkman();
+        linkman.setCustomerId(customer.getId());
+        linkman.setId(new SnowFlake(0, 0).nextId());
+        System.out.println(linkman);
+        int linkmanResult = linkmanService.saveLinkman(linkman);
+        return customerResult + linkmanResult;
+    }
 
     /**
      * 客户管理筛选数据的初始化
@@ -68,7 +90,7 @@ public class CustomerController {
      */
     @GetMapping("/filterDataInit")
     public Map<String, List<?>> filterDataInit() {
-        return getFilterData();
+        return listState();
     }
 
     /**
@@ -116,7 +138,7 @@ public class CustomerController {
      * @author lanmu
      * @date 2019/12/21 17:30
      */
-    public Map<String, List<?>> getFilterData() {
+    public Map<String, List<?>> listState() {
         Map<String, List<?>> filterDataMap = new HashMap<>();
         List<CustomerCategory> customerCategories = customerService.listCustomerCategory();
         List<CustomerRank> customerRanks = customerService.listCustomerRank();
@@ -131,9 +153,10 @@ public class CustomerController {
 
     public Map filterParamsConver(Map params) throws ParseException {
         if(params.get("customerCreateDate") != null) {
-            ArrayList listDate = (ArrayList) params.get("customerCreateDate");
             DateFormat df2 = null;
-            if (listDate != null) {
+            Object createDate = params.get("customerCreateDate");
+            if (createDate != null && createDate instanceof ArrayList) {
+                ArrayList listDate = (ArrayList) params.get("customerCreateDate");
                 DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
                 Date createStartDate = df.parse(listDate.get(0).toString());
                 Date createEndDate = df.parse(listDate.get(1).toString());
@@ -143,6 +166,10 @@ public class CustomerController {
                 df2 = new SimpleDateFormat("yyyy-MM-dd");
                 params.put("createStartDate", df2.format(date1));
                 params.put("createEndDate", df2.format(date2));
+            } else {
+                System.out.println("createDate is not ");
+                params.put("createStartDate", null);
+                params.put("createEndDate", null);
             }
         }
         return params;

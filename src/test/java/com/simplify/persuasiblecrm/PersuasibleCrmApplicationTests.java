@@ -5,7 +5,10 @@ import com.simplify.mapper.UserMapper;
 import com.simplify.model.entity.Business;
 import com.simplify.model.entity.User;
 import com.simplify.service.BusinessService;
+<<<<<<< HEAD
+=======
 
+>>>>>>> aeb16379ccdfdb6410304cea0ed6aad742c0f14a
 import com.simplify.service.CustomerRecordService;
 import com.simplify.service.CustomerTasksService;
 import com.simplify.service.UserService;
@@ -21,7 +24,6 @@ class PersuasibleCrmApplicationTests {
     private CustomerRecordService customerRecordService;
 
     private CustomerTasksService customerTasksService;
-
 
     @Test
     void contextLoads() {

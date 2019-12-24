@@ -30,6 +30,7 @@ public class Customer {
     private Date createTime;
     private Long userId;
     private CustomerTasks customerTasks;
+    private Linkman linkman;
     private List<Linkman> linkmanList;
     private User user;
     private CustomerConver customerConver;

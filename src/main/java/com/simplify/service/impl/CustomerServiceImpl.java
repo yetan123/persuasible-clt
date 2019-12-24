@@ -6,7 +6,6 @@ import com.simplify.service.CustomerService;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -22,6 +21,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Resource
     CustomerMapper customerMapper;
 
+    @CacheEvict(value = {"customerAndLinkman"})
     @Override
     public int deleteCustomerById(Long id) {
         return customerMapper.deleteByPrimaryKey(id);
@@ -58,27 +58,38 @@ public class CustomerServiceImpl implements CustomerService {
         customer.setUserId(uid);
         return customerMapper.updateByPrimaryKeySelective(customer);
     }
+
+    @Override
+    public int saveCustomer(Customer customer) {
+        System.out.println(customer);
+        return customerMapper.insert(customer);
+    }
+
     @Cacheable(value = "conver")
     @Override
     public List<Customer> listConver(Map params) {
         return customerMapper.listConver(params);
     }
 
+    @Cacheable(value = "sources")
     @Override
     public List<CustomerSource> listCustomerSource() {
         return customerMapper.listCustomerSource();
     }
 
+    @Cacheable(value = "categorys")
     @Override
     public List<CustomerCategory> listCustomerCategory() {
         return customerMapper.listCustomerCategory();
     }
 
+    @Cacheable(value = "states")
     @Override
     public List<CustomerState> listCustomerState() {
         return customerMapper.listCustomerState();
     }
 
+    @Cacheable(value = "ranks")
     @Override
     public List<CustomerRank> listCustomerRank() {
         return customerMapper.listCustomerRank();
