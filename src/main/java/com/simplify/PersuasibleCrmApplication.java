@@ -21,5 +21,4 @@ public class PersuasibleCrmApplication {
         Logger logger = LoggerFactory.getLogger(PersuasibleCrmApplication.class);
         logger.info("localhost:9624/");
     }
-
 }

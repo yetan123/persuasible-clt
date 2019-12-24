@@ -8,6 +8,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.sql.Date;
 
+/*
+  合同类
+ */
 @Table(name="tb_contract")
 @Data
 @AllArgsConstructor
@@ -21,7 +24,7 @@ public class Contract {
     private Date startTime;
     private Date endTime;
     private Double moneyUnit;
-    private Double TotalMoney;
+    private Double totalMoney;
     private String contractContents;
     private String remark;
     private Long commercialOpportunityId;
@@ -36,5 +39,6 @@ public class Contract {
     private Long creatorId;
     private Long principalId;
     private Date followTime;
-
+    private User user;
+    private Customer customer;
 }
