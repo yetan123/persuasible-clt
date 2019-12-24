@@ -2,6 +2,7 @@ package com.simplify.controller;
 import com.simplify.model.dto.UserAndDeptDTO;
 import com.simplify.model.entity.User;
 import com.simplify.service.UserService;
+import com.simplify.utils.SnowFlake;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,6 +26,19 @@ public class UserController {
         System.out.println("部门与用户的连表查询");
         return userService.findUserAndDeptDeptId();
     }
-
+    @PostMapping("/add")
+    public int add(@RequestBody User user) {
+        System.out.println("进入添加页面");
+        user.setId(new SnowFlake(0,0).nextId());
+        System.out.println(user);
+        return userService.insertUser(user);
+    }
+    @PostMapping("/update")
+    public int update(@RequestBody User user) {
+        System.out.println("进入修改页面");
+        System.out.println(user.getId());
+        System.out.println(user);
+        return userService.updateById(user);
+    }
 
 }

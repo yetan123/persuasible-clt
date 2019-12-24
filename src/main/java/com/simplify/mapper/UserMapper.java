@@ -18,4 +18,8 @@ public interface UserMapper extends Mapper<User> {
     UserAuthorizeDTO findUserAndRoleByUserId(Long id);
 
     List<UserAndDeptDTO> findUserAndDeptDeptId();
+
+    int updateById(User u);
+
+    int insertUser(User user);
 }

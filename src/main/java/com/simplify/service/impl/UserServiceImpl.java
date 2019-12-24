@@ -17,7 +17,8 @@ import java.util.List;
  * @date 2019-11-30
  */
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService
+{
     @Autowired
     private UserMapper userMapper;
     @Override
@@ -50,4 +51,15 @@ public class UserServiceImpl implements UserService {
     public List<UserAndDeptDTO> findUserAndDeptDeptId() {
         return userMapper.findUserAndDeptDeptId();
     }
+
+    @Override
+    public int insertUser(User user) {
+        return userMapper.insertUser(user);
+    }
+
+    @Override
+    public int updateById(User u) {
+        return userMapper.updateById(u);
+    }
+
 }

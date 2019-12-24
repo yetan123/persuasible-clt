@@ -24,4 +24,7 @@ public interface UserService {
 
         List<UserAndDeptDTO> findUserAndDeptDeptId();//用户与部门多表查询
 
+        int insertUser(User user);
+
+        int updateById(User u);
 }
