@@ -42,4 +42,68 @@
     <select id="findUserAndDeptDeptId" resultMap="userAndDeptDTO">
         select *from PERSUASIBLE.tb_User u inner join PERSUASIBLE.TB_DEPARTMENT d on u.dept_id=d.id
     </select>
+    <update id="updateById" parameterType="userAuthorizeDTO">
+        UPDATE PERSUASIBLE.tb_user
+        <set>
+            <if test="username!=null">
+                username = #{username},
+            </if>
+            <if test="genders!=null">
+                genders = #{genders},
+            </if>
+            <if test="phone!=null">
+                phone = #{phone},
+            </if>
+            <if test="job!=null">
+                job = #{job},
+            </if>
+            <if test="deptId!=null">
+                dept_id = #{deptId}
+            </if>
+            <if test="user_State!=null">
+                user_State = #{userState}
+            </if>
+        </set>
+         WHERE id = #{id}
+    </update>
+
+    <select id="listUser" parameterType="java.util.Map" resultMap="userAndDeptDTO">
+        select *from PERSUASIBLE.tb_User u inner join PERSUASIBLE.TB_DEPARTMENT d on u.dept_id=d.id where u.user_id = #{userId}
+    </select>
+
+
+    <select id="listUserAndDept" parameterType="java.lang.String" resultType="userAndDeptDTO">
+        select *from PERSUASIBLE.tb_User u inner join PERSUASIBLE.TB_DEPARTMENT d on u.dept_id=d.id
+        <where>
+            <if test="deptName != null">
+                <bind name="deptName" value="'%'+deptName+'%'"/>
+                or u.username like #{deptName}
+            </if>
+            <if test="userSearch != null">
+                <bind name="userSearch" value="'%'+userSearch+'%'"/>
+                or d.dept_name like #{userSearch}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectCounts" resultType="int">
+        select count(*) from PERSUASIBLE.tb_User u inner join PERSUASIBLE.TB_DEPARTMENT d on u.dept_id=d.id
+        <where>
+            <if test="deptName != null">
+                <bind name="deptName" value="'%'+deptName+'%'"/>
+                or u.username like #{deptName}
+            </if>
+            <if test="userSearch != null">
+                <bind name="userSearch" value="'%'+userSearch+'%'"/>
+                or d.dept_name like #{userSearch}
+            </if>
+        </where>
+    </select>
+
+
+
+
+    <insert id="insertUser" parameterType="userAuthorizeDTO" >
+        insert into PERSUASIBLE.tb_User(id,account,username,password,genders,phone,job,dept_id,user_state) values(#{id},#{account},#{username},#{password},#{genders},#{phone},#{job},#{deptId},1)
+    </insert>
 </mapper>
