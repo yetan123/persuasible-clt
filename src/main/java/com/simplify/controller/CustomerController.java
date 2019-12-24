@@ -2,7 +2,7 @@ package com.simplify.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.simplify.model.dto.CustomerAddRequestParameterDTO;
+import com.simplify.model.dto.CustomerVO;
 import com.simplify.model.entity.*;
 import com.simplify.service.CustomerConverService;
 import com.simplify.service.CustomerService;
@@ -39,9 +39,10 @@ public class CustomerController {
 
 
     @PostMapping("/list")
-    public PageInfo<Customer> listCustomer(@RequestBody Map params) throws ParseException {
+    public PageInfo<CustomerVO> listCustomer(@RequestBody Map params) throws ParseException {
         String pageType = params.get("pageType").toString();
-        PageInfo<Customer> pageInfo = getPageInfo(filterParamsConver(params), pageType);
+        System.out.println("params：" + params);
+        PageInfo<CustomerVO> pageInfo = getPageInfo(filterParamsConver(params), pageType);
         return pageInfo;
     }
 
@@ -54,9 +55,10 @@ public class CustomerController {
 
     @PostMapping("/saveConvert")
     public int saveConvert(@RequestBody CustomerConver customerConver) {
+        customerService.updateCustomerUserIdById(customerConver.getCustomerId().toString(), customerConver.getReceiveUserId().toString());
         customerConver.setId(new SnowFlake(0,0).nextId());
-        customerService.updateCustomerUserIdById(customerConver.getCustomerId(), customerConver.getReceiveUserId());
-        return customerConverService.saveConverCustomer(customerConver);
+        customerConverService.saveConverCustomer(customerConver);
+        return 2;
     }
 
     @GetMapping("deleteCustomer")
@@ -79,7 +81,6 @@ public class CustomerController {
         Linkman linkman = customer.getLinkman();
         linkman.setCustomerId(customer.getId());
         linkman.setId(new SnowFlake(0, 0).nextId());
-        System.out.println(linkman);
         int linkmanResult = linkmanService.saveLinkman(linkman);
         return customerResult + linkmanResult;
     }
@@ -103,17 +104,18 @@ public class CustomerController {
      * @auhor lanmu
      * @date 2019/12/21 17:29
      */
-    private PageInfo<Customer> getPageInfo(Map params, String pageType) {
+    private PageInfo<CustomerVO> getPageInfo(Map params, String pageType) throws ParseException {
         int pageNum = 1;
         int pageSize = 4;
-        List<Customer> customers = null;
+        List<CustomerVO> customers = null;
         if(params.get("pageNum") != null) {
             pageNum = (Integer) params.get("pageNum");
         }
         if(params.get("pageSize") != null) {
             pageSize = (Integer) params.get("pageSize");
         }
-        PageHelper.startPage(pageNum, pageSize, true);
+       PageHelper.startPage(pageNum, pageSize, true);
+     customerService.listCustomerAndLinkman(params);
         // 我的客户
         if("my".equals(pageType)) {
             System.out.println("my");
@@ -128,7 +130,10 @@ public class CustomerController {
         } else {
             throw new RuntimeException("沒有指定分頁參數頁面");
         }
-        PageInfo<Customer> page = new PageInfo<>(customers);
+        PageInfo<CustomerVO> page = new PageInfo<>(customers);
+        for(CustomerVO customer: customers) {
+            System.out.println(customer);
+        }
         return page;
     }
 
@@ -167,7 +172,6 @@ public class CustomerController {
                 params.put("createStartDate", df2.format(date1));
                 params.put("createEndDate", df2.format(date2));
             } else {
-                System.out.println("createDate is not ");
                 params.put("createStartDate", null);
                 params.put("createEndDate", null);
             }
