@@ -30,6 +30,7 @@ public interface CustomerService {
     int updateCustomerUserIdById(Long id, Long uid);
     int deleteCustomerById(Long id);
     List<Customer> listConver(Map params);
+    int saveCustomer(Customer customer);
 
     List<CustomerSource> listCustomerSource();
     List<CustomerCategory> listCustomerCategory();

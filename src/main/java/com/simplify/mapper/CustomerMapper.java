@@ -22,6 +22,8 @@ public interface CustomerMapper extends Mapper<Customer> {
     List<Customer> listConver(Map params);
     List<Customer> listConverToMe(Map params);
 
+
+
     /**
      * 筛选返回的json数据
      */

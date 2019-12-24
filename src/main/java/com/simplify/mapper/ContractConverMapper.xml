@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.simplify.mapper.ContractConverMapper">
+    <resultMap id="ContractAndContractConvertAndCustomerAndUser" type="com.simplify.model.entity.ContractConver">
+        <id property="id" column="id"/>
+        <result property="converTime" column="CONVER_TIME"/>
+
+        <association property="user" javaType="com.simplify.model.entity.User">
+            <id property="id" column="id"/>
+            <result property="username" column="USERNAME"/>
+        </association>
+
+        <association property="contract" javaType="com.simplify.model.entity.Contract">
+            <id property="id" column="id"/>
+            <result property="contractName" column="CONTRACT_NAME"/>
+            <result property="contractCode" column="CONTRACT_CODE"/>
+            <result property="totalMoney" column="TOTAL_MONEY"/>
+            <result property="startTime" column="START_TIME"/>
+            <result property="endTime" column="END_TIME"/>
+            <result property="contractState" column="CONTRACT_STATE"/>
+        </association>
+
+        <association property="customer" javaType="com.simplify.model.entity.Customer">
+            <id property="id" column="id"/>
+            <result property="companyName" column="COMPANY_NAME"/>
+        </association>
+    </resultMap>
+
+    <select id="listConvertMe" resultMap="ContractAndContractConvertAndCustomerAndUser" parameterType="Long">
+    select c.CONTRACT_NAME,c.CONTRACT_CODE,cu.COMPANY_NAME,c.TOTAL_MONEY, c.START_TIME,c.END_TIME,c.CONTRACT_STATE,u.USERNAME,cc.CONVER_TIME from TB_CONTRACT_CONVER cc inner join TB_CONTRACT c on cc.CONTRACT_ID = c.id
+    INNER JOIN TB_USER u on cc.CONVER_USER_ID = u.id
+    inner join TB_CUSTOMER cu on c.COSTOMER_ID = cu.id
+    where cc.RECEIVE_USER_ID = #{id}
+    </select>
+
+    <select id="listMeConvert" resultMap="ContractAndContractConvertAndCustomerAndUser" parameterType="Long">
+    select c.CONTRACT_NAME,c.CONTRACT_CODE,cu.COMPANY_NAME,c.TOTAL_MONEY, c.START_TIME,c.END_TIME,c.CONTRACT_STATE,u.USERNAME,cc.CONVER_TIME from TB_CONTRACT_CONVER cc inner join TB_CONTRACT c on cc.CONTRACT_ID = c.id
+    INNER JOIN TB_USER u on cc.CONVER_USER_ID = u.id
+    inner join TB_CUSTOMER cu on c.COSTOMER_ID = cu.id
+    where cc.CONVER_USER_ID =#{id}
+    </select>
+</mapper>

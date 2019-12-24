@@ -10,4 +10,5 @@ import java.util.List;
  * @date 2019/12/18
  */
 public interface LinkmanService {
+    int saveLinkman(Linkman linkman);
 }
