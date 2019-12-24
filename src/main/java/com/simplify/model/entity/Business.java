@@ -36,5 +36,5 @@ public class Business {
     private Integer businessState;
     private String createTime;
     private List<Customer> customer;
-    private User user;
+    private List<User> user;
 }
