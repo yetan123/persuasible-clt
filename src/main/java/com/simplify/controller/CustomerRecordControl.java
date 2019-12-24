@@ -21,4 +21,18 @@ public class CustomerRecordControl {
         System.out.println(list);
         return list;
     }
+
+    @ResponseBody
+    @GetMapping("/deleteCustomerRecord")
+    public int deleteCustomerRecord(Long id){
+        return customerRecordService.deleteCustomerRecord(id);
+    }
+
+    @ResponseBody
+    @GetMapping("/insertCustomerRecord")
+    public int insertCustomerRecord(String name){
+        System.out.println(name);
+        CustomerRecord c = new CustomerRecord();
+         return 0;
+    }
 }
