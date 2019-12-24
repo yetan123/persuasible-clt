@@ -11,6 +11,7 @@
     <result property="startTime" column="START_TIME"/>
     <result property="endTime" column="END_TIME"/>
     <result property="contractState" column="CONTRACT_STATE"/>
+    <result property="contractDate" column="CONTRACT_DATE"/>
 
     <association property="user" javaType="com.simplify.model.entity.User">
         <id property="id" column="id"/>
@@ -29,7 +30,7 @@
     </select>
 
     <select id="listContract" resultMap="ContractAndCustomerAndCustomer">
-        select co.CONTRACT_NAME,co.CONTRACT_CODE,cu.COMPANY_NAME,co.TOTAL_MONEY,co.START_TIME,
+        select co.CONTRACT_NAME,co.CONTRACT_CODE,cu.COMPANY_NAME,co.TOTAL_MONEY,co.START_TIME,co.CONTRACT_DATE,
         co.END_TIME,co.CONTRACT_STATE,u.USERNAME,co.CONTRACT_DATE
         from tb_contract co inner join TB_CUSTOMER cu on co.COSTOMER_ID = cu.id
         inner join TB_USER u on co.CREATOR_ID = u.ID
