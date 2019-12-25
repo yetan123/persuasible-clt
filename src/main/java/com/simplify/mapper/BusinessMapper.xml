@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.simplify.mapper.BusinessMapper">
-    <select id="selectAll" resultMap="findBusiness">
+    <select id="selectAll" resultType="Business">
             select * from TB_BUSINESS
     </select>
 </mapper>
