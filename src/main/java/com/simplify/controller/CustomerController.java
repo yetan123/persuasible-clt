@@ -155,26 +155,32 @@ public class CustomerController {
     }
 
     private Map filterParamsConver(Map params) throws ParseException {
+        if(params.get("customerFollowDate") != null) {
+           String  customerCreateDate = params.get("customerFollowDate").toString();
+            params.put("customerFollowDate", converTime(customerCreateDate));
+        }
         if(params.get("customerCreateDate") != null) {
-            DateFormat df2 = null;
             Object createDate = params.get("customerCreateDate");
             if (createDate != null && createDate instanceof ArrayList) {
                 ArrayList listDate = (ArrayList) params.get("customerCreateDate");
-                DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-                Date createStartDate = df.parse(listDate.get(0).toString());
-                Date createEndDate = df.parse(listDate.get(1).toString());
-                SimpleDateFormat df1 = new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy", Locale.UK);
-                Date date1 = df1.parse(createStartDate.toString());
-                Date date2 = df1.parse(createEndDate.toString());
-                df2 = new SimpleDateFormat("yyyy-MM-dd");
-                params.put("createStartDate", df2.format(date1));
-                params.put("createEndDate", df2.format(date2));
+                params.put("createStartDate", converTime(listDate.get(0).toString()));
+                params.put("createEndDate", converTime(listDate.get(1).toString()));
             } else {
                 params.put("createStartDate", null);
                 params.put("createEndDate", null);
             }
         }
         return params;
+    }
+
+    private String converTime(String time) throws ParseException {
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        Date parse = df.parse(time);
+        SimpleDateFormat df1 = new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy", Locale.UK);
+        Date date1 = df1.parse(parse.toString());
+        df = new SimpleDateFormat("yyyy-MM-dd");
+        System.out.println(df.format(date1));
+        return df.format(date1);
     }
 }
 

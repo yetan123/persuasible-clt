@@ -41,7 +41,7 @@
            and c.customer_rank like #{customerRank}
        </if>
        <if test="customerFollowDate!=null and customerFollowDate!=''">
-           and t.task_end_time = #{customerFollowDate}
+           and t.task_end_time &gt;= to_date(#{customerFollowDate},'yyyy-mm-dd')
        </if>
        <if test="createStartDate!=null and createStartDate!='' and createEndDate==null or createEndDate==''">
            and c.CREATE_TIME &gt;= to_date(${createStartDate},'yyyy-mm-dd')
@@ -84,7 +84,7 @@
             and c.customer_rank like #{customerRank}
         </if>
         <if test="customerFollowDate!=null and customerFollowDate!=''">
-            and t.task_end_time = #{customerFollowDate}
+            and t.task_end_time &gt;= to_date(#{customerFollowDate},'yyyy-mm-dd')
         </if>
         <if test="createStartDate!=null and createStartDate!='' and createEndDate==null or createEndDate==''">
             and c.CREATE_TIME &gt;= to_date(${createStartDate},'yyyy-mm-dd')
@@ -126,7 +126,7 @@
             and c.customer_rank like #{customerRank}
         </if>
         <if test="customerFollowDate!=null and customerFollowDate!=''">
-            and t.task_end_time = #{customerFollowDate}
+            and t.task_end_time &gt;= to_date(#{customerFollowDate},'yyyy-mm-dd')
         </if>
         <if test="createStartDate!=null and createStartDate!='' and createEndDate==null or createEndDate==''">
             and c.CREATE_TIME &gt;= to_date(${createStartDate},'yyyy-mm-dd')
