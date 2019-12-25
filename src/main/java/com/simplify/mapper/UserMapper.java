@@ -2,8 +2,10 @@ package com.simplify.mapper;
 
 import com.simplify.model.dto.UserAndDeptDTO;
 import com.simplify.model.dto.UserAuthorizeDTO;
+import com.simplify.model.dto.UserVO;
 import com.simplify.model.entity.User;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.common.Mapper;
 
@@ -30,4 +32,14 @@ public interface UserMapper extends Mapper<User> {
     List<UserAndDeptDTO> listUserAndDept(@Param("deptName") String deptName, @Param("userSearch") String userSearch,@Param("start") int start,@Param("size") int size);
     //查询总记录
     int selectCounts(@Param("deptName") String deptName,@Param("userSearch") String userSearch);
+
+    /**
+     * 查询一个不包含自己的用户集合
+     * @date 2019/12/25
+     * @author lanmu
+     * @param id
+     * @return
+     */
+    @Select(" select * from tb_user where ( ( id <> #{0} ) ) ")
+    List<UserVO>listUserByNotId(String id);
 }

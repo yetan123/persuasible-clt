@@ -33,4 +33,5 @@ public class BusinessController {
     public List<Business> listBusinessById(Long id) {
         return businessService.listBusinessById(id);
     }
+
 }
