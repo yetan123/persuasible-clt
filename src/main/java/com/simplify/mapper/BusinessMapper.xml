@@ -3,6 +3,9 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.simplify.mapper.BusinessMapper">
+<<<<<<< HEAD
+
+=======
     <resultMap id="BusinessAndCustomerAndCustomer" type="com.simplify.model.entity.Business">
     <id property="id" column="id"/>
     <result property="businessName" column="BUSINESS_NAME"/>
@@ -63,4 +66,5 @@ FROM
 WHERE
 	u.id =#{id}
     </select>
+>>>>>>> 3f413e7aaa37ca82de5d7a2d62303dd1ba60070f
 </mapper>
