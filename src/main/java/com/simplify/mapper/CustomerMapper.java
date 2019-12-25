@@ -1,6 +1,7 @@
 package com.simplify.mapper;
 
 import com.simplify.model.dto.CustomerVO;
+import com.simplify.model.dto.UserVO;
 import com.simplify.model.entity.*;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -27,6 +28,7 @@ public interface CustomerMapper extends Mapper<Customer> {
 
     @Update("update tb_customer SET USER_ID=#{receiveUserId} WHERE ID='${targetCustomerId}' ")
     int updateCustomerUserIdById(@Param("targetCustomerId") String id, @Param("receiveUserId") String receiveUserId);
+
 
 
     /**
