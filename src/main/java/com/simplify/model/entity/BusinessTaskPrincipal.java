@@ -6,25 +6,21 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.sql.Date;
 
 /**
- * 商机跟进任务表实体类
+ * 商机任务负责人表实体类
  * @author 杨泓
- * @date 2019-12-17
+ * @date 2019-12-25
  */
-
-@Table(name="tb_business_task")
+@Table(name="tb_business_task_principal")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class BusinessTask {
+public class BusinessTaskPrincipal {
+
     @Id
     private Long id;
-    private String taskContent;
-    private Date taskDate;
-    private Date taskFinishDate;
-    private Long businessId;
-    private Integer taskState;
+    private Long taskId;
+    private Long userId;
 
 }

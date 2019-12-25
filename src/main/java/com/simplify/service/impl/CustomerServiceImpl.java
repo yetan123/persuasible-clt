@@ -7,6 +7,8 @@ import com.simplify.service.CustomerService;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import tk.mybatis.mapper.entity.Example;
+
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
@@ -94,5 +96,13 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public List<CustomerRank> listCustomerRank() {
         return customerMapper.listCustomerRank();
+    }
+
+    @Override
+    public List<Customer> selectbyId(Long id) {
+        Example example = new Example(Customer.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("id", id);
+        return customerMapper.selectByExample(example);
     }
 }
