@@ -36,4 +36,6 @@ public interface CustomerService {
     List<CustomerCategory> listCustomerCategory();
     List<CustomerState> listCustomerState();
     List<CustomerRank> listCustomerRank();
+
+    List<Customer> selectbyId(Long id);
 }

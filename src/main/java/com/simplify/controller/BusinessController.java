@@ -17,12 +17,12 @@ import java.util.List;
 @RequestMapping("business")
 @CrossOrigin
 public class BusinessController {
-    @Resource
-    BusinessService businessService;
+//    @Resource
+//    BusinessService businessService;
 
-    @GetMapping("/list")
-    @ResponseBody
-    public List<Business> listBusiness() {
-        return businessService.selectAll();
-    }
+//    @GetMapping("/list")
+//    @ResponseBody
+//    public List<Business> listBusiness() {
+//        return businessService.selectAll();
+//    }
 }

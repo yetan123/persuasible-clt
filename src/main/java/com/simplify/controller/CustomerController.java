@@ -174,5 +174,15 @@ public class CustomerController {
         }
         return params;
     }
+
+    @ResponseBody
+    @GetMapping("selectById")
+    public List<Customer> selectById(Long id){
+        System.out.println(id);
+        Long tid = 407157154483535872L;
+        List<Customer> list = customerService.selectbyId(tid);
+        System.out.println(list);
+        return list;
+    }
 }
 
