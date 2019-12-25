@@ -3,5 +3,11 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.simplify.mapper.BusinessMapper">
+<<<<<<< HEAD
 
+=======
+    <select id="selectAll" resultType="Business">
+            select * from TB_BUSINESS
+    </select>
+>>>>>>> fc99a12cf0d75597ad9a9931b1d59cd76b5f41b8
 </mapper>
