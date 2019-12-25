@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.simplify.mapper.RoleMapper">
+    <resultMap id="roleAuthorize" type="RoleAuthorizeVO">
+        <id column="role_id" property="roleId"/>
+        <result property="roleName" column="role_name"/>
+        <result property="roleDescribe" column="role_describe"/>
+        <result property="createTime" column="create_time"/>
+        <collection property="menus" ofType="Long">
+            <result  column="menu_id"/>
+        </collection>
+        <collection property="sources" column="role_id" ofType="String" select="listResourceId">
+            <result column="id"/>
+        </collection>
+    </resultMap>
+    <select id="listRoleAuthorize" resultMap="roleAuthorize">
+        select role.id role_id,role.role_name,role.role_describe,
+        role.create_time,menu.id menu_id from tb_role role left join tb_role_menu role_menu
+        on role.id = role_menu.role_id
+        join tb_menu menu on menu.id = role_menu.menu_id
+    </select>
+    <select id="listResourceId" resultType="Long">
+        select res.id from tb_role_resource role_resource join tb_resource res
+        on role_resource.resource_id = res.id where res.id = #{roleId}
+    </select>
+</mapper>

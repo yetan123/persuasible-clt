@@ -11,11 +11,11 @@
         <result property="component" column="component"/>
         <result property="icon" column="icon"/>
         <result property="title" column="title"/>
-        <result property="permission" column="permission"/>
+        <collection property="permission" column="id" select="listPermission" ofType="String"/>
         <collection property="children" column="id" ofType="RouteDTO" select="listRouteDTO"/>
     </resultMap>
     <select id="listRouteDTO" resultMap="routeDTO">
-        select id,name ,path,hidden,component,icon,title,permission from tb_menu <where>
+        select id,name ,path,hidden,component,icon,title from tb_menu <where>
         <if test="id == null">
             parent_id is NULL
         </if>
@@ -24,5 +24,10 @@
         </if>
     </where>
     order by sort asc
+    </select>
+    <select id="listPermission" resultType="String">
+        select role_name from tb_menu menu  join tb_role_menu role_menu
+        on menu.id = role_menu.menu_id join tb_role role
+        on role.id = role_menu.role_id where menu.id = #{id}
     </select>
 </mapper>

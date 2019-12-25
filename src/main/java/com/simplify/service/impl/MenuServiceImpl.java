@@ -2,10 +2,12 @@ package com.simplify.service.impl;
 
 import com.simplify.mapper.MenuMapper;
 import com.simplify.model.dto.RouteDTO;
+import com.simplify.model.entity.Menu;
 import com.simplify.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
 
@@ -25,7 +27,16 @@ public class MenuServiceImpl implements MenuService {
      */
     @Cacheable(value = "menuList")
     @Override
-    public List<RouteDTO> listMenu() {
+    public List<RouteDTO> listRoute() {
         return menuMapper.listRouteDTO();
+    }
+
+    @Cacheable(value = "menu")
+    @Override
+    public List<Menu> listMenu() {
+        Example example = new Example(Menu.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("component","Layout");
+        return menuMapper.selectByExample(example);
     }
 }

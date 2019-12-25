@@ -24,7 +24,7 @@ public class MenuController {
     private MenuService menuServiceImpl;
     @GetMapping("")
     public List<RouteDTO> getMenuList(){
-        List<RouteDTO> menus = menuServiceImpl.listMenu();
+        List<RouteDTO> menus = menuServiceImpl.listRoute();
         return menus;
     }
 }

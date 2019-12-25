@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.simplify.mapper.ResourceMapper">
+    <select id="listResourceByUserId" resultType="Resource">
+        select res.id,resource_name,url,resource_code from tb_user usr
+        left join tb_user_role user_role on usr.id = user_role.user_id
+        left join tb_role role on role.id = user_role.role_id
+        left join tb_role_resource role_resource on role_resource.role_id = role.id
+        join tb_resource res on res.id = role_resource.resource_id
+        where usr.id = #{id}
+    </select>
+</mapper>
