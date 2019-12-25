@@ -20,7 +20,7 @@ public class Clue {
     private Long id; //编号
     private String customerName; //客户名
     private String enterprise; //企业
-    private String department; //职位
+    private String department; //部门
     private String position; //职位
     private char genders; //性别
     private Date birthday; //生日
@@ -28,9 +28,12 @@ public class Clue {
     private String email; //邮件
     private String address; //地址
     private String remark; //备注
-    private String clue_state; // 状态
+    private String clueState; // 状态
     private Integer clueSourceId; //来源
     private Long userId; // 负责人id
     private Long createUserId; // 创建人id
+
+    private User userInfo; // 负责人对象
+    private User createUserInfo; // 创建人对象
 
 }

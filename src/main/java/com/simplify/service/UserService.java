@@ -3,8 +3,11 @@ package com.simplify.service;
 import com.simplify.model.dto.UserAndDeptDTO;
 import com.simplify.model.dto.UserAuthorizeDTO;
 import com.simplify.model.entity.User;
+import com.simplify.utils.PageBean;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -16,8 +19,6 @@ public interface UserService {
 
         User findUserByAccount(String account);
 
-        List<User> findAll(); //查询全部
-
         List<User> listUserByNotId(Long id);
 
         UserAuthorizeDTO findUserAuthorizeById(Long id);
@@ -27,4 +28,10 @@ public interface UserService {
         int insertUser(User user);
 
         int updateById(User u);
+
+        List<User> listUser(Map params);
+
+        /*List<UserAndDeptDTO> listUserAndDept(String deptName, String userSearch);*/
+
+        PageBean<UserAndDeptDTO> listUserAndDept(String deptName, String userSearch,Integer currentPage);
 }

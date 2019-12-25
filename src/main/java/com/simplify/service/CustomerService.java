@@ -1,5 +1,6 @@
 package com.simplify.service;
 
+import com.simplify.model.dto.CustomerVO;
 import com.simplify.model.entity.*;
 import org.apache.ibatis.annotations.Select;
 
@@ -18,18 +19,18 @@ public interface CustomerService {
      * @return 全部联系人和客户
      * @author lanmu
      */
-    List<Customer> listCustomerAndLinkman(Map params);
-    List<Customer> listConverToMe(Map params);
+    List<CustomerVO> listCustomerAndLinkman(Map params);
+    List<CustomerVO> listConverToMe(Map params);
 
     /**
      * 更改l客户负责人
-     * @param id
-     * @param uid
+     * @param targetCustomerId
+     * @param reeiveUserId
      * @return
      */
-    int updateCustomerUserIdById(Long id, Long uid);
+    int updateCustomerUserIdById( String targetCustomerId, String receiveUserId);
     int deleteCustomerById(Long id);
-    List<Customer> listConver(Map params);
+    List<CustomerVO> listConver(Map params);
     int saveCustomer(Customer customer);
 
     List<CustomerSource> listCustomerSource();

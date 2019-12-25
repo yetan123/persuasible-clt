@@ -1,6 +1,7 @@
 package com.simplify.service.impl;
 
 import com.simplify.mapper.CustomerMapper;
+import com.simplify.model.dto.CustomerVO;
 import com.simplify.model.entity.*;
 import com.simplify.service.CustomerService;
 import org.springframework.cache.annotation.CacheEvict;
@@ -8,7 +9,10 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import javax.annotation.Resource;
+import javax.persistence.RollbackException;
 import java.util.List;
 import java.util.Map;
 
@@ -18,11 +22,12 @@ import java.util.Map;
  * @date 2019/12/18
  */
 @Service
+@Transactional(rollbackFor = {RollbackException.class})
 public class CustomerServiceImpl implements CustomerService {
     @Resource
     CustomerMapper customerMapper;
 
-    @CacheEvict(value = {"customerAndLinkman"})
+    @CacheEvict(value = {"customerAndLinkman","converToMe","conver"}, allEntries = true)
     @Override
     public int deleteCustomerById(Long id) {
         return customerMapper.deleteByPrimaryKey(id);
@@ -40,35 +45,32 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Cacheable(value = "customerAndLinkman")
     @Override
-    public List<Customer> listCustomerAndLinkman(Map map) {
+    public List<CustomerVO> listCustomerAndLinkman(Map map) {
         return customerMapper.listCustomerAndLinkman(map);
     }
 
 
     @Cacheable(value = "converToMe")
     @Override
-    public List<Customer> listConverToMe(Map params) {
+    public List<CustomerVO> listConverToMe(Map params) {
         return customerMapper.listConverToMe(params);
     }
 
-    @CacheEvict(value = {"customerAndLinkman","converToMe","conver"})
+    @CacheEvict(value = {"customerAndLinkman","converToMe","conver"}, allEntries = true)
     @Override
-    public int updateCustomerUserIdById(Long id, Long uid) {
-        Customer customer = new Customer();
-        customer.setId(id);
-        customer.setUserId(uid);
-        return customerMapper.updateByPrimaryKeySelective(customer);
+    public int updateCustomerUserIdById(String id, String uid) {
+        return customerMapper.updateCustomerUserIdById(id, uid);
     }
 
     @Override
+    @CacheEvict(value = {"customerAndLinkman","converToMe","conver"}, allEntries = true)
     public int saveCustomer(Customer customer) {
-        System.out.println(customer);
         return customerMapper.insert(customer);
     }
 
     @Cacheable(value = "conver")
     @Override
-    public List<Customer> listConver(Map params) {
+    public List<CustomerVO> listConver(Map params) {
         return customerMapper.listConver(params);
     }
 
