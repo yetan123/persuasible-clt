@@ -19,4 +19,8 @@ public class LinkmanServiceImpl implements LinkmanService {
     LinkmanMapper linkmanMapper;
 
 
+    @Override
+    public int saveLinkman(Linkman linkman) {
+        return linkmanMapper.insert(linkman);
+    }
 }

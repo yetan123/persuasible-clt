@@ -16,10 +16,11 @@ import java.util.Date;
  * @date 2019/12/20
  * @author lanmu
  */
-public class ConverCustomer {
+public class CustomerConver {
     private Long id;
     private Long converUserId;
     private Long receiveUserId;
     private Long customerId;
     private Date converTime;
+
 }

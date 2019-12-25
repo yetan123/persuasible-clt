@@ -1,6 +1,8 @@
 package com.simplify.service;
 
-import com.simplify.model.entity.Customer;
+import com.simplify.model.dto.CustomerVO;
+import com.simplify.model.entity.*;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 import java.util.Map;
@@ -17,12 +19,22 @@ public interface CustomerService {
      * @return 全部联系人和客户
      * @author lanmu
      */
-    List<Customer> listCustomerAndLinkman(Map params);
+    List<CustomerVO> listCustomerAndLinkman(Map params);
+    List<CustomerVO> listConverToMe(Map params);
 
     /**
-     * 获取分页的总行数
+     * 更改l客户负责人
+     * @param targetCustomerId
+     * @param reeiveUserId
+     * @return
      */
-    Long listCountCustomerAndLinkman(Map params);
+    int updateCustomerUserIdById( String targetCustomerId, String receiveUserId);
+    int deleteCustomerById(Long id);
+    List<CustomerVO> listConver(Map params);
+    int saveCustomer(Customer customer);
 
-    int updateCustomerUserIdById(Long id, Long uid);
+    List<CustomerSource> listCustomerSource();
+    List<CustomerCategory> listCustomerCategory();
+    List<CustomerState> listCustomerState();
+    List<CustomerRank> listCustomerRank();
 }

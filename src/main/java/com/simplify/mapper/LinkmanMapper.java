@@ -14,6 +14,7 @@ public interface  LinkmanMapper extends Mapper<Linkman> {
      * @param customerId
      * @return
      */
-    @Select("select * from tb_linkman where id = #{0}")
+    @Select("select * from tb_linkman where CUSTOMER_ID = #{0}")
     List<Linkman> listLinkmansByCustomerId(Long customerId);
+    int saveLinkman(Linkman linkman);
 }

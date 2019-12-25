@@ -4,16 +4,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Id;
 import javax.persistence.Table;
-import java.sql.Date;
-@Table(name="tb_contract_conver")
+
+@Table(name = "TB_CUSTOMER_CATEGORY")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CntractConver {
+public class CustomerCategory {
+    @Id
     private Long id;
-    private Long contractId;
-    private Long converUserId;
-    private Long receiveUserId;
-    private Date converTime;
+    private String customerCategory;
 }

@@ -1,22 +1,26 @@
-package com.simplify.model.entity;
+package com.simplify.model.dto;
 
+import com.simplify.model.entity.CustomerConver;
+import com.simplify.model.entity.CustomerTasks;
+import com.simplify.model.entity.Linkman;
+import com.simplify.model.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Id;
-import javax.persistence.Table;
 import java.util.Date;
 import java.util.List;
 
-@Table(name = "tb_customer")
+/**
+ * 封裝发送给前端的客户数据
+ * @author lanmu
+ * @date 2019/12/25
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Customer {
-    @Id
-    private Long id;
+public class CustomerVO {
+    private String id;
     private String companyName;
     private String companyEmail;
     private String specialPlane;
