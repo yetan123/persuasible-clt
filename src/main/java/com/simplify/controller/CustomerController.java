@@ -3,6 +3,7 @@ package com.simplify.controller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.simplify.model.dto.CustomerVO;
+import com.simplify.model.dto.UserVO;
 import com.simplify.model.entity.*;
 import com.simplify.service.CustomerConverService;
 import com.simplify.service.CustomerService;
@@ -41,15 +42,13 @@ public class CustomerController {
     @PostMapping("/list")
     public PageInfo<CustomerVO> listCustomer(@RequestBody Map params) throws ParseException {
         String pageType = params.get("pageType").toString();
-        System.out.println("params：" + params);
         PageInfo<CustomerVO> pageInfo = getPageInfo(filterParamsConver(params), pageType);
+        PageHelper.clearPage();
         return pageInfo;
     }
 
-
-
     @GetMapping("/listConvertUser")
-    public List<User> listConvertUser(Long id) {
+    public List<UserVO> listConvertUser(String id) {
         return userService.listUserByNotId(id);
     }
 
@@ -115,7 +114,6 @@ public class CustomerController {
             pageSize = (Integer) params.get("pageSize");
         }
        PageHelper.startPage(pageNum, pageSize, true);
-     customerService.listCustomerAndLinkman(params);
         // 我的客户
         if("my".equals(pageType)) {
             System.out.println("my");
@@ -130,10 +128,10 @@ public class CustomerController {
         } else {
             throw new RuntimeException("沒有指定分頁參數頁面");
         }
-        PageInfo<CustomerVO> page = new PageInfo<>(customers);
-        for(CustomerVO customer: customers) {
-            System.out.println(customer);
+        for(CustomerVO customerVO: customers) {
+            System.out.println(customerVO);
         }
+        PageInfo<CustomerVO> page = new PageInfo<>(customers);
         return page;
     }
 
@@ -143,7 +141,7 @@ public class CustomerController {
      * @author lanmu
      * @date 2019/12/21 17:30
      */
-    public Map<String, List<?>> listState() {
+    private Map<String, List<?>> listState() {
         Map<String, List<?>> filterDataMap = new HashMap<>();
         List<CustomerCategory> customerCategories = customerService.listCustomerCategory();
         List<CustomerRank> customerRanks = customerService.listCustomerRank();
@@ -156,7 +154,7 @@ public class CustomerController {
         return filterDataMap;
     }
 
-    public Map filterParamsConver(Map params) throws ParseException {
+    private Map filterParamsConver(Map params) throws ParseException {
         if(params.get("customerCreateDate") != null) {
             DateFormat df2 = null;
             Object createDate = params.get("customerCreateDate");
