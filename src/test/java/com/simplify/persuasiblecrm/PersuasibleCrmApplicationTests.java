@@ -19,6 +19,7 @@ class PersuasibleCrmApplicationTests {
     @Autowired
     private CustomerRecordService customerRecordService;
 
+
     private CustomerTasksService customerTasksService;
 
     @Test
