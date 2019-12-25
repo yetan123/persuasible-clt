@@ -11,5 +11,6 @@ import java.util.List;
  */
 
 public interface BusinessService {
-    List<Business> selectAll();
+    List<Business> listBusiness();
+    List<Business> listBusinessById(Long id);
 }
