@@ -16,4 +16,9 @@ import java.util.List;
 @Repository
 public interface BusinessMapper extends Mapper<Business> {
 
+<<<<<<< HEAD
+=======
+    List<Business> listBusiness();
+    List<Business> listBusinessById(Long id);
+>>>>>>> 1fd99a8d51a7bf1d721da8a3be96aef04100591d
 }

@@ -6,25 +6,26 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.sql.Date;
 
 /**
- * 商机跟进任务表实体类
+ * 商机交易表实体类
  * @author 杨泓
- * @date 2019-12-17
+ * @date 2019-12-25
  */
-
-@Table(name="tb_business_record")
+@Table(name="tb_business_conver")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class BusinessRecord {
+public class BusinessConver {
     @Id
     private Long id;
-    private String recordContent;
-    private Date recordTime;
-    private Date recordNextTime;
-    private String schedule;
     private Long businessId;
+    private Long originalUserId;
+    private Long currentUserId;
+    private String converTime;
+    private User user;
+    private Business business;
+    private Customer customer;
+
 
 }
