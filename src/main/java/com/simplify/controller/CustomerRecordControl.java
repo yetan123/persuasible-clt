@@ -43,6 +43,16 @@ public class CustomerRecordControl {
        c.setRecordProgress(record.getProcess());
        c.setCustomerId(record.getCustomer());
        c.setLinkmanId(record.getCustomer());
+        System.out.println(c);
          return customerRecordService.insertCustomerRecord(c);
+    }
+
+    @ResponseBody
+    @PostMapping("/updateCustomerRecord")
+    public int updateCustomerRecord(@RequestBody RecordDTO record){
+        System.out.println(record);
+        CustomerRecord c = new CustomerRecord();
+        c.setId(record.getCustomer());
+        return customerRecordService.updateCustomerRecord(c);
     }
 }
