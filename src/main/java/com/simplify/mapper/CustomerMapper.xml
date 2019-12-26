@@ -128,15 +128,11 @@
         <if test="customerFollowDate!=null and customerFollowDate!=''">
             and t.task_end_time &gt;= to_date(#{customerFollowDate},'yyyy-mm-dd')
         </if>
-        <if test="createStartDate!=null and createStartDate!='' and createEndDate==null or createEndDate==''">
+        <if test="createStartDate!=null and createStartDate!='' ">
             and c.CREATE_TIME &gt;= to_date(${createStartDate},'yyyy-mm-dd')
         </if>
-        <if test="createEndDate!=null and createEndDate!='' and createStartDate==null or createStartDate==''">
+        <if test="createEndDate!=null and createEndDate!='' ">
             and c.CREATE_TIME &lt;= to_date(${createEndDate},'yyyy-mm-dd')
-        </if>
-        <if test="createStartDate!=null and createStartDate!='' and createEndDate!=null and createEndDate!=''">
-            and c.CREATE_TIME &gt;= to_date(#{createStartDate},'yyyy-mm-dd')
-            and c.CREATE_TIME &lt;= to_date(#{createEndDate},'yyyy-mm-dd')
         </if>
         <!-- &lt;=  小于等于 -->
         <!-- &gt;= 大于于等于 -->

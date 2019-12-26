@@ -26,13 +26,7 @@ class PersuasibleCrmApplicationTests {
 
     @Test
     void contextLoads() {
-<<<<<<< HEAD
-        Long id = 407157154483535872L;
 
-        System.out.println(customerService.selectbyId(id));
-=======
-
->>>>>>> e0570a43eb6b43f5bed75b0d25138fe46778e60a
     }
 
 

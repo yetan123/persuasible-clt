@@ -105,7 +105,7 @@ public class CustomerController {
      */
     private PageInfo<CustomerVO> getPageInfo(Map params, String pageType) throws ParseException {
         int pageNum = 1;
-        int pageSize = 4;
+        int pageSize = 5;
         List<CustomerVO> customers = null;
         if(params.get("pageNum") != null) {
             pageNum = (Integer) params.get("pageNum");
@@ -155,7 +155,7 @@ public class CustomerController {
     }
 
     private Map filterParamsConver(Map params) throws ParseException {
-        if(params.get("customerFollowDate") != null) {
+        if(params.get("customerFollowDate") != null && !"".equals(params.get("customerFollowDate"))) {
            String  customerCreateDate = params.get("customerFollowDate").toString();
             params.put("customerFollowDate", converTime(customerCreateDate));
         }
@@ -173,7 +173,6 @@ public class CustomerController {
         return params;
     }
 
-<<<<<<< HEAD
     private String converTime(String time) throws ParseException {
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
         Date parse = df.parse(time);
@@ -182,7 +181,8 @@ public class CustomerController {
         df = new SimpleDateFormat("yyyy-MM-dd");
         System.out.println(df.format(date1));
         return df.format(date1);
-=======
+    }
+
     @ResponseBody
     @GetMapping("selectById")
     public List<Customer> selectById(Long id){
@@ -191,7 +191,6 @@ public class CustomerController {
         List<Customer> list = customerService.selectbyId(tid);
         System.out.println(list);
         return list;
->>>>>>> 3f413e7aaa37ca82de5d7a2d62303dd1ba60070f
     }
 }
 
