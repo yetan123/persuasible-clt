@@ -94,4 +94,6 @@ public class CustomerServiceImpl implements CustomerService {
     public List<CustomerRank> listCustomerRank() {
         return customerMapper.listCustomerRank();
     }
+
+
 }

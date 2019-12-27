@@ -1,7 +1,10 @@
 package com.simplify.mapper;
 
 import com.simplify.model.entity.*;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.type.JdbcType;
 import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.common.Mapper;
 
@@ -35,4 +38,5 @@ public interface CustomerMapper extends Mapper<Customer> {
     List<CustomerState> listCustomerState();
     @Select("select * from TB_CUSTOMER_RANK")
     List<CustomerRank> listCustomerRank();
+
 }
