@@ -15,11 +15,6 @@ public class BusinessTest {
 
     @Test
     public void listBusiness(){
-        List<Business> business=businessService.selectAll();
-        for (Business b:business
-             ) {
-            System.out.println(b);
-        }
 
     }
 }

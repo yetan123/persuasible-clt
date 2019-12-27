@@ -1,22 +1,15 @@
-package com.simplify.model.entity;
-
+package com.simplify.model.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
+import lombok.ToString;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
-/**
- *
- * @author 覃文强
- * @date 2019-12-17
- */
-@Table(name="tb_department")
+@ToString
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Dept {
+public class DeptAndUserDTO {
     @Id
     private Long id;
 

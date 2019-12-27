@@ -11,5 +11,4 @@ import java.util.List;
  */
 
 public interface BusinessService {
-    List<Business> selectAll();
 }

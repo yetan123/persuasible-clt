@@ -1,18 +1,15 @@
 package com.simplify.controller;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import com.simplify.model.dto.UserAndDeptDTO;
+import com.simplify.model.dto.UserAndDeptVO;
 import com.simplify.model.entity.User;
 import com.simplify.service.UserService;
 import com.simplify.utils.PageBean;
 import com.simplify.utils.SnowFlake;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestParam;
-import java.text.ParseException;
-import java.util.List;
-import java.util.Map;
 
 /**
  * 用户控制器,负责对用户实体的业务分发
@@ -22,72 +19,51 @@ import java.util.Map;
 @RestController
 @CrossOrigin
 @RequestMapping("user")
-
 public class UserController {
     @Autowired
-    UserService userService;
- /*   @GetMapping("/")
-    @ResponseBody
-    public List<UserAndDeptDTO> getAllUser() {
-        System.out.println("部门与用户的连表查询");
-        return userService.findUserAndDeptDeptId();
-    }*/
-
+    private UserService userService;
+    /*分页*/
     @GetMapping("/selectAll")
-    public JSONObject selectAll(@RequestParam(value ="deptName",required = false)String deptName,
-                                @RequestParam(value ="userSearch",required = false)String userSearch,
+    public JSONObject selectAll(@RequestParam(value ="deptname",required = false)String deptName,
+                                @RequestParam(value ="username",required = false)String userName,
+                                @RequestParam(value ="enabled",required = false)String enabled,
                                 @RequestParam(defaultValue = "1",value ="pageNum",required = false)Integer pageNum){
-        PageBean<UserAndDeptDTO> pageInfo=null;
-        if (deptName!=null ||
-                userSearch!=null ||
-                userSearch !=null
-        ) {
-            System.out.println("!");
-            if (userSearch=="" || userSearch==null){
-                userSearch=null;
-            }
-            if (userSearch=="" || userSearch==null){
-                userSearch=null;
-            }
-            pageInfo= userService.listUserAndDept(deptName,userSearch,pageNum);
+        System.out.println(pageNum);
+        PageBean<UserAndDeptVO> pages=null;
+        if (deptName!=null || userName!=null || enabled!=null) {
+            pages= userService.listUserAndDept(deptName,userName,enabled,pageNum);
         }else{
-            pageInfo= userService.listUserAndDept(deptName,userSearch,pageNum);
+            pages= userService.listUserAndDept(deptName,userName,enabled,pageNum);
         }
         //封装好信息返回给前台页面
-        System.out.println(pageInfo.toString());
         JSONObject json=new JSONObject();
-        json.put("pageInfo",pageInfo);
+        for(UserAndDeptVO userAndDeptVO: pages.getLists()) {
+            System.out.println(userAndDeptVO);
+        }
+        json.put("pageInfo",pages);
         return json;
     }
-
-
-
     @PostMapping("/add")
     public int add(@RequestBody User user) {
-        System.out.println("进入添加页面");
+        System.out.println("进入添加方法");
         user.setId(new SnowFlake(0,0).nextId());
         System.out.println(user);
         return userService.insertUser(user);
     }
     @PostMapping("/update")
-    public int update(@RequestBody User user) {
-        System.out.println("进入修改页面");
-        System.out.println(user.getId());
-        System.out.println(user);
-        return userService.updateById(user);
+    public int update(@RequestBody UserAndDeptVO user) {
+        System.out.println("进入修改方法");
+        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+        user.setUsername(user.getUsername());
+        System.out.println(user+""+user.getId());
+        return userService.updateByUserId(user);
+    }
+    @ResponseBody
+    @GetMapping("/deleteById")
+    public int deleteUser( UserAndDeptVO userAndDeptVO){
+        System.out.println("进入删除方法");
+        return userService.deleteByUserId(userAndDeptVO);
     }
 
-     /**
-     * 获取分页信息
-     * @return pageInfo
-     * @auhor lanmu
-     * @date 2019/12/21 17:29
-     */
-    /*private PageInfo<UserAndDeptDTO> getPageInfo(Map params) {
-
-        PageHelper.startPage(1, 4, true);
-        PageInfo<UserAndDeptDTO> page = new PageInfo<UserAndDeptDTO>(userService.listUserAndDept(params.get("deptName").toString(), params.get("userSearch").toString()));
-        return page;
-    }*/
 
 }

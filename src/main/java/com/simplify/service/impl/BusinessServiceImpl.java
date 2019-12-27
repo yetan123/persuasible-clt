@@ -18,8 +18,4 @@ public class BusinessServiceImpl implements BusinessService {
     @Autowired
     private BusinessMapper businessMapper;
 
-    @Override
-    public List<Business> selectAll() {
-        return businessMapper.selectAll();
-    }
 }

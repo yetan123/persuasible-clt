@@ -20,9 +20,4 @@ public class BusinessController {
     @Resource
     BusinessService businessService;
 
-    @GetMapping("/list")
-    @ResponseBody
-    public List<Business> listBusiness() {
-        return businessService.selectAll();
-    }
 }
