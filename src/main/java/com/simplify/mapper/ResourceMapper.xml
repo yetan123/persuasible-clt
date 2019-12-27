@@ -11,4 +11,22 @@
         join tb_resource res on res.id = role_resource.resource_id
         where usr.id = #{id}
     </select>
+
+    <insert id="insertRoleOfResource">
+            MERGE INTO  TB_ROLE_RESOURCE role_resource
+            USING (select #{roleId}  role_id, #{resourceId} resource_id from dual) t2
+            on (role_resource.role_id=t2.role_id and role_resource.resource_id = t2.resource_id)
+            WHEN NOT MATCHED  THEN insert values(#{id},t2.role_id, t2.resource_id)
+    </insert>
+
+    <delete id="removeRoleOfResource">
+        delete from tb_role_resource <where>
+        <if test="resourceIds != null and resourceIds.size>0">
+          and resource_id not in <foreach collection="resourceIds" item="resourceId" open="(" separator="," close=")">
+            #{resourceId}
+          </foreach>
+        </if>
+        and role_id = #{roleId}
+    </where>
+    </delete>
 </mapper>

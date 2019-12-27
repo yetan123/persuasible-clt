@@ -1,12 +1,16 @@
 package com.simplify.service.impl;
 
 import com.simplify.mapper.MenuMapper;
+import com.simplify.model.dto.RoleOfMenuDTO;
 import com.simplify.model.dto.RouteDTO;
 import com.simplify.model.entity.Menu;
 import com.simplify.service.MenuService;
+import com.simplify.utils.SnowFlake;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
@@ -17,7 +21,9 @@ import java.util.List;
  * @date 2019-12-18
  */
 @Service
-public class MenuServiceImpl implements MenuService {
+@Transactional(rollbackFor = {Exception.class})
+public class MenuServiceImpl implements MenuService
+{
     @Autowired
     private MenuMapper menuMapper;
 
@@ -38,5 +44,26 @@ public class MenuServiceImpl implements MenuService {
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("component","Layout");
         return menuMapper.selectByExample(example);
+    }
+
+    /**
+     * 处理菜单权限,控制菜单权限分配
+     * @param roleOfMenuDTO
+     * @return 受响应行
+     */
+    @CacheEvict(value = {"menuList"},allEntries = true)
+    @Override
+    public Integer handleMenu(RoleOfMenuDTO roleOfMenuDTO) {
+        SnowFlake snowFlake = new SnowFlake(0,0);
+        int count = 0;
+        for (long resourceId : roleOfMenuDTO.getMenuIds()){
+            long id = snowFlake.nextId();
+            roleOfMenuDTO.setId(id);
+            roleOfMenuDTO.setMenuId(resourceId);
+            menuMapper.insertMenuSelectivity(roleOfMenuDTO);
+            count++;
+        }
+        count += menuMapper.removeMenuSelectivity(roleOfMenuDTO);
+        return count;
     }
 }

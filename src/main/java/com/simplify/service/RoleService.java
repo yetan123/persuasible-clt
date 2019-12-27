@@ -16,4 +16,8 @@ public interface RoleService {
     List<RoleAuthorizeVO> listRoleAuthorize();
 
     Integer updateRole(Role role);
+
+    Integer removeRoleById(Long id);
+
+    RoleAuthorizeVO insertRole(Role role);
 }

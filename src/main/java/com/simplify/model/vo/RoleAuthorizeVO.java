@@ -16,7 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RoleAuthorizeVO {
-    private String roleId;
+    private String id;
 
     private String roleName;
 

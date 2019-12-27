@@ -1,6 +1,8 @@
 package com.simplify.service;
 
+import com.simplify.model.dto.RoleOfResourceDTO;
 import com.simplify.model.entity.Resource;
+import com.simplify.model.vo.ResourceVO;
 
 import java.util.List;
 
@@ -12,4 +14,6 @@ import java.util.List;
 public interface ResourceService {
     List<Resource> listResourceByRoleId(Long userId);
     List<Resource> listResource();
+    List<ResourceVO> listResourceViewObject();
+    Integer updateRoleOfResource(RoleOfResourceDTO roleOfResourceDTO);
 }

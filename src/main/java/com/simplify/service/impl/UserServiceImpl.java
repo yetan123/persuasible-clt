@@ -7,6 +7,8 @@ import com.simplify.model.entity.User;
 import com.simplify.service.UserService;
 import com.simplify.utils.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
@@ -19,9 +21,7 @@ import java.util.Map;
  * @date 2019-11-30
  */
 @Service
-public class UserServiceImpl implements UserService
-
-{
+public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
     @Override
@@ -55,6 +55,7 @@ public class UserServiceImpl implements UserService
         return userMapper.insertUser(user);
     }
 
+    @CacheEvict(value = {"userAndDept"})
     @Override
     public int updateById(User u) {
         return userMapper.updateById(u);
@@ -65,9 +66,11 @@ public class UserServiceImpl implements UserService
         return userMapper.listUser(params);
     }
 
+
+    @Cacheable(value = "userAndDept")
     @Override
     public PageBean<UserAndDeptDTO> listUserAndDept(String deptName, String userSearch, Integer currentPage) {
-        PageBean<UserAndDeptDTO> pageBean = new PageBean<UserAndDeptDTO>();
+        PageBean<UserAndDeptDTO> pageBean = new PageBean<>();
         pageBean.setPageNum(currentPage);
         int pageSize=4;
         pageBean.setPageSize(pageSize);
@@ -81,19 +84,7 @@ public class UserServiceImpl implements UserService
         //封装每页显示的数据
         List<UserAndDeptDTO> lists = userMapper.listUserAndDept(deptName,userSearch,start,size);
         pageBean.setLists(lists);
-        System.out.println(lists+"----------");
         return pageBean;
     }
-
-
-
-
-
-  /*  @Override
-    public List<UserAndDeptDTO> listUserAndDept(String deptName, String userSearch) {
-        return userMapper.listUserAndDept(deptName,userSearch);
-    }*/
-
-
 
 }

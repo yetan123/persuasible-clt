@@ -26,13 +26,6 @@ import java.util.Map;
 public class UserController {
     @Autowired
     UserService userService;
- /*   @GetMapping("/")
-    @ResponseBody
-    public List<UserAndDeptDTO> getAllUser() {
-        System.out.println("部门与用户的连表查询");
-        return userService.findUserAndDeptDeptId();
-    }*/
-
     @GetMapping("/selectAll")
     public JSONObject selectAll(@RequestParam(value ="deptName",required = false)String deptName,
                                 @RequestParam(value ="userSearch",required = false)String userSearch,
@@ -42,7 +35,6 @@ public class UserController {
                 userSearch!=null ||
                 userSearch !=null
         ) {
-            System.out.println("!");
             if (userSearch=="" || userSearch==null){
                 userSearch=null;
             }
@@ -54,7 +46,6 @@ public class UserController {
             pageInfo= userService.listUserAndDept(deptName,userSearch,pageNum);
         }
         //封装好信息返回给前台页面
-        System.out.println(pageInfo.toString());
         JSONObject json=new JSONObject();
         json.put("pageInfo",pageInfo);
         return json;
@@ -64,16 +55,12 @@ public class UserController {
 
     @PostMapping("/add")
     public int add(@RequestBody User user) {
-        System.out.println("进入添加页面");
         user.setId(new SnowFlake(0,0).nextId());
-        System.out.println(user);
         return userService.insertUser(user);
     }
     @PostMapping("/update")
     public int update(@RequestBody User user) {
-        System.out.println("进入修改页面");
-        System.out.println(user.getId());
-        System.out.println(user);
+
         return userService.updateById(user);
     }
 

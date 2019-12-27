@@ -30,4 +30,20 @@
         on menu.id = role_menu.menu_id join tb_role role
         on role.id = role_menu.role_id where menu.id = #{id}
     </select>
+    <insert id="insertMenuSelectivity">
+        merge into tb_role_menu role_menu
+				using (select #{roleId} role_id, #{menuId} menu_id from dual) du
+				on (du.role_id = role_menu.role_id and du.menu_id = role_menu.menu_id)
+				when not matched then insert values(#{id},du.role_id,du.menu_id)
+    </insert>
+    <delete id="removeMenuSelectivity">
+        delete from tb_role_menu <where>
+        <if test="menuIds != null and menuIds.size>0">
+            and menu_id not in <foreach collection="menuIds" item="menuId" open="(" separator="," close=")">
+            #{menuId}
+        </foreach>
+        </if>
+        and role_id = #{roleId}
+    </where>
+    </delete>
 </mapper>
