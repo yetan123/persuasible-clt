@@ -11,7 +11,6 @@ import com.simplify.service.LinkmanService;
 import com.simplify.service.UserService;
 import com.simplify.utils.SnowFlake;
 import org.springframework.web.bind.annotation.*;
-
 import javax.annotation.Resource;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -72,7 +71,7 @@ public class CustomerController {
         LocalDateTime nowTime= LocalDateTime.now();
         Date createTime = Date.from(nowTime.atZone(ZoneId.systemDefault()).toInstant());
         customer.setCreateTime(createTime);
-        if(Objects.equals("",customer.getCustomerState()) || customer.getCustomerState() == null) {
+        if(Objects.equals("", customer.getCustomerState()) || customer.getCustomerState() == null) {
             customer.setCustomerState("无状态");
         }
         int customerResult = customerService.saveCustomer(customer);
@@ -116,20 +115,14 @@ public class CustomerController {
        PageHelper.startPage(pageNum, pageSize, true);
         // 我的客户
         if("my".equals(pageType)) {
-            System.out.println("my");
             customers = customerService.listCustomerAndLinkman(params);
             // 我转交的
         } else if("i_pass".equals(pageType)) {
-            System.out.println("i_pass");
             customers = customerService.listConver(params);
         } else if("pass_me".equals(pageType)) {
-            System.out.println("pass_me");
             customers = customerService.listConverToMe(params);
         } else {
             throw new RuntimeException("沒有指定分頁參數頁面");
-        }
-        for(CustomerVO customerVO: customers) {
-            System.out.println(customerVO);
         }
         PageInfo<CustomerVO> page = new PageInfo<>(customers);
         return page;
@@ -185,10 +178,10 @@ public class CustomerController {
 
     @ResponseBody
     @GetMapping("selectById")
-    public List<Customer> selectById(Long id){
-        System.out.println(id);
-        Long tid = 407157154483535872L;
-        List<Customer> list = customerService.selectbyId(tid);
+    public List<Customer> selectById(String id){
+        long l = Long.valueOf(id).longValue();
+        System.out.println(l);
+        List<Customer> list = customerService.selectbyId(l);
         System.out.println(list);
         return list;
     }
