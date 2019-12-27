@@ -98,6 +98,7 @@ public class CustomerServiceImpl implements CustomerService {
         return customerMapper.listCustomerRank();
     }
 
+
     @Override
     public List<Customer> selectbyId(Long id) {
         Example example = new Example(Customer.class);

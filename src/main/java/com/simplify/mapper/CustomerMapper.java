@@ -3,6 +3,10 @@ package com.simplify.mapper;
 import com.simplify.model.dto.CustomerVO;
 import com.simplify.model.dto.UserVO;
 import com.simplify.model.entity.*;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -42,4 +46,5 @@ public interface CustomerMapper extends Mapper<Customer> {
     List<CustomerState> listCustomerState();
     @Select("select * from TB_CUSTOMER_RANK")
     List<CustomerRank> listCustomerRank();
+
 }
