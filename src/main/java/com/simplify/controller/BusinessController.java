@@ -34,4 +34,10 @@ public class BusinessController {
         return businessService.listBusinessById(id);
     }
 
+    @ResponseBody
+    @GetMapping("/deleteBusinessById")
+    public void deleteBusinessById(Long id) {
+        businessService.deleteBusinessById(id);
+    }
+
 }
