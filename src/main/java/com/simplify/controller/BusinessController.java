@@ -38,7 +38,6 @@ public class BusinessController {
     @GetMapping("/deleteBusinessById")
     public void deleteBusinessById(Long id) {
         businessService.deleteBusinessById(id);
-        businessService.listBusiness();
     }
 
 }

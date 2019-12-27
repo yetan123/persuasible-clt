@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 商机映射层
@@ -16,8 +17,13 @@ import java.util.List;
 @Repository
 public interface BusinessMapper extends Mapper<Business> {
     List<Business> selectAll();
-    List<Business> listBusiness();
-    List<Business> listBusinessById(Long id);
-    void deleteBusinessById(Long id);
 
+    //查询商机所有数据及实现分页功能
+    List<Business> listBusiness();
+
+    //根据id查询商机数据
+    List<Business> listBusinessById(Long id);
+
+    //根据id删除商机数据
+    void deleteBusinessById(Long id);
 }
