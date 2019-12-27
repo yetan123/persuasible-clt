@@ -2,7 +2,8 @@ package com.simplify.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.simplify.model.dto.CustomerAddRequestParameterDTO;
+import com.simplify.model.dto.CustomerVO;
+import com.simplify.model.dto.UserVO;
 import com.simplify.model.entity.*;
 import com.simplify.service.CustomerConverService;
 import com.simplify.service.CustomerService;
@@ -39,24 +40,24 @@ public class CustomerController {
 
 
     @PostMapping("/list")
-    public PageInfo<Customer> listCustomer(@RequestBody Map params) throws ParseException {
+    public PageInfo<CustomerVO> listCustomer(@RequestBody Map params) throws ParseException {
         String pageType = params.get("pageType").toString();
-        PageInfo<Customer> pageInfo = getPageInfo(filterParamsConver(params), pageType);
+        PageInfo<CustomerVO> pageInfo = getPageInfo(filterParamsConver(params), pageType);
+        PageHelper.clearPage();
         return pageInfo;
     }
 
-
-
     @GetMapping("/listConvertUser")
-    public List<User> listConvertUser(Long id) {
+    public List<UserVO> listConvertUser(String id) {
         return userService.listUserByNotId(id);
     }
 
     @PostMapping("/saveConvert")
     public int saveConvert(@RequestBody CustomerConver customerConver) {
+        customerService.updateCustomerUserIdById(customerConver.getCustomerId().toString(), customerConver.getReceiveUserId().toString());
         customerConver.setId(new SnowFlake(0,0).nextId());
-        customerService.updateCustomerUserIdById(customerConver.getCustomerId(), customerConver.getReceiveUserId());
-        return customerConverService.saveConverCustomer(customerConver);
+        customerConverService.saveConverCustomer(customerConver);
+        return 2;
     }
 
     @GetMapping("deleteCustomer")
@@ -79,7 +80,6 @@ public class CustomerController {
         Linkman linkman = customer.getLinkman();
         linkman.setCustomerId(customer.getId());
         linkman.setId(new SnowFlake(0, 0).nextId());
-        System.out.println(linkman);
         int linkmanResult = linkmanService.saveLinkman(linkman);
         return customerResult + linkmanResult;
     }
@@ -103,17 +103,17 @@ public class CustomerController {
      * @auhor lanmu
      * @date 2019/12/21 17:29
      */
-    private PageInfo<Customer> getPageInfo(Map params, String pageType) {
+    private PageInfo<CustomerVO> getPageInfo(Map params, String pageType) throws ParseException {
         int pageNum = 1;
         int pageSize = 4;
-        List<Customer> customers = null;
+        List<CustomerVO> customers = null;
         if(params.get("pageNum") != null) {
             pageNum = (Integer) params.get("pageNum");
         }
         if(params.get("pageSize") != null) {
             pageSize = (Integer) params.get("pageSize");
         }
-        PageHelper.startPage(pageNum, pageSize, true);
+       PageHelper.startPage(pageNum, pageSize, true);
         // 我的客户
         if("my".equals(pageType)) {
             System.out.println("my");
@@ -128,7 +128,10 @@ public class CustomerController {
         } else {
             throw new RuntimeException("沒有指定分頁參數頁面");
         }
-        PageInfo<Customer> page = new PageInfo<>(customers);
+        for(CustomerVO customerVO: customers) {
+            System.out.println(customerVO);
+        }
+        PageInfo<CustomerVO> page = new PageInfo<>(customers);
         return page;
     }
 
@@ -138,7 +141,7 @@ public class CustomerController {
      * @author lanmu
      * @date 2019/12/21 17:30
      */
-    public Map<String, List<?>> listState() {
+    private Map<String, List<?>> listState() {
         Map<String, List<?>> filterDataMap = new HashMap<>();
         List<CustomerCategory> customerCategories = customerService.listCustomerCategory();
         List<CustomerRank> customerRanks = customerService.listCustomerRank();
@@ -151,28 +154,45 @@ public class CustomerController {
         return filterDataMap;
     }
 
-    public Map filterParamsConver(Map params) throws ParseException {
+    private Map filterParamsConver(Map params) throws ParseException {
+        if(params.get("customerFollowDate") != null) {
+           String  customerCreateDate = params.get("customerFollowDate").toString();
+            params.put("customerFollowDate", converTime(customerCreateDate));
+        }
         if(params.get("customerCreateDate") != null) {
-            DateFormat df2 = null;
             Object createDate = params.get("customerCreateDate");
             if (createDate != null && createDate instanceof ArrayList) {
                 ArrayList listDate = (ArrayList) params.get("customerCreateDate");
-                DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-                Date createStartDate = df.parse(listDate.get(0).toString());
-                Date createEndDate = df.parse(listDate.get(1).toString());
-                SimpleDateFormat df1 = new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy", Locale.UK);
-                Date date1 = df1.parse(createStartDate.toString());
-                Date date2 = df1.parse(createEndDate.toString());
-                df2 = new SimpleDateFormat("yyyy-MM-dd");
-                params.put("createStartDate", df2.format(date1));
-                params.put("createEndDate", df2.format(date2));
+                params.put("createStartDate", converTime(listDate.get(0).toString()));
+                params.put("createEndDate", converTime(listDate.get(1).toString()));
             } else {
-                System.out.println("createDate is not ");
                 params.put("createStartDate", null);
                 params.put("createEndDate", null);
             }
         }
         return params;
+    }
+
+
+    private String converTime(String time) throws ParseException {
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        Date parse = df.parse(time);
+        SimpleDateFormat df1 = new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy", Locale.UK);
+        Date date1 = df1.parse(parse.toString());
+        df = new SimpleDateFormat("yyyy-MM-dd");
+        System.out.println(df.format(date1));
+        return df.format(date1);
+
+    }
+    @ResponseBody
+    @GetMapping("selectById")
+    public List<Customer> selectById(String id){
+        long l = Long.valueOf(id).longValue();
+        System.out.println(l);
+        List<Customer> list = customerService.selectbyId(l);
+        System.out.println(list);
+        return list;
+
     }
 }
 
