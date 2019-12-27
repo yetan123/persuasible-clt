@@ -14,4 +14,5 @@ public class ClueServiceImpl implements ClueService {
     private ClueMapper clueMapper;
 
     public List<Clue> getAllClue(){ return clueMapper.getAllClue();};
+
 }
