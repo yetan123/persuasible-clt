@@ -4,6 +4,7 @@ package com.simplify.controller;
 import com.simplify.model.dto.RecordDTO;
 import com.simplify.model.entity.CustomerRecord;
 import com.simplify.service.CustomerRecordService;
+import com.simplify.utils.SnowFlake;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,6 +35,7 @@ public class CustomerRecordControl {
     public int insertCustomerRecord(@RequestBody RecordDTO record){
         System.out.println(record);
         CustomerRecord c = new CustomerRecord();
+        c.setId(new SnowFlake(0,0).nextId());
         c.setRecordContent(record.getRecordContent());
        c.setRecordType(record.getType());
        c.setRecordTime(record.getDate1());
@@ -41,6 +43,16 @@ public class CustomerRecordControl {
        c.setRecordProgress(record.getProcess());
        c.setCustomerId(record.getCustomer());
        c.setLinkmanId(record.getCustomer());
+        System.out.println(c);
          return customerRecordService.insertCustomerRecord(c);
+    }
+
+    @ResponseBody
+    @PostMapping("/updateCustomerRecord")
+    public int updateCustomerRecord(@RequestBody RecordDTO record){
+        System.out.println(record);
+        CustomerRecord c = new CustomerRecord();
+        c.setId(record.getCustomer());
+        return customerRecordService.updateCustomerRecord(c);
     }
 }

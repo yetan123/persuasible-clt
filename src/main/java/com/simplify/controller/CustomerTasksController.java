@@ -5,6 +5,7 @@ package com.simplify.controller;
 import com.simplify.model.dto.TasksDTO;
 import com.simplify.model.entity.CustomerTasks;
 import com.simplify.service.CustomerTasksService;
+import com.simplify.utils.SnowFlake;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,6 +35,7 @@ public class CustomerTasksController {
     public int insertCustomerTasks(@RequestBody TasksDTO tasks){
         System.out.println(tasks);
         CustomerTasks c = new CustomerTasks();
+        c.setId(new SnowFlake(0,0).nextId());
         c.setTaskName(tasks.getName());
         c.setCustomerId(tasks.getCustomer());
         c.setLinkmanId(tasks.getCustomer());
@@ -41,6 +43,15 @@ public class CustomerTasksController {
         c.setTaskStartTime(tasks.getDate1());
         c.setTaskEndTime(tasks.getDate2());
         c.setTaskParticipant(tasks.getParticipant());
+        return customerTasksService.insertCustomerTasks(c);
+    }
+
+    @ResponseBody
+    @PostMapping("/updateCustomerTasks")
+    public int updateCustomerTasks(@RequestBody TasksDTO tasks){
+        System.out.println(tasks);
+        CustomerTasks c = new CustomerTasks();
+        c.setId(tasks.getCustomer());
         return customerTasksService.insertCustomerTasks(c);
     }
 }

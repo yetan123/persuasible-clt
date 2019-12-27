@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.simplify.mapper.DeptMapper">
+    <resultMap id="deptAuthorizeDTO" type="DeptVO">
+        <id property="id" column="id"/>
+        <result property="deptName" column="dept_name"/>
+        <result property="enterpriseId" column="enterprise_id"/>
+        <result property="describe" column="describe"/>
+    </resultMap>
+
+    <update id="updateByDeptId" parameterType="com.simplify.model.dto.DeptVO">
+        UPDATE PERSUASIBLE.tb_department
+        <set>
+            <if test="username!=null">
+                dept_name = #{deptName},
+            </if>
+            <if test="genders!=null">
+                enterprise_id = #{enterpriseId},
+            </if>
+            <if test="phone!=null">
+                describe = #{describe}
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteByDeptId" parameterType="com.simplify.model.dto.DeptVO">
+        DELETE FROM PERSUASIBLE.TB_DEPARTMENT WHERE id = #{id}
+    </delete>
+
+    <select id="listDeptUser" resultMap="deptAuthorizeDTO">
+        SELECT * FROM (SELECT ROWNUM rownum_,d.id,d.DEPT_Name,d.DESCRIBE,d.ENTERPRISE_ID FROM PERSUASIBLE.TB_DEPARTMENT d
+        where ROWNUM &lt;= #{size} order by d.id desc,d.dept_name desc) table_alias where table_alias.rownum_ &gt; #{start}
+             <if test="deptname != null and deptname!= ''">
+                <bind name="deptname" value="'%'+deptname+'%'"/>
+                and table_alias.dept_name like #{deptname}
+            </if>
+            <if test="enabled != null and enabled!= ''">
+                <bind name="enabled" value="'%'+enabled+'%'"/>
+                and u.user_State like #{enabled}
+            </if>
+        order by table_alias.id
+    </select>
+
+    <select id="selectCounts" resultType="int">
+        select count(*) from PERSUASIBLE.TB_DEPARTMENT
+            <if test="deptname != null and deptname!= ''">
+                <bind name="deptname" value="'%'+deptname+'%'"/>
+                and dept_name like #{deptname}
+            </if>
+            <if test="enabled != null and enabled!= ''">
+                <bind name="enabled" value="'%'+enabled+'%'"/>
+                and u.user_State like #{enabled}
+            </if>
+    </select>
+
+</mapper>

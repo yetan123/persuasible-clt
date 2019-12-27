@@ -8,21 +8,19 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- *
- * @author 覃文强
- * @date 2019-12-17
+ * 商机任务负责人表实体类
+ * @author 杨泓
+ * @date 2019-12-25
  */
-@Table(name="tb_department")
+@Table(name="tb_business_task_principal")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Dept {
+public class BusinessTaskPrincipal {
+
     @Id
     private Long id;
+    private Long taskId;
+    private Long userId;
 
-    private String deptName;
-
-    private Integer enterpriseId;
-
-    private String describe;
 }

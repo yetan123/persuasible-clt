@@ -8,21 +8,16 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- *
- * @author 覃文强
- * @date 2019-12-17
+ * 商机类型表实体类
+ * @author 杨泓
+ * @date 2019-12-25
  */
-@Table(name="tb_department")
+@Table(name="tb_business_type")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Dept {
+public class BusinessType {
     @Id
     private Long id;
-
-    private String deptName;
-
-    private Integer enterpriseId;
-
-    private String describe;
+    private String businessType;
 }
