@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.sql.Date;
 import java.util.List;
 
 /**
@@ -23,18 +24,24 @@ public class Business {
     private Long id;
     private String businessName;
     private Long estimatedSales;
-    private String estimatedDate;
+    private Date estimatedDate;
     private Double estimatedSuccess;
     private String customerDecision;
-    private String findDate;
+    private Date findDate;
     private String businessDescription;
     private Long userId;
     private Long businessSourceId;
     private Long customerId;
-    private String buisnessType;
+    private String businessType;
     private String businessPhases;
     private Integer businessState;
-    private String createTime;
-    private List<Customer> customer;
-    private List<User> user;
+    private Date createTime;
+    private User user;
+    private Customer customer;
+
+    public Double getEstimatedSuccess() {
+        estimatedSuccess=estimatedSuccess*100;
+        return estimatedSuccess;
+    }
+
 }

@@ -1,7 +1,11 @@
 package com.simplify.mapper;
 
+import com.simplify.model.dto.CustomerVO;
+import com.simplify.model.dto.UserVO;
 import com.simplify.model.entity.*;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.common.Mapper;
 
@@ -18,9 +22,12 @@ public interface CustomerMapper extends Mapper<Customer> {
     /**
      * @return 全部联系人和客户
      */
-    List<Customer> listCustomerAndLinkman(Map params);
-    List<Customer> listConver(Map params);
-    List<Customer> listConverToMe(Map params);
+    List<CustomerVO> listCustomerAndLinkman(Map params);
+    List<CustomerVO> listConver(Map params);
+    List<CustomerVO> listConverToMe(Map params);
+
+    @Update("update tb_customer SET USER_ID=#{receiveUserId} WHERE ID='${targetCustomerId}' ")
+    int updateCustomerUserIdById(@Param("targetCustomerId") String id, @Param("receiveUserId") String receiveUserId);
 
 
 

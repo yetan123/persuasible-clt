@@ -6,6 +6,7 @@ import com.simplify.service.BusinessService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -15,7 +16,27 @@ import java.util.List;
  */
 @Service
 public class BusinessServiceImpl implements BusinessService {
-    @Autowired
+
+    @Resource
     private BusinessMapper businessMapper;
 
+    @Override
+    public List<Business> selectALl() {
+        return businessMapper.selectAll();
+    }
+
+    @Override
+    public List<Business> listBusiness() {
+        return businessMapper.listBusiness();
+    }
+
+    @Override
+    public List<Business> listBusinessById(Long id) {
+        return businessMapper.listBusinessById(id);
+    }
+
+    @Override
+    public void deleteBusinessById(Long id) {
+        businessMapper.deleteBusinessById(id);
+    }
 }

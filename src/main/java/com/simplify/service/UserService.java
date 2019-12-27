@@ -2,6 +2,7 @@ package com.simplify.service;
 import com.simplify.model.dto.UserAndDeptDTO;
 import com.simplify.model.dto.UserAndDeptVO;
 import com.simplify.model.dto.UserAuthorizeDTO;
+import com.simplify.model.dto.UserVO;
 import com.simplify.model.entity.User;
 import com.simplify.utils.PageBean;
 import java.util.List;
@@ -17,7 +18,7 @@ public interface UserService {
 
         User findUserByAccount(String account);
 
-        List<User> listUserByNotId(Long id);
+        List<UserVO> listUserByNotId(String id);
 
         UserAuthorizeDTO findUserAuthorizeById(Long id);
 

@@ -17,7 +17,25 @@ import java.util.List;
 @RequestMapping("business")
 @CrossOrigin
 public class BusinessController {
+
     @Resource
     BusinessService businessService;
+    @ResponseBody
+    @GetMapping("/listBusiness")
+    public List<Business> listBusiness() {
+        return businessService.listBusiness();
+    }
 
+    @ResponseBody
+    @GetMapping("/listBusinessById")
+    public List<Business> listBusinessById(Long id) {
+        return businessService.listBusinessById(id);
+    }
+
+    @ResponseBody
+    @GetMapping("/deleteBusinessById")
+    public void deleteBusinessById(Long id) {
+        businessService.deleteBusinessById(id);
+        businessService.listBusiness();
+    }
 }

@@ -3,13 +3,13 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.simplify.mapper.CustomerMapper">
-    <resultMap id="findCustomerTasksById" type="Customer">
+    <resultMap id="findCustomerTasksById" type="CustomerVO">
       <id property="id" column="id"/>
         <association property="customerTasks" column="id" select="com.simplify.mapper.CustomerTasksMapper.getCustomerTasksByCustomerId" />
         <association property="user" column="user_id" select="com.simplify.mapper.UserMapper.selectByPrimaryKey"/>
         <collection property="linkmanList" column="id" select="com.simplify.mapper.LinkmanMapper.listLinkmansByCustomerId"/>
     </resultMap>
-    <resultMap id="findCustomerConverById" type="Customer">
+    <resultMap id="findCustomerConverById" type="CustomerVO">
         <id property="id" column="id"/>
         <association property="user" column="conver_user_id" select="com.simplify.mapper.UserMapper.selectByPrimaryKey"/>
         <collection property="linkmanList" column="id" select="com.simplify.mapper.LinkmanMapper.listLinkmansByCustomerId"/>
@@ -41,7 +41,7 @@
            and c.customer_rank like #{customerRank}
        </if>
        <if test="customerFollowDate!=null and customerFollowDate!=''">
-           and t.task_end_time = #{customerFollowDate}
+           and t.task_end_time &gt;= to_date(#{customerFollowDate},'yyyy-mm-dd')
        </if>
        <if test="createStartDate!=null and createStartDate!='' and createEndDate==null or createEndDate==''">
            and c.CREATE_TIME &gt;= to_date(${createStartDate},'yyyy-mm-dd')
@@ -84,7 +84,7 @@
             and c.customer_rank like #{customerRank}
         </if>
         <if test="customerFollowDate!=null and customerFollowDate!=''">
-            and t.task_end_time = #{customerFollowDate}
+            and t.task_end_time &gt;= to_date(#{customerFollowDate},'yyyy-mm-dd')
         </if>
         <if test="createStartDate!=null and createStartDate!='' and createEndDate==null or createEndDate==''">
             and c.CREATE_TIME &gt;= to_date(${createStartDate},'yyyy-mm-dd')
@@ -126,7 +126,7 @@
             and c.customer_rank like #{customerRank}
         </if>
         <if test="customerFollowDate!=null and customerFollowDate!=''">
-            and t.task_end_time = #{customerFollowDate}
+            and t.task_end_time &gt;= to_date(#{customerFollowDate},'yyyy-mm-dd')
         </if>
         <if test="createStartDate!=null and createStartDate!='' and createEndDate==null or createEndDate==''">
             and c.CREATE_TIME &gt;= to_date(${createStartDate},'yyyy-mm-dd')

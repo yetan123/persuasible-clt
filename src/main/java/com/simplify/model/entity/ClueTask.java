@@ -4,27 +4,22 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Id;
 import javax.persistence.Table;
-import java.sql.Date;
+import java.util.Date;
 
 /**
- * 商机跟进任务表实体类
- * @author 杨泓
- * @date 2019-12-17
+ * 线索任务
  */
-
-@Table(name="tb_business_task")
+@Table(name="tb_clue_task")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class BusinessTask {
-    @Id
+public class ClueTask {
     private Long id;
     private String taskContent;
-    private Date taskDate;
-    private Date taskFinishDate;
-    private Long businessId;
+    private Date taskStartTime;
     private Integer taskState;
-
+    private Date taskFinishTime;
+    private Long clueId;
+    private String clueParticipant;
 }

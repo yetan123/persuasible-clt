@@ -3,6 +3,7 @@ import com.simplify.mapper.UserMapper;
 import com.simplify.model.dto.UserAndDeptDTO;
 import com.simplify.model.dto.UserAndDeptVO;
 import com.simplify.model.dto.UserAuthorizeDTO;
+import com.simplify.model.dto.UserVO;
 import com.simplify.model.entity.User;
 import com.simplify.service.UserService;
 import com.simplify.utils.PageBean;
@@ -31,11 +32,8 @@ public class UserServiceImpl implements UserService
     }
 
     @Override
-    public List<User> listUserByNotId(Long id) {
-        Example  example =new Example(User.class);
-        Example.Criteria criteria = example.createCriteria();
-        criteria.andNotEqualTo("id",id);
-        return userMapper.selectByExample(example);
+    public List<UserVO> listUserByNotId(String id) {
+        return userMapper.listUserByNotId(id);
     }
 
     @Override
