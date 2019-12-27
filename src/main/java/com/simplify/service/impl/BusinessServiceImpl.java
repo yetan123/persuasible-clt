@@ -21,6 +21,11 @@ public class BusinessServiceImpl implements BusinessService {
     private BusinessMapper businessMapper;
 
     @Override
+    public List<Business> selectALl() {
+        return businessMapper.selectAll();
+    }
+
+    @Override
     public List<Business> listBusiness() {
         return businessMapper.listBusiness();
     }
@@ -28,5 +33,10 @@ public class BusinessServiceImpl implements BusinessService {
     @Override
     public List<Business> listBusinessById(Long id) {
         return businessMapper.listBusinessById(id);
+    }
+
+    @Override
+    public void deleteBusinessById(Long id) {
+        businessMapper.deleteBusinessById(id);
     }
 }

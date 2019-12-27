@@ -173,7 +173,7 @@ public class CustomerController {
         return params;
     }
 
-<<<<<<< HEAD
+
     private String converTime(String time) throws ParseException {
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
         Date parse = df.parse(time);
@@ -182,7 +182,8 @@ public class CustomerController {
         df = new SimpleDateFormat("yyyy-MM-dd");
         System.out.println(df.format(date1));
         return df.format(date1);
-=======
+
+    }
     @ResponseBody
     @GetMapping("selectById")
     public List<Customer> selectById(Long id){
@@ -191,7 +192,7 @@ public class CustomerController {
         List<Customer> list = customerService.selectbyId(tid);
         System.out.println(list);
         return list;
->>>>>>> 3f413e7aaa37ca82de5d7a2d62303dd1ba60070f
+
     }
 }
 

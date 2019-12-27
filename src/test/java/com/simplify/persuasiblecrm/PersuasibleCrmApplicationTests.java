@@ -1,9 +1,6 @@
 package com.simplify.persuasiblecrm;
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 15ade0ecff057abb6d457a9c4ba96a0833b5abfa
 import com.simplify.model.dto.UserAuthorizeDTO;
 import com.simplify.mapper.UserMapper;
 import com.simplify.model.entity.Business;
@@ -20,20 +17,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 class PersuasibleCrmApplicationTests {
-<<<<<<< HEAD
-=======
 
->>>>>>> 15ade0ecff057abb6d457a9c4ba96a0833b5abfa
     @Autowired
     private CustomerService customerService;
     private CustomerRecordService customerRecordService;
 
 
     private CustomerTasksService customerTasksService;
-<<<<<<< HEAD
-
-=======
->>>>>>> 15ade0ecff057abb6d457a9c4ba96a0833b5abfa
 
     @Test
     void contextLoads() {

@@ -58,9 +58,9 @@
                 job = #{job},
             </if>
             <if test="deptId!=null">
-                dept_id = #{deptId}
+                dept_id = #{deptId},
             </if>
-            <if test="user_State!=null">
+            <if test="userState!=null">
                 user_State = #{userState}
             </if>
         </set>

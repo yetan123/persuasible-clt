@@ -25,7 +25,7 @@ public class Business {
     private String businessName;
     private Long estimatedSales;
     private Date estimatedDate;
-    private Integer estimatedSuccess;
+    private Double estimatedSuccess;
     private String customerDecision;
     private Date findDate;
     private String businessDescription;
@@ -39,8 +39,8 @@ public class Business {
     private User user;
     private Customer customer;
 
-    public Integer getEstimatedSuccess() {
-        this.estimatedSuccess=estimatedSuccess*100;
+    public Double getEstimatedSuccess() {
+        estimatedSuccess=estimatedSuccess*100;
         return estimatedSuccess;
     }
 

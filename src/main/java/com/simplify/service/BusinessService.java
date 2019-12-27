@@ -11,6 +11,8 @@ import java.util.List;
  */
 
 public interface BusinessService {
+    List<Business> selectALl();
     List<Business> listBusiness();
     List<Business> listBusinessById(Long id);
+    void deleteBusinessById(Long id);
 }

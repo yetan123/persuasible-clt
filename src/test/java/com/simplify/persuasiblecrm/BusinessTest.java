@@ -16,6 +16,14 @@ public class BusinessTest {
     BusinessService businessService;
 
     @Test
+    public void selectAll(){
+        List<Business> business=businessService.selectALl();
+        for (Business b:business) {
+            System.out.println(b);
+        }
+    }
+
+    @Test
     public void listBusiness(){
         List<Business> business=businessService.listBusiness();
         for (Business b:business) {
@@ -30,6 +38,12 @@ public class BusinessTest {
         for (Business b:business) {
             System.out.println(b);
         }
+    }
+
+    @Test
+    public void deleteBusinessById(){
+        Long id = new Long(5);
+        businessService.deleteBusinessById(id);
     }
 
 }
