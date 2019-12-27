@@ -3,9 +3,6 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.simplify.mapper.BusinessMapper">
-    <select id="selectAll" resultType="com.simplify.model.entity.Business">
-            select * from TB_BUSINESS
-    </select>
     <resultMap id="BusinessAndCustomerAndCustomer" type="com.simplify.model.entity.Business">
     <id property="id" column="id"/>
     <result property="businessName" column="BUSINESS_NAME"/>
@@ -32,7 +29,6 @@
     </resultMap>
     <select id="selectAll" resultType="Business">
         SELECT * FROM TB_BUSINESS Order BY ID
->>>>>>> 93d2e682941219520c0d28632aa6000b17868f45
     </select>
 
     <select id="listBusiness" resultMap="BusinessAndCustomerAndCustomer">
