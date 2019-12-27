@@ -45,4 +45,13 @@ public class CustomerTasksController {
         c.setTaskParticipant(tasks.getParticipant());
         return customerTasksService.insertCustomerTasks(c);
     }
+
+    @ResponseBody
+    @PostMapping("/updateCustomerTasks")
+    public int updateCustomerTasks(@RequestBody TasksDTO tasks){
+        System.out.println(tasks);
+        CustomerTasks c = new CustomerTasks();
+        c.setId(tasks.getCustomer());
+        return customerTasksService.insertCustomerTasks(c);
+    }
 }

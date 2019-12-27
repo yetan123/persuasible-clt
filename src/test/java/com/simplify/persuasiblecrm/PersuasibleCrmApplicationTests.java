@@ -1,6 +1,5 @@
 package com.simplify.persuasiblecrm;
 
-
 import com.simplify.model.dto.UserAuthorizeDTO;
 import com.simplify.mapper.UserMapper;
 import com.simplify.model.entity.Business;
@@ -17,7 +16,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 class PersuasibleCrmApplicationTests {
-
     @Autowired
     private CustomerService customerService;
     private CustomerRecordService customerRecordService;
@@ -27,11 +25,9 @@ class PersuasibleCrmApplicationTests {
 
     @Test
     void contextLoads() {
-
         Long id = 407157154483535872L;
 
         System.out.println(customerService.selectbyId(id));
     }
-
 
 }

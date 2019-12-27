@@ -186,10 +186,10 @@ public class CustomerController {
     }
     @ResponseBody
     @GetMapping("selectById")
-    public List<Customer> selectById(Long id){
-        System.out.println(id);
-        Long tid = 407157154483535872L;
-        List<Customer> list = customerService.selectbyId(tid);
+    public List<Customer> selectById(String id){
+        long l = Long.valueOf(id).longValue();
+        System.out.println(l);
+        List<Customer> list = customerService.selectbyId(l);
         System.out.println(list);
         return list;
 
