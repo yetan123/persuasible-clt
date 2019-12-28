@@ -23,14 +23,14 @@ public class DeptController {
     @GetMapping("/selectAll")
     public JSONObject selectAll(@RequestParam(value ="deptname",required = false)String deptName,
                                 @RequestParam(defaultValue = "1",value ="pageNum",required = false)Integer pageNum){
-        PageBean<DeptVO> pages=null;
+        PageBean<DeptVO> pages;
         if (deptName!=null) {
             if (deptName=="" || deptName==null){
                 deptName=null;
             }
             pages= deptService.listDeptUser(deptName,pageNum);
         }else{
-            pages= deptService.listDeptUser(deptName,pageNum);
+            pages= deptService.listDeptUser(null,pageNum);
         }
         //封装好信息返回给前台页面
         JSONObject json=new JSONObject();

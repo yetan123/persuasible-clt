@@ -27,9 +27,9 @@ public class UserController {
                                 @RequestParam(value ="username",required = false)String userName,
                                 @RequestParam(value ="enabled",required = false)String enabled,
                                 @RequestParam(defaultValue = "1",value ="pageNum",required = false)Integer pageNum){
-        PageBean<UserAndDeptVO> pages=null;
+        PageBean<UserAndDeptVO> pages;
         if (deptName!=null || userName!=null || enabled!=null) {
-            if (enabled=="" || enabled==null){
+            if (enabled =="" || enabled==null){
                 enabled=null;
             }
             if(deptName=="" || deptName== null){
@@ -40,7 +40,7 @@ public class UserController {
             }
             pages= userService.listUserAndDept(deptName,userName,enabled,pageNum);
         }else{
-            pages= userService.listUserAndDept(deptName,userName,enabled,pageNum);
+            pages= userService.listUserAndDept(null,null,null,pageNum);
         }
         //封装好信息返回给前台页面
         JSONObject json=new JSONObject();
@@ -71,7 +71,7 @@ public class UserController {
 
     @PostMapping("/updateByState")
     public int updateByState(@RequestBody UserAndDeptVO user) {
-        System.out.println("进入修改方法");
+        System.out.println("进入修改状态方法");
         System.out.println(user+""+user.getUserState());
         return userService.updateByState(user);
     }

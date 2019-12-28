@@ -2,6 +2,8 @@ package com.simplify.service;
 
 import com.simplify.model.entity.Role;
 import com.simplify.model.vo.RoleAuthorizeVO;
+import com.simplify.utils.PageBean;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -12,8 +14,8 @@ import java.util.List;
  */
 public interface RoleService {
     List<Role> listRole();
-
-    List<RoleAuthorizeVO> listRoleAuthorize();
+    //分页 模糊查询
+    PageBean<RoleAuthorizeVO> listRoleAuthorize(String roleName,Integer currentPage);
 
     Integer updateRole(Role role);
 
