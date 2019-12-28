@@ -12,7 +12,7 @@
         <result property="icon" column="icon"/>
         <result property="title" column="title"/>
         <result property="permission" column="permission"/>
-        <collection property="children" column="id" ofType="RouteDTO" select="listRouteDTO"/>
+        <collection property="children" ofType="RouteDTO" select="listRouteDTO"/>
     </resultMap>
     <select id="listRouteDTO" resultMap="routeDTO">
         select id,name ,path,hidden,component,icon,title,permission from tb_menu <where>

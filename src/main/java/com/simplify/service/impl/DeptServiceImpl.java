@@ -1,7 +1,6 @@
 package com.simplify.service.impl;
 import com.simplify.mapper.DeptMapper;
 import com.simplify.model.dto.DeptVO;
-import com.simplify.model.entity.Dept;
 import com.simplify.service.DeptService;
 import com.simplify.utils.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,12 +28,12 @@ public class DeptServiceImpl implements DeptService {
     }
 
     @Override
-    public int insertUser(Dept dept) {
-        return deptMapper.insert(dept);
+    public int insertDept(DeptVO deptVO) {
+        return deptMapper.insertDept(deptVO);
     }
 
     @Override
-    public PageBean<DeptVO> listDeptUser(String deptname, String enabled, Integer currentPage) {
+    public PageBean<DeptVO> listDeptUser(String deptname, Integer currentPage) {
         PageBean<DeptVO> pageBean = new PageBean<DeptVO>();
         //封装当前页数
         pageBean.setPageNum(currentPage);
@@ -42,7 +41,7 @@ public class DeptServiceImpl implements DeptService {
         int pageSize=5;
         pageBean.setPageSize(pageSize);
         //封装总记录数
-        int totalCount = deptMapper.selectCounts(deptname,enabled);
+        int totalCount = deptMapper.selectCounts(deptname);
         pageBean .setTotalCount(totalCount);
         //封装总页数
         double tc = totalCount;
@@ -51,7 +50,7 @@ public class DeptServiceImpl implements DeptService {
         int start=(currentPage-1)*pageSize;
         int size = pageBean.getPageSize() * pageBean.getPageNum();
         //封装每页显示的数据
-        List<DeptVO> lists = deptMapper.listDeptUser(deptname,enabled,start,size);
+        List<DeptVO> lists = deptMapper.listDeptUser(deptname,start,size);
         pageBean.setLists(lists);
         return pageBean;
     }

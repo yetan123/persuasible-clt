@@ -19,9 +19,11 @@ public interface DeptMapper extends Mapper<Dept> {
 
     int deleteByDeptId(DeptVO deptVO);
 
+    int insertDept(DeptVO deptVO);
+
     //分页 模糊查询
-    List<DeptVO> listDeptUser(@Param("deptname") String deptname,@Param("enabled") String enabled, @Param("start") int start, @Param("size") int size);
+    List<DeptVO> listDeptUser(@Param("deptname") String deptname,@Param("start") int start, @Param("size") int size);
 
     //查询总记录
-    int selectCounts(@Param("deptname") String deptname,@Param("enabled") String enabled);
+    int selectCounts(@Param("deptname") String deptname);
 }
