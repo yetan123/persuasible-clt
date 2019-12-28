@@ -141,6 +141,31 @@
         <!-- &lt;=  小于等于 -->
         <!-- &gt;= 大于于等于 -->
     </select>
+    <resultMap id="byid" type="CustomerVO">
+        <id property="id" column="id"/>
+        <result property="companyName" column="COMPANY_NAME"/>
+        <result property="companyEmail" column="COMPANY_EMAIL"/>
+        <result property="specialPlane" column="SPECIAL_PLANE"/>
+        <result property="companyAddress" column="COMPANY_ADDRESS"/>
+        <result property="trade" column="TRADE"/>
+        <result property="companyScale" column="COMPANY_SCALE"/>
+        <result property="customerCategory" column="CUSTOMER_CATEGORY"/>
+        <result property="customerRank" column="CUSTOMER_RANK"/>
+        <result property="createTime" column="CREATE_TIME"/>
 
+        <association property="linkman" javaType="linkman">
+            <id property="id" column="id"/>
+            <result property="customerName" column="CUSTOMER_NAME"/>
+            <result property="brithday" column="BRITHDAY"/>
+            <result property="phone" column="PHONE"/>
+            <result property="email" column="EMAIL"/>
+            <result property="likeCustomer" column="LIKE_CUSTOMER"/>
+            <result property="customerRemark" column="CUSTOMER_REMARK"/>
+        </association>
+    </resultMap>
+    <select id="selectByID"  resultMap="byid" parameterType="String">
+          SELECT COMPANY_NAME,COMPANY_EMAIL,SPECIAL_PLANE,COMPANY_ADDRESS,TRADE,COMPANY_SCALE,CUSTOMER_CATEGORY,CUSTOMER_RANK,CREATE_TIME,CUSTOMER_NAME,BRITHDAY,PHONE,EMAIL,LIKE_CUSTOMER,CUSTOMER_REMARK from PERSUASIBLE.TB_CUSTOMER c inner join PERSUASIBLE.TB_LINKMAN l on c.ID = l.CUSTOMER_ID
+          where c.ID = #{id,jdbcType=VARCHAR}
+   </select>
 
 </mapper>
