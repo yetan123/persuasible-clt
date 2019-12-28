@@ -1,6 +1,7 @@
 package com.simplify.controller;
 
 import com.simplify.model.dto.ContractDTO;
+import com.simplify.model.dto.ContractVO;
 import com.simplify.model.entity.Contract;
 import com.simplify.model.entity.Linkman;
 import com.simplify.service.impl.ContractDTOServiceImpl;
@@ -21,14 +22,15 @@ public class ContractController {
     @Autowired
     private ContractDTOServiceImpl contractDTOServiceImpl;
 
-    @GetMapping(value = "/listContractById")
-    public List<Contract> listContract(Long id){
-        //System.out.println(id);
-        return contractServiceImpl.listContractById(id);
-    }
+//    @GetMapping(value = "/listContractById")
+//    public List<Contract> listContract(String id){
+//        //System.out.println(id);
+//
+//        //return contractServiceImpl.listContractById(id);;
+//    }
 
     @GetMapping(value = "/listContract")
-    public List<Contract> listContract(){
+    public List<ContractVO> listContract(){
         return contractServiceImpl.listContract();
     }
 

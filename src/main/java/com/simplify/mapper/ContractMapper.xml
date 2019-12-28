@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.simplify.mapper.ContractMapper">
-<resultMap id="ContractAndCustomerAndCustomer" type="com.simplify.model.entity.Contract">
+<resultMap id="ContractAndCustomerAndCustomer" type="com.simplify.model.dto.ContractVO">
     <id property="id" column="id"/>
     <result property="contractName" column="CONTRACT_NAME"/>
     <result property="contractCode" column="CONTRACT_CODE"/>
@@ -13,17 +13,18 @@
     <result property="contractState" column="CONTRACT_STATE"/>
     <result property="contractDate" column="CONTRACT_DATE"/>
 
-    <association property="user" javaType="com.simplify.model.entity.User">
+    <association property="userVO" javaType="com.simplify.model.dto.UserVO">
         <id property="id" column="id"/>
         <result property="username" column="USERNAME"/>
     </association>
 
-    <association property="customer" javaType="com.simplify.model.entity.Customer">
+    <association property="customerVO" javaType="com.simplify.model.dto.CustomerVO">
         <id property="id" column="id"/>
         <result property="companyName" column="COMPANY_NAME"/>
     </association>
 </resultMap>
-    <select id="listContractById" resultMap="ContractAndCustomerAndCustomer" parameterType="Long">
+
+    <select id="listContractById" resultMap="ContractAndCustomerAndCustomer" parameterType="String">
         select co.CONTRACT_NAME,co.CONTRACT_CODE,cu.COMPANY_NAME,co.TOTAL_MONEY,co.START_TIME,co.END_TIME,co.CONTRACT_STATE,u.USERNAME
         from TB_CONTRACT co inner join TB_CUSTOMER cu on co.COSTOMER_ID = cu.id
         inner join TB_USER u on co.PRINCIPAL_ID = u.ID where u.id = #{id}

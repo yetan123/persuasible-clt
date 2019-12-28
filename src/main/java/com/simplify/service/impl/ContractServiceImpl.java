@@ -1,6 +1,7 @@
 package com.simplify.service.impl;
 
 import com.simplify.mapper.ContractMapper;
+import com.simplify.model.dto.ContractVO;
 import com.simplify.model.entity.Contract;
 import com.simplify.service.ContractService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +16,12 @@ public class ContractServiceImpl implements ContractService {
     private ContractMapper contractMapper;
 
     @Override
-    public List<Contract> listContract() {
+    public List<ContractVO> listContract() {
         return contractMapper.listContract();
     }
 
     @Override
-    public List<Contract> listContractById(Long id) {
+    public List<ContractVO> listContractById(String id) {
         return contractMapper.listContractById(id);
     }
 

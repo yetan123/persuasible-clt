@@ -1,5 +1,6 @@
 package com.simplify.mapper;
 
+import com.simplify.model.dto.ContractVO;
 import com.simplify.model.entity.Contract;
 import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.common.Mapper;
@@ -7,11 +8,11 @@ import tk.mybatis.mapper.common.Mapper;
 import java.util.List;
 
 @Repository
-public interface ContractMapper extends Mapper<Contract> {
+public interface ContractMapper extends Mapper<ContractVO> {
 
-       List<Contract> listContract();
+       List<ContractVO> listContract();
 
-       List<Contract> listContractById(Long id);
+       List<ContractVO> listContractById(String id);
 
        void deleteContractByContractCode(String contractCode);
 }
