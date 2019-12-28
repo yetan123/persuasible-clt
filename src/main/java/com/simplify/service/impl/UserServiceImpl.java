@@ -75,7 +75,7 @@ public class UserServiceImpl implements UserService
         //封装每页显示的数据
         List<UserAndDeptVO> lists = userMapper.listUserAndDept(deptname,username,enabled,start,size);
         pageBean.setLists(lists);
-      /*  System.out.println(lists+"----------结束");*/
+        /*  System.out.println(lists+"----------结束");*/
         return pageBean;
     }
 

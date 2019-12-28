@@ -3,9 +3,12 @@ package com.simplify.model.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.Collection;
 
 /**
  * 用户表实体类
@@ -35,5 +38,6 @@ public class User {
     private Long deptId;
 
     private Integer userState;
+
 
 }

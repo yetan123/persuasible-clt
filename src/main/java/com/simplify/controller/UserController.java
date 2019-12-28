@@ -52,9 +52,7 @@ public class UserController {
     }
     @PostMapping("/add")
     public int add(@RequestBody User user) {
-        System.out.println("进入添加方法");
         user.setId(new SnowFlake(0,0).nextId());
-        System.out.println(user);
         return userService.insertUser(user);
     }
     @PostMapping("/update")
@@ -70,6 +68,7 @@ public class UserController {
         System.out.println("进入删除方法");
         return userService.deleteByUserId(userAndDeptVO);
     }
+
     @PostMapping("/updateByState")
     public int updateByState(@RequestBody UserAndDeptVO user) {
         System.out.println("进入修改方法");

@@ -1,12 +1,11 @@
 package com.simplify.controller;
 
+import com.simplify.model.dto.RoleOfMenuDTO;
 import com.simplify.model.dto.RouteDTO;
 import com.simplify.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,7 +23,12 @@ public class MenuController {
     private MenuService menuServiceImpl;
     @GetMapping("")
     public List<RouteDTO> getMenuList(){
-        List<RouteDTO> menus = menuServiceImpl.listMenu();
+        List<RouteDTO> menus = menuServiceImpl.listRoute();
         return menus;
+    }
+    @PreAuthorize("hasAuthority('菜单分配:PUT')")
+    @PutMapping("")
+    public Integer handleMenu(@RequestBody RoleOfMenuDTO roleOfMenuDTO){
+        return menuServiceImpl.handleMenu(roleOfMenuDTO);
     }
 }
