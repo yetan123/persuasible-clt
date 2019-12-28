@@ -27,4 +27,8 @@ inner join PERSUASIBLE.TB_LINKMAN l on t.LINKMAN_ID=l.CUSTOMER_ID
 inner join PERSUASIBLE.TB_CUSTOMER s on t.CUSTOMER_ID = s.ID
    </select>
 
+    <insert id="insertCustomerTasks" parameterType="CustomerTasks">
+      insert into PERSUASIBLE.TB_CUSTOMER_TASKS VALUES(#{id},#{customerId},#{linkmanId},#{taskName},#{taskContent},#{taskStartTime},#{taskEndTime},#{taskParticipant})
+    </insert>
+
 </mapper>
