@@ -64,7 +64,6 @@ public class UserController {
     public int update(@RequestBody UserAndDeptVO user) {
         System.out.println("进入修改方法");
         user.setUsername(user.getUsername());
-        System.out.println(user+""+user.getId());
         return userService.updateByUserId(user);
     }
     @ResponseBody
@@ -84,7 +83,6 @@ public class UserController {
     @PostMapping("/updateByState")
     public int updateByState(@RequestBody UserAndDeptVO user) {
         System.out.println("进入修改状态方法");
-        System.out.println(user+""+user.getUserState());
         return userService.updateByState(user);
     }
 

@@ -16,7 +16,7 @@
             <result column="role_name"/>
         </collection>
     </resultMap>
-    <resultMap id="userAndDeptD" type="UserAndDeptVO">
+    <resultMap id="userAndDeptDTO" type="UserAndDeptDTO">
         <id property="id" column="user_id"/>
         <result property="account" column="account"/>
         <result property="username" column="username"/>
@@ -26,10 +26,12 @@
         <result property="job" column="job"/>
         <result property="deptId" column="dept_id"/>
         <result property="userState" column="user_state"/>
-        <collection property="depts"   ofType="String" >
-            <result column="dept_name"/>
-            <result column="enterprise_id"/>
-            <result column="describe"/>
+        <collection property="depts"   ofType="DeptVO" >
+            <result property="deptName" column="dept_name"/>
+            <result property="createTime" column="create_Time"/>
+            <result property="enterpriseId" column="enterprise_id"/>
+            <result property="describe" column="describe"/>
+            <result property="pid" column="pid"/>
         </collection>
     </resultMap>
     <select id="findUserAndRoleByUserId" resultMap="userAuthorizeDTO">
@@ -40,11 +42,11 @@
         join tb_role rol on rol.id = usr_rol.role_id where usr.id = #{id}
     </select>
 
-    <delete id="deleteByUserId" parameterType="com.simplify.model.dto.UserAndDeptVO">
+    <delete id="deleteByUserId" parameterType="com.simplify.model.dto.UserAndDeptDTO">
         DELETE FROM PERSUASIBLE.tb_User WHERE id = #{id}
     </delete>
 
-    <update id="updateByUserId" parameterType="com.simplify.model.dto.UserAndDeptVO">
+    <update id="updateByUserId" parameterType="com.simplify.model.dto.UserAndDeptDTO">
         UPDATE PERSUASIBLE.tb_user
         <set>
             <if test="username!=null">
@@ -66,7 +68,7 @@
         WHERE id = #{id}
     </update>
 
-    <update id="updateByState" parameterType="com.simplify.model.dto.UserAndDeptVO">
+    <update id="updateByState" parameterType="com.simplify.model.dto.UserAndDeptDTO">
         UPDATE PERSUASIBLE.tb_user
         <set>
             <if test="userState!=null">
@@ -76,9 +78,9 @@
         WHERE id = #{id}
     </update>
 
-    <select id="listUserAndDept" resultMap="userAndDeptD">
+    <select id="listUserAndDept" resultMap="userAndDeptDTO">
         select * from (select row_.*,rownum rownum_ from (
-        select bb.* from(select bw.id as user_id,bw.ACCOUNT,bw.username,bw.job,bw.genders,bw.dept_id,bw.phone,bw.USER_STATE,bwm.id,bw.password,
+        select bb.* from(select bw.id as user_id,bw.ACCOUNT,bw.username,bw.job,bw.genders,bw.dept_id,bw.phone,bw.USER_STATE,bwm.id,bw.password,bwm.pid,
         bwm.DEPT_Name,bwm.DESCRIBE,bwm.ENTERPRISE_ID from PERSUASIBLE.tb_User bw inner join PERSUASIBLE.TB_DEPARTMENT bwm on bw.dept_id=bwm.id
         <where>
             <if test="deptname != null and deptname!= ''">

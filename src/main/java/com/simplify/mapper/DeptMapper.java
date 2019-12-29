@@ -1,11 +1,13 @@
 package com.simplify.mapper;
 import com.simplify.model.dto.DeptVO;
 import com.simplify.model.entity.Dept;
+import net.minidev.json.JSONObject;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 部门映射层
@@ -26,4 +28,12 @@ public interface DeptMapper extends Mapper<Dept> {
 
     //查询总记录
     int selectCounts(@Param("deptname") String deptname);
+    /**
+     * Tree树
+     */
+    /* List<DeptVO> findAll();*/
+    List<DeptVO> tree();
+    List<DeptVO> tree2(@Param("id")String id);
+
+    List<DeptVO> findAll();
 }
