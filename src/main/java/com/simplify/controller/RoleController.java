@@ -44,7 +44,11 @@ public class RoleController {
         }else{
             pages= roleServiceImpl.listRoleAuthorize(null,pageNum);
         }
+        List<Menu> menus = menuServiceImpl.listMenu();
+        List<ResourceVO> resourceVOS = resourceServiceImpl.listResourceViewObject();
         roleMap.put("roleAuthorize",pages);
+        roleMap.put("menus",menus);
+        roleMap.put("resources",resourceVOS);
         return roleMap;
     }
    /* public Map<String,Object> selectRoleAuthorize(@RequestParam(defaultValue = "1",value ="pageNum",required = false)Integer pageNum){

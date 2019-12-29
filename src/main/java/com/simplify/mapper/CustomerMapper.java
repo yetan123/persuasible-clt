@@ -26,7 +26,15 @@ public interface CustomerMapper extends Mapper<Customer> {
     List<CustomerVO> listConver(Map params);
     List<CustomerVO> listConverToMe(Map params);
 
-    @Update("update tb_customer SET USER_ID=#{receiveUserId} WHERE ID='${targetCustomerId}' ")
+    /**
+     * 客户转交
+     * @param id
+     * @param receiveUserId
+     * @return
+     * @date 2019/12/27写的注释
+     * @author lanmu
+     */
+    @Update("update tb_customer SET USER_ID=#{receiveUserId} WHERE ID=#{targetCustomerId} ")
     int updateCustomerUserIdById(@Param("targetCustomerId") String id, @Param("receiveUserId") String receiveUserId);
 
 

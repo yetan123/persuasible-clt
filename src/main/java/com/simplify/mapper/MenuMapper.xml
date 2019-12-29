@@ -11,7 +11,6 @@
         <result property="component" column="component"/>
         <result property="icon" column="icon"/>
         <result property="title" column="title"/>
-        <collection property="permission" column="id" select="listPermission" ofType="String"/>
         <collection property="children" column="id" ofType="RouteDTO" select="listRouteDTO"/>
     </resultMap>
     <select id="listRouteDTO" resultMap="routeDTO">

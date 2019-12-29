@@ -16,7 +16,6 @@ import java.util.Map;
 
 @Repository
 public interface BusinessMapper extends Mapper<Business> {
-    List<Business> selectAll();
 
     //查询商机所有数据及实现分页功能
     List<Business> listBusiness();

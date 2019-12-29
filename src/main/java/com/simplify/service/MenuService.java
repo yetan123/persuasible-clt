@@ -6,6 +6,7 @@ import com.simplify.model.entity.Menu;
 import org.springframework.cache.annotation.CacheEvict;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 菜单服务接口
@@ -18,4 +19,6 @@ public interface MenuService {
    List<Menu> listMenu();
 
    Integer handleMenu(RoleOfMenuDTO roleOfMenuDTO);
+
+   Map<Long,List<String>> listPermission(List<RouteDTO> menus);
 }

@@ -27,9 +27,6 @@
         <result property="companyName" column="COMPANY_NAME"/>
     </association>
     </resultMap>
-    <select id="selectAll" resultType="Business">
-        SELECT * FROM TB_BUSINESS Order BY ID
-    </select>
 
     <select id="listBusiness" resultMap="BusinessAndCustomerAndCustomer">
         SELECT

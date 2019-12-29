@@ -52,7 +52,7 @@ public class RulesDetails extends User implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return this.getUserState() == 1;
     }
 
     @Override

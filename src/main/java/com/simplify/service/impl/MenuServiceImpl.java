@@ -13,7 +13,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 菜单业务接口实现类
@@ -22,8 +25,7 @@ import java.util.List;
  */
 @Service
 @Transactional(rollbackFor = {Exception.class})
-public class MenuServiceImpl implements MenuService
-{
+public class MenuServiceImpl implements MenuService {
     @Autowired
     private MenuMapper menuMapper;
 
@@ -51,7 +53,7 @@ public class MenuServiceImpl implements MenuService
      * @param roleOfMenuDTO
      * @return 受响应行
      */
-    @CacheEvict(value = {"menuList"},allEntries = true)
+    @CacheEvict(value = {"roleAuthorize","permissions"},allEntries = true)
     @Override
     public Integer handleMenu(RoleOfMenuDTO roleOfMenuDTO) {
         SnowFlake snowFlake = new SnowFlake(0,0);
@@ -65,5 +67,17 @@ public class MenuServiceImpl implements MenuService
         }
         count += menuMapper.removeMenuSelectivity(roleOfMenuDTO);
         return count;
+    }
+
+    @Cacheable("permissions")
+    @Override
+    public Map<Long,List<String>> listPermission(List<RouteDTO> menus) {
+        Map<Long,List<String>> menuCacheMap = new HashMap<>();
+        menus.forEach((routeDTO)->{
+            List<String> permissionList = menuMapper.listPermission(routeDTO.getId());
+            routeDTO.setPermission(permissionList);
+            menuCacheMap.put(routeDTO.getId(),permissionList);
+        });
+        return menuCacheMap;
     }
 }

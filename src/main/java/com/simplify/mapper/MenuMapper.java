@@ -20,4 +20,6 @@ public interface MenuMapper extends Mapper<Menu> {
     Integer insertMenuSelectivity(RoleOfMenuDTO roleOfMenuDTO);
 
     Integer removeMenuSelectivity(RoleOfMenuDTO roleOfMenuDTO);
+
+    List<String> listPermission(Long id);
 }

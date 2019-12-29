@@ -8,12 +8,13 @@ import com.simplify.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import java.util.List;
 
 
 @SpringBootTest
 public class UserApplication {
+<<<<<<< HEAD
     @Autowired
     private MenuService menuServiceImpl;
     @Autowired
@@ -24,6 +25,11 @@ public class UserApplication {
     void contextLoads() {
         System.out.println(userService.listUserAndDept(null,null,null,1));;
 
+=======
+    @Test
+    void contextLoads() {
+        System.out.println(new BCryptPasswordEncoder().encode("962464"));
+>>>>>>> f5aec6cabafaaefe18c832e03c677ca468158a21
     }
 
 }

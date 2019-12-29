@@ -10,6 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 /**
  * 用户控制器,负责对用户实体的业务分发
  * @author yuntian
@@ -21,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class UserController {
     @Autowired
     private UserService userService;
+
     /*分页*/
     @GetMapping("/selectAll")
     public JSONObject selectAll(@RequestParam(value ="deptname",required = false)String deptName,
@@ -68,6 +73,13 @@ public class UserController {
         return userService.deleteByUserId(userAndDeptVO);
     }
 
+    @GetMapping("qqLogin")
+    public void qqLoginAfter(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession();
+        String code = request.getParameter("code");
+        String state = request.getParameter("state");
+        String uuid = (String) session.getAttribute("state");
+    }
     @PostMapping("/updateByState")
     public int updateByState(@RequestBody UserAndDeptVO user) {
         System.out.println("进入修改状态方法");
