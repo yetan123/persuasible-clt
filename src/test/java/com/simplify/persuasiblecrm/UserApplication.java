@@ -14,7 +14,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @SpringBootTest
 public class UserApplication {
-<<<<<<< HEAD
     @Autowired
     private MenuService menuServiceImpl;
     @Autowired
@@ -23,13 +22,9 @@ public class UserApplication {
     private UserService userService;
     @Test
     void contextLoads() {
-        System.out.println(userService.listUserAndDept(null,null,null,1));;
+        System.out.println(userService.listUserAndDept(null, null, null, 1));
+        ;
 
-=======
-    @Test
-    void contextLoads() {
-        System.out.println(new BCryptPasswordEncoder().encode("962464"));
->>>>>>> f5aec6cabafaaefe18c832e03c677ca468158a21
     }
 
 }
