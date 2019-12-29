@@ -58,4 +58,16 @@
         </where>
     </select>
 
+    <select id="tree" resultMap="deptAuthorizeDTO">
+          SELECT id,dept_name,describe,pid,create_time FROM PERSUASIBLE.TB_DEPARTMENT WHERE pid = '0'
+    </select>
+
+    <select id="tree2" resultMap="deptAuthorizeDTO">
+          SELECT id,dept_name,describe,pid,create_time FROM PERSUASIBLE.TB_DEPARTMENT WHERE pid =#{id}
+    </select>
+
+    <select id="findAll" resultMap="deptAuthorizeDTO">
+          SELECT id,dept_name,describe,pid,create_time FROM PERSUASIBLE.TB_DEPARTMENT
+    </select>
+
 </mapper>

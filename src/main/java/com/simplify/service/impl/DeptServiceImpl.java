@@ -1,12 +1,16 @@
 package com.simplify.service.impl;
 import com.simplify.mapper.DeptMapper;
 import com.simplify.model.dto.DeptVO;
+import com.simplify.model.entity.Dept;
 import com.simplify.service.DeptService;
 import com.simplify.utils.PageBean;
+import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
+
 /**
  * 部门业务实现类,是部门业务接口的具体实现
  * @author yuntian
@@ -32,6 +36,10 @@ public class DeptServiceImpl implements DeptService {
         return deptMapper.insertDept(deptVO);
     }
 
+  /*  @Override
+    public List<DeptVO> findAll() {
+        return deptMapper.findAll();
+    }*/
     @Override
     public PageBean<DeptVO> listDeptUser(String deptname, Integer currentPage) {
         PageBean<DeptVO> pageBean = new PageBean<DeptVO>();
@@ -54,4 +62,21 @@ public class DeptServiceImpl implements DeptService {
         pageBean.setLists(lists);
         return pageBean;
     }
+
+    @Override
+    public List<DeptVO>  tree() {
+        return deptMapper.tree();
+    }
+
+    @Override
+    public List<DeptVO> tree2(String id) {
+        return deptMapper.tree2(id);
+    }
+
+    @Override
+    public List<DeptVO> findAll() {
+        return deptMapper.findAll();
+    }
+
+
 }

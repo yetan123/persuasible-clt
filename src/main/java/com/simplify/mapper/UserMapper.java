@@ -1,6 +1,4 @@
 package com.simplify.mapper;
-
-import com.simplify.model.dto.UserAndDeptDTO;
 import com.simplify.model.dto.UserAndDeptVO;
 import com.simplify.model.dto.UserAuthorizeDTO;
 import com.simplify.model.dto.UserVO;
