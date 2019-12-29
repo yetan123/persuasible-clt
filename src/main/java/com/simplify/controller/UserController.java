@@ -11,6 +11,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 /**
  * 用户控制器,负责对用户实体的业务分发
  * @author yuntian
@@ -61,6 +65,15 @@ public class UserController {
     public int deleteUser( UserAndDeptVO userAndDeptVO){
         System.out.println("进入删除方法");
         return userService.deleteByUserId(userAndDeptVO);
+    }
+
+    @GetMapping("qqLogin")
+    public void qqLoginAfter(HttpServletRequest request, HttpServletResponse response){
+        HttpSession session = request.getSession();
+        String code = request.getParameter("code");
+        String state = request.getParameter("state");
+        String uuid = (String) session.getAttribute("state");
+
     }
 
 }

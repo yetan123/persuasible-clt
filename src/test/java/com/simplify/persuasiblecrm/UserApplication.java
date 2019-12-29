@@ -5,18 +5,15 @@ import com.simplify.service.MenuService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import java.util.List;
 
 
 @SpringBootTest
 public class UserApplication {
-    @Autowired
-    private MenuService menuServiceImpl;
     @Test
     void contextLoads() {
-        List<RouteDTO> routeDTOS = menuServiceImpl.listRoute();
-        System.out.println(routeDTOS);
+        System.out.println(new BCryptPasswordEncoder().encode("962464"));
     }
 
 }

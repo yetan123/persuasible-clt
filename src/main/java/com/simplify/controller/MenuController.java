@@ -8,6 +8,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 菜单控制器
@@ -24,6 +25,8 @@ public class MenuController {
     @GetMapping("")
     public List<RouteDTO> getMenuList(){
         List<RouteDTO> menus = menuServiceImpl.listRoute();
+        Map<Long,List<String>> menuCacheMap = menuServiceImpl.listPermission(menus);
+        menus.forEach((menu)-> menu.setPermission(menuCacheMap.get(menu.getId())));
         return menus;
     }
     @PreAuthorize("hasAuthority('菜单分配:PUT')")
