@@ -1,6 +1,7 @@
 package com.simplify.service.impl;
 
 import com.simplify.mapper.CustomerRecordMapper;
+import com.simplify.model.entity.Customer;
 import com.simplify.model.entity.CustomerRecord;
 import com.simplify.model.entity.CustomerRecord;
 import com.simplify.service.CustomerRecordService;
@@ -22,7 +23,7 @@ public class CustomerRecordServiceImpl implements CustomerRecordService {
 
     @Override
     public int insertCustomerRecord(CustomerRecord customerRecord) {
-        int i = customerRecordMapper.insert(customerRecord);
+        int i = customerRecordMapper.insertCustomerRecord(customerRecord);
         return i;
     }
 
@@ -37,4 +38,5 @@ public class CustomerRecordServiceImpl implements CustomerRecordService {
         int i = customerRecordMapper.updateByPrimaryKeySelective(customerRecord);
         return i;
     }
+
 }

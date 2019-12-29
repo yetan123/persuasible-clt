@@ -7,6 +7,7 @@ import com.simplify.model.vo.RoleAuthorizeVO;
 import com.simplify.service.MenuService;
 import com.simplify.service.ResourceService;
 import com.simplify.service.RoleService;
+import com.simplify.utils.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +32,26 @@ public class RoleController {
     @Autowired
     ResourceService resourceServiceImpl;
     @GetMapping("")
-    public Map<String,Object> selectRoleAuthorize(){
+    public Map<String,Object> selectRoleAuthorize(@RequestParam(defaultValue = "1",value ="pageNum",required = false)Integer pageNum,
+                                                  @RequestParam(value ="roleName",required = false)String roleName){
+        PageBean<RoleAuthorizeVO> pages;
+        Map<String,Object> roleMap = new HashMap<>();
+        if (roleName!=null) {
+            if (roleName=="" || roleName==null){
+                roleName=null;
+            }
+            pages= roleServiceImpl.listRoleAuthorize(roleName,pageNum);
+        }else{
+            pages= roleServiceImpl.listRoleAuthorize(null,pageNum);
+        }
+        List<Menu> menus = menuServiceImpl.listMenu();
+        List<ResourceVO> resourceVOS = resourceServiceImpl.listResourceViewObject();
+        roleMap.put("roleAuthorize",pages);
+        roleMap.put("menus",menus);
+        roleMap.put("resources",resourceVOS);
+        return roleMap;
+    }
+   /* public Map<String,Object> selectRoleAuthorize(@RequestParam(defaultValue = "1",value ="pageNum",required = false)Integer pageNum){
         Map<String,Object> roleMap = new HashMap<>();
         List<RoleAuthorizeVO> roleAuthorizeVOS = roleServiceImpl.listRoleAuthorize();
         List<Menu> menus = menuServiceImpl.listMenu();
@@ -40,7 +60,7 @@ public class RoleController {
         roleMap.put("menus",menus);
         roleMap.put("resources",resourceVOS);
         return roleMap;
-    }
+    }*/
     @PutMapping("")
     @PreAuthorize("hasAuthority('修改角色:PUT')")
     public Integer updateRole(@RequestBody Role role){

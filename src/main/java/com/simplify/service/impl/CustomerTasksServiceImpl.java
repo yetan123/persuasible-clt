@@ -24,7 +24,7 @@ public class CustomerTasksServiceImpl implements CustomerTasksService {
 
     @Override
     public int insertCustomerTasks(CustomerTasks customerTasks) {
-        return customerTasksMapper.insert(customerTasks);
+        return customerTasksMapper.insertCustomerTasks(customerTasks);
     }
 
     @Override

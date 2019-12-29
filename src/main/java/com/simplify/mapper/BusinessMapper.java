@@ -23,6 +23,6 @@ public interface BusinessMapper extends Mapper<Business> {
 
     //根据id查询商机数据
     List<Business> listBusinessById(Long id);
-    //根据id删除商机数据
+
     void deleteBusinessById(Long id);
 }

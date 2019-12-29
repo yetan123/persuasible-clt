@@ -22,13 +22,15 @@ public class DeptController {
 
     @GetMapping("/selectAll")
     public JSONObject selectAll(@RequestParam(value ="deptname",required = false)String deptName,
-                                @RequestParam(value ="enabled",required = false)String enabled,
                                 @RequestParam(defaultValue = "1",value ="pageNum",required = false)Integer pageNum){
-        PageBean<DeptVO> pages=null;
+        PageBean<DeptVO> pages;
         if (deptName!=null) {
-            pages= deptService.listDeptUser(deptName,enabled,pageNum);
+            if (deptName=="" || deptName==null){
+                deptName=null;
+            }
+            pages= deptService.listDeptUser(deptName,pageNum);
         }else{
-            pages= deptService.listDeptUser(deptName,enabled,pageNum);
+            pages= deptService.listDeptUser(null,pageNum);
         }
         //封装好信息返回给前台页面
         JSONObject json=new JSONObject();
@@ -37,11 +39,14 @@ public class DeptController {
     }
 
     @PostMapping("/add")
-    public int add(@RequestBody Dept dept) {
+    public int add(@RequestBody DeptVO dept) {
         System.out.println("进入添加方法");
-        dept.setId(new SnowFlake(0,0).nextId());
+        long deptId = new SnowFlake(0,0).nextId();
+        String id = String.valueOf(deptId);
+        dept.setId(id);
+        System.out.println(id);
         System.out.println(dept);
-        return deptService.insertUser(dept);
+        return deptService.insertDept(dept);
     }
 
     @PostMapping("/update")
@@ -53,7 +58,9 @@ public class DeptController {
     @ResponseBody
     @GetMapping("/deleteById")
     public int deleteUser(DeptVO deptVO){
+        System.out.println(deptVO+""+deptVO.getId());
         System.out.println("进入删除方法");
+        System.out.println(deptVO+""+deptVO.getId());
         return deptService.deleteByDeptId(deptVO);
     }
 

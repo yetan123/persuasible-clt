@@ -7,7 +7,6 @@ import com.simplify.utils.PageBean;
 import com.simplify.utils.SnowFlake;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -32,18 +31,26 @@ public class UserController {
                                 @RequestParam(value ="username",required = false)String userName,
                                 @RequestParam(value ="enabled",required = false)String enabled,
                                 @RequestParam(defaultValue = "1",value ="pageNum",required = false)Integer pageNum){
-        PageBean<UserAndDeptDTO> pageInfo=null;
-        PageBean<UserAndDeptVO> pages=null;
+        PageBean<UserAndDeptVO> pages;
         if (deptName!=null || userName!=null || enabled!=null) {
+            if (enabled =="" || enabled==null){
+                enabled=null;
+            }
+            if(deptName=="" || deptName== null){
+                deptName = null;
+            }
+            if (userName=="" || userName==null){
+                userName=null;
+            }
             pages= userService.listUserAndDept(deptName,userName,enabled,pageNum);
         }else{
-            pages= userService.listUserAndDept(deptName,userName,enabled,pageNum);
+            pages= userService.listUserAndDept(null,null,null,pageNum);
         }
         //封装好信息返回给前台页面
         JSONObject json=new JSONObject();
-        for(UserAndDeptVO userAndDeptVO: pages.getLists()) {
+/*        for(UserAndDeptVO userAndDeptVO: pages.getLists()) {
             System.out.println(userAndDeptVO);
-        }
+        }*/
         json.put("pageInfo",pages);
         return json;
     }
@@ -55,7 +62,6 @@ public class UserController {
     @PostMapping("/update")
     public int update(@RequestBody UserAndDeptVO user) {
         System.out.println("进入修改方法");
-        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         user.setUsername(user.getUsername());
         System.out.println(user+""+user.getId());
         return userService.updateByUserId(user);
@@ -68,12 +74,17 @@ public class UserController {
     }
 
     @GetMapping("qqLogin")
-    public void qqLoginAfter(HttpServletRequest request, HttpServletResponse response){
+    public void qqLoginAfter(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         String code = request.getParameter("code");
         String state = request.getParameter("state");
         String uuid = (String) session.getAttribute("state");
-
+    }
+    @PostMapping("/updateByState")
+    public int updateByState(@RequestBody UserAndDeptVO user) {
+        System.out.println("进入修改状态方法");
+        System.out.println(user+""+user.getUserState());
+        return userService.updateByState(user);
     }
 
 }

@@ -4,6 +4,7 @@ import com.simplify.mapper.RoleMapper;
 import com.simplify.model.entity.Role;
 import com.simplify.model.vo.RoleAuthorizeVO;
 import com.simplify.service.RoleService;
+import com.simplify.utils.PageBean;
 import com.simplify.utils.SnowFlake;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
@@ -25,11 +26,28 @@ public class RoleServiceImpl implements RoleService {
     public List<Role> listRole() {
         return roleMapper.selectAll();
     }
-
     @Cacheable(value = "roleAuthorize")
     @Override
-    public List<RoleAuthorizeVO> listRoleAuthorize() {
-        return roleMapper.listRoleAuthorize();
+    public PageBean<RoleAuthorizeVO> listRoleAuthorize(String roleName,Integer currentPage) {
+        PageBean<RoleAuthorizeVO> pageBean = new PageBean<RoleAuthorizeVO>();
+        //封装当前页数
+        pageBean.setPageNum(currentPage);
+        //每页显示的数据
+        int pageSize=5;
+        pageBean.setPageSize(pageSize);
+        //封装总记录数
+        int totalCount = roleMapper.selectCounts(roleName);
+        pageBean .setTotalCount(totalCount);
+        //封装总页数
+        double tc = totalCount;
+        Double num = Math.ceil(tc / pageSize);//向上取整
+        pageBean.setTotalPage(num.intValue());
+        int start=(currentPage-1)*pageSize;
+        int size = pageBean.getPageSize() * pageBean.getPageNum();
+        //封装每页显示的数据
+        List<RoleAuthorizeVO> lists = roleMapper.listRoleAuthorize(roleName,start,size);
+        pageBean.setLists(lists);
+        return pageBean;
     }
 
     @CacheEvict(value = {"roleAuthorize"},allEntries = true)

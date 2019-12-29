@@ -182,17 +182,16 @@ public class CustomerController {
         df = new SimpleDateFormat("yyyy-MM-dd");
         System.out.println(df.format(date1));
         return df.format(date1);
-
     }
     @ResponseBody
-    @GetMapping("selectById")
-    public List<Customer> selectById(String id){
-        long l = Long.valueOf(id).longValue();
-        System.out.println(l);
-        List<Customer> list = customerService.selectbyId(l);
+    @GetMapping("/selectById")
+    public List<CustomerVO> selectById(String id){
+        System.out.println(id);
+        String l = "407151960928550912";
+        List<CustomerVO> list = customerService.selectByID(l);
         System.out.println(list);
         return list;
-
     }
+
 }
 
