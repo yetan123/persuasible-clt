@@ -20,8 +20,6 @@ public class BusinessController {
 
     @Resource
     BusinessService businessService;
-
-
     @ResponseBody
     @GetMapping("/listBusiness")
     public List<Business> listBusiness() {
@@ -34,4 +32,9 @@ public class BusinessController {
         return businessService.listBusinessById(id);
     }
 
+    @ResponseBody
+    @GetMapping("/deleteBusinessById")
+    public void deleteBusinessById(Long id) {
+        businessService.deleteBusinessById(id);
+    }
 }

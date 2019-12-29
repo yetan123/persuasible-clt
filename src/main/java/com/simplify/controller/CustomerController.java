@@ -9,8 +9,11 @@ import com.simplify.service.CustomerConverService;
 import com.simplify.service.CustomerService;
 import com.simplify.service.LinkmanService;
 import com.simplify.service.UserService;
+import com.simplify.utils.ExcelUtil;
 import com.simplify.utils.SnowFlake;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.annotation.Resource;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -46,6 +49,18 @@ public class CustomerController {
         return pageInfo;
     }
 
+    @PostMapping("/import")
+    public void readExcel(MultipartFile file, @RequestParam("id") String id) {
+        List<Customer> customers = ExcelUtil.listCustomerByExcel(ExcelUtil.getWorkBook(file));
+        for(Customer customer: customers) {
+            customer.setCreateTime(new Date());
+            customer.setCustomerSourceId(new Long(0).longValue());
+            customer.setUserId(Long.valueOf(id));
+            customerService.saveCustomer(customer);
+            linkmanService.saveLinkman(customer.getLinkman());
+        }
+    }
+
     @GetMapping("/listConvertUser")
     public List<UserVO> listConvertUser(String id) {
         return userService.listUserByNotId(id);
@@ -61,6 +76,8 @@ public class CustomerController {
 
     @GetMapping("deleteCustomer")
     public int deleteCustomer(Long id) {
+        // 删除客户联系人
+        linkmanService.deleteLinkmanByCustomerId(id);
         return customerService.deleteCustomerById(id);
     }
 
@@ -121,8 +138,6 @@ public class CustomerController {
             customers = customerService.listConver(params);
         } else if("pass_me".equals(pageType)) {
             customers = customerService.listConverToMe(params);
-        } else {
-            throw new RuntimeException("沒有指定分頁參數頁面");
         }
         PageInfo<CustomerVO> page = new PageInfo<>(customers);
         return page;
@@ -172,7 +187,6 @@ public class CustomerController {
         SimpleDateFormat df1 = new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy", Locale.UK);
         Date date1 = df1.parse(parse.toString());
         df = new SimpleDateFormat("yyyy-MM-dd");
-        System.out.println(df.format(date1));
         return df.format(date1);
     }
 

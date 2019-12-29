@@ -11,4 +11,6 @@ import java.util.List;
  */
 public interface LinkmanService {
     int saveLinkman(Linkman linkman);
+
+    int deleteLinkmanByCustomerId(Long id);
 }

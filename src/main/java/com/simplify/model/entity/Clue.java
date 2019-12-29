@@ -4,8 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author JoJo
@@ -17,6 +19,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Clue {
+    @Id
     private Long id; //编号
     private String customerName; //客户名
     private String enterprise; //企业
@@ -33,7 +36,9 @@ public class Clue {
     private Long userId; // 负责人id
     private Long createUserId; // 创建人id
 
-    private User userInfo; // 负责人对象
-    private User createUserInfo; // 创建人对象
+    private CustomerSource customerSource; // 客户来源
+    private User user; // 线索负责人
+    private User createUser; //线索创建人
+    private List<ClueTask> clueTasks; // 线索任务集合
 
 }

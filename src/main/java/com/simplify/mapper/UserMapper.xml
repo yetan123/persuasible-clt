@@ -32,6 +32,22 @@
             <result column="describe"/>
         </collection>
     </resultMap>
+    <resultMap id="userAndDeptD" type="UserAndDeptVO">
+        <id property="id" column="user_id"/>
+        <result property="account" column="account"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="genders" column="genders"/>
+        <result property="phone" column="phone"/>
+        <result property="job" column="job"/>
+        <result property="deptId" column="dept_id"/>
+        <result property="userState" column="user_state"/>
+        <collection property="depts"   ofType="String" >
+            <result column="dept_name"/>
+            <result column="enterprise_id"/>
+            <result column="describe"/>
+        </collection>
+    </resultMap>
     <select id="findUserAndRoleByUserId" resultMap="userAuthorizeDTO">
         select usr.id,usr.account,usr.username,usr.genders,usr.phone,usr.job,
         usr.dept_id,usr.user_state,rol.role_name
@@ -39,10 +55,16 @@
         join tb_user_role usr_rol on usr.id = usr_rol.user_id
         join tb_role rol on rol.id = usr_rol.role_id where usr.id = #{id}
     </select>
+
+    <delete id="deleteByUserId" parameterType="com.simplify.model.dto.UserAndDeptVO">
+        DELETE FROM PERSUASIBLE.tb_User WHERE id = #{id}
+    </delete>
+
     <select id="findUserAndDeptDeptId" resultMap="userAndDeptDTO">
         select *from PERSUASIBLE.tb_User u inner join PERSUASIBLE.TB_DEPARTMENT d on u.dept_id=d.id
     </select>
-    <update id="updateById" parameterType="userAuthorizeDTO">
+
+    <update id="updateByUserId" parameterType="com.simplify.model.dto.UserAndDeptVO">
         UPDATE PERSUASIBLE.tb_user
         <set>
             <if test="username!=null">
@@ -58,52 +80,58 @@
                 job = #{job},
             </if>
             <if test="deptId!=null">
-                dept_id = #{deptId}
+                dept_id = #{deptId},
             </if>
-            <if test="user_State!=null">
-                user_State = #{userState}
+            <if test="userState!=null">
+                user_State = #{userState},
+            </if>
+            <if test="password!=null">
+                password = #{password}
             </if>
         </set>
-         WHERE id = #{id}
+        WHERE id = #{id}
     </update>
 
-    <select id="listUser" parameterType="java.util.Map" resultMap="userAndDeptDTO">
+    <select id="listUserById" parameterType="java.util.Map" resultMap="userAndDeptDTO">
         select *from PERSUASIBLE.tb_User u inner join PERSUASIBLE.TB_DEPARTMENT d on u.dept_id=d.id where u.user_id = #{userId}
     </select>
 
-
-    <select id="listUserAndDept" parameterType="java.lang.String" resultType="userAndDeptDTO">
-        select *from PERSUASIBLE.tb_User u inner join PERSUASIBLE.TB_DEPARTMENT d on u.dept_id=d.id
-        <where>
-            <if test="deptName != null">
-                <bind name="deptName" value="'%'+deptName+'%'"/>
-                or u.username like #{deptName}
+    <select id="listUserAndDept" resultMap="userAndDeptD">
+        select * from (select row_.*,rownum rownum_ from (
+        select bb.* from(select bw.id as user_id,bw.ACCOUNT,bw.username,bw.job,bw.genders,bw.dept_id,bw.phone,bw.USER_STATE,bwm.id,bw.password,
+        bwm.DEPT_Name,bwm.DESCRIBE,bwm.ENTERPRISE_ID from PERSUASIBLE.tb_User bw inner join PERSUASIBLE.TB_DEPARTMENT bwm on bw.dept_id=bwm.id)
+        bb order by bb.username desc ,bb.user_id desc)row_  where rownum &lt;= #{size})r where rownum_ &gt; #{start}
+           <if test="deptname != null and deptname!= ''">
+                <bind name="deptname" value="'%'+deptname+'%'"/>
+                and r.dept_name like #{deptname}
             </if>
-            <if test="userSearch != null">
-                <bind name="userSearch" value="'%'+userSearch+'%'"/>
-                or d.dept_name like #{userSearch}
+            <if test="enabled != null and enabled!= ''">
+                <bind name="enabled" value="'%'+enabled+'%'"/>
+                and r.user_State like #{enabled}
             </if>
-        </where>
+            <if test="username != null and username!= ''">
+                <bind name="username" value="'%'+username+'%'"/>
+                and r.username like #{username}
+            </if>
     </select>
 
     <select id="selectCounts" resultType="int">
         select count(*) from PERSUASIBLE.tb_User u inner join PERSUASIBLE.TB_DEPARTMENT d on u.dept_id=d.id
-        <where>
-            <if test="deptName != null">
-                <bind name="deptName" value="'%'+deptName+'%'"/>
-                or u.username like #{deptName}
+            <if test="deptname != null and deptname!= ''">
+                <bind name="deptname" value="'%'+deptname+'%'"/>
+                and d.dept_name like #{deptname}
             </if>
-            <if test="userSearch != null">
-                <bind name="userSearch" value="'%'+userSearch+'%'"/>
-                or d.dept_name like #{userSearch}
+            <if test="enabled != null and enabled!= ''">
+                <bind name="enabled" value="'%'+enabled+'%'"/>
+                and u.user_State like #{enabled}
             </if>
-        </where>
+            <if test="username != null and username!= ''">
+                <bind name="username" value="'%'+username+'%'"/>
+                and u.username like #{username}
+            </if>
     </select>
 
-
-
-
     <insert id="insertUser" parameterType="userAuthorizeDTO" >
-        insert into PERSUASIBLE.tb_User(id,account,username,password,genders,phone,job,dept_id,user_state) values(#{id},#{account},#{username},#{password},#{genders},#{phone},#{job},#{deptId},1)
+        insert into PERSUASIBLE.tb_User(id,account,username,password,genders,phone,job,dept_id,user_state) values(#{id},#{account},#{username},#{password},#{genders},#{phone},#{job},#{deptId},#{userState})
     </insert>
 </mapper>

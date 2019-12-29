@@ -1,6 +1,7 @@
 package com.simplify.mapper;
 
 import com.simplify.model.dto.UserAndDeptDTO;
+import com.simplify.model.dto.UserAndDeptVO;
 import com.simplify.model.dto.UserAuthorizeDTO;
 import com.simplify.model.dto.UserVO;
 import com.simplify.model.entity.User;
@@ -20,17 +21,20 @@ import java.util.Map;
 @Repository
 public interface UserMapper extends Mapper<User> {
     UserAuthorizeDTO findUserAndRoleByUserId(Long id);
-
+    //查询
     List<UserAndDeptDTO> findUserAndDeptDeptId();
-
-    int updateById(User u);
-
+    //修改
+    int updateByUserId(UserAndDeptVO u);
+    //删除
+    int deleteByUserId(UserAndDeptVO userAndDeptVO);
+    //新增
     int insertUser(User user);
-
+    //查询
     List<User> listUser(Map params);
     //分页 模糊查询
-    List<UserAndDeptDTO> listUserAndDept(@Param("deptName") String deptName, @Param("userSearch") String userSearch,@Param("start") int start,@Param("size") int size);
+    List<UserAndDeptVO> listUserAndDept(@Param("deptname") String deptname, @Param("username") String username,@Param("enabled") String enabled, @Param("start") int start, @Param("size") int size);
     //查询总记录
+    int selectCounts(@Param("deptname") String deptname,@Param("username") String username,@Param("enabled") String enabled);
     int selectCounts(@Param("deptName") String deptName,@Param("userSearch") String userSearch);
 
     /**

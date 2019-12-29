@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 商机业务实现类,是商机业务接口的具体实现
@@ -21,6 +22,11 @@ public class BusinessServiceImpl implements BusinessService {
     private BusinessMapper businessMapper;
 
     @Override
+    public List<Business> selectALl() {
+        return businessMapper.selectAll();
+    }
+
+    @Override
     public List<Business> listBusiness() {
         return businessMapper.listBusiness();
     }
@@ -28,5 +34,10 @@ public class BusinessServiceImpl implements BusinessService {
     @Override
     public List<Business> listBusinessById(Long id) {
         return businessMapper.listBusinessById(id);
+    }
+
+    @Override
+    public void deleteBusinessById(Long id) {
+        businessMapper.deleteBusinessById(id);
     }
 }

@@ -3,7 +3,6 @@ package com.simplify.persuasiblecrm;
 import com.simplify.model.entity.Business;
 import com.simplify.service.BusinessService;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;
@@ -14,6 +13,14 @@ public class BusinessTest {
 
     @Resource
     BusinessService businessService;
+
+    @Test
+    public void selectAll(){
+        List<Business> business=businessService.selectALl();
+        for (Business b:business) {
+            System.out.println(b);
+        }
+    }
 
     @Test
     public void listBusiness(){
@@ -30,6 +37,12 @@ public class BusinessTest {
         for (Business b:business) {
             System.out.println(b);
         }
+    }
+
+    @Test
+    public void deleteBusinessById(){
+        Long id = new Long(5);
+        businessService.deleteBusinessById(id);
     }
 
 }
