@@ -15,8 +15,8 @@ public interface DeptService {
 
     int updateByDeptId(DeptVO deptVO);
 
-    int insertUser(Dept dept);
+    int insertDept(DeptVO deptVO);
     //分页 模糊查询
-    PageBean<DeptVO> listDeptUser(String deptname,String enabled, Integer currentPage );
+    PageBean<DeptVO> listDeptUser(String deptname,Integer currentPage );
 
 }

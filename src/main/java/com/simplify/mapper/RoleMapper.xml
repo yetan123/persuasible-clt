@@ -8,21 +8,36 @@
         <result property="roleName" column="role_name"/>
         <result property="roleDescribe" column="role_describe"/>
         <result property="createTime" column="create_time"/>
-        <collection property="menus" ofType="Long">
-            <result  column="menu_id"/>
+        <collection property="menus" column="role_id" ofType="Long" select="listMenuId">
+            <result  column="id"/>
         </collection>
         <collection property="sources" column="role_id" ofType="String" select="listResourceId">
             <result column="id"/>
         </collection>
     </resultMap>
+
     <select id="listRoleAuthorize" resultMap="roleAuthorize">
-        select role.id role_id,role.role_name,role.role_describe,
-        role.create_time,menu.id menu_id from tb_role role left join tb_role_menu role_menu
-        on role.id = role_menu.role_id
-        left join tb_menu menu on menu.id = role_menu.menu_id
+        select * from (select * from (select rownum row_num,role.id role_id,role.role_name,role.role_describe,
+        role.create_time from PERSUASIBLE.tb_role role
+        <where>
+            <if test="roleName != null and roleName!= ''">
+                <bind name="roleName" value="'%'+roleName+'%'"/>
+                and role.role_name like #{roleName}
+            </if>
+        </where>
+        ) role where role.row_num &gt; #{start}) role where role.row_num &lt;#{size}
     </select>
+
+    <select id="selectCounts" resultType="int">
+        select count (*) from PERSUASIBLE.tb_role
+    </select>
+
     <select id="listResourceId" resultType="Long">
         select res.id from tb_role_resource role_resource join tb_resource res
         on role_resource.resource_id = res.id where role_resource.role_id = #{roleId}
+    </select>
+    <select id="listMenuId" resultType="Long">
+        select menu.id from tb_role_menu role_menu join tb_menu menu
+        on role_menu.menu_id = menu.id where role_menu.role_id = #{roleId}
     </select>
 </mapper>

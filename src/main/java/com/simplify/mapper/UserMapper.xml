@@ -16,22 +16,6 @@
             <result column="role_name"/>
         </collection>
     </resultMap>
-    <resultMap id="userAndDeptDTO" type="UserAndDeptDTO">
-        <id property="id" column="id"/>
-        <result property="account" column="account"/>
-        <result property="username" column="username"/>
-        <result property="password" column="password"/>
-        <result property="genders" column="genders"/>
-        <result property="phone" column="phone"/>
-        <result property="job" column="job"/>
-        <result property="deptId" column="dept_id"/>
-        <result property="userState" column="user_state"/>
-        <collection property="depts"  ofType="String" >
-            <result column="dept_name"/>
-            <result column="enterprise_id"/>
-            <result column="describe"/>
-        </collection>
-    </resultMap>
     <resultMap id="userAndDeptD" type="UserAndDeptVO">
         <id property="id" column="user_id"/>
         <result property="account" column="account"/>
@@ -60,10 +44,6 @@
         DELETE FROM PERSUASIBLE.tb_User WHERE id = #{id}
     </delete>
 
-    <select id="findUserAndDeptDeptId" resultMap="userAndDeptDTO">
-        select *from PERSUASIBLE.tb_User u inner join PERSUASIBLE.TB_DEPARTMENT d on u.dept_id=d.id
-    </select>
-
     <update id="updateByUserId" parameterType="com.simplify.model.dto.UserAndDeptVO">
         UPDATE PERSUASIBLE.tb_user
         <set>
@@ -80,39 +60,43 @@
                 job = #{job},
             </if>
             <if test="deptId!=null">
-                dept_id = #{deptId},
-            </if>
-            <if test="userState!=null">
-                user_State = #{userState},
-            </if>
-            <if test="password!=null">
-                password = #{password}
+                dept_id = #{deptId}
             </if>
         </set>
         WHERE id = #{id}
     </update>
 
-    <select id="listUserById" parameterType="java.util.Map" resultMap="userAndDeptDTO">
-        select *from PERSUASIBLE.tb_User u inner join PERSUASIBLE.TB_DEPARTMENT d on u.dept_id=d.id where u.user_id = #{userId}
-    </select>
+    <update id="updateByState" parameterType="com.simplify.model.dto.UserAndDeptVO">
+        UPDATE PERSUASIBLE.tb_user
+        <set>
+            <if test="userState!=null">
+                user_State = #{userState},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
 
     <select id="listUserAndDept" resultMap="userAndDeptD">
         select * from (select row_.*,rownum rownum_ from (
         select bb.* from(select bw.id as user_id,bw.ACCOUNT,bw.username,bw.job,bw.genders,bw.dept_id,bw.phone,bw.USER_STATE,bwm.id,bw.password,
-        bwm.DEPT_Name,bwm.DESCRIBE,bwm.ENTERPRISE_ID from PERSUASIBLE.tb_User bw inner join PERSUASIBLE.TB_DEPARTMENT bwm on bw.dept_id=bwm.id)
-        bb order by bb.username desc ,bb.user_id desc)row_  where rownum &lt;= #{size})r where rownum_ &gt; #{start}
-           <if test="deptname != null and deptname!= ''">
+        bwm.DEPT_Name,bwm.DESCRIBE,bwm.ENTERPRISE_ID from PERSUASIBLE.tb_User bw inner join PERSUASIBLE.TB_DEPARTMENT bwm on bw.dept_id=bwm.id
+        <where>
+            <if test="deptname != null and deptname!= ''">
                 <bind name="deptname" value="'%'+deptname+'%'"/>
-                and r.dept_name like #{deptname}
-            </if>
-            <if test="enabled != null and enabled!= ''">
-                <bind name="enabled" value="'%'+enabled+'%'"/>
-                and r.user_State like #{enabled}
+                and bwm.dept_name like #{deptname}
             </if>
             <if test="username != null and username!= ''">
                 <bind name="username" value="'%'+username+'%'"/>
-                and r.username like #{username}
+                and bw.username like #{username}
             </if>
+            <if test="enabled != null and enabled!= ''">
+                <bind name="enabled" value="'%'+enabled+'%'"/>
+                and bw.user_State like #{enabled}
+            </if>
+        </where>
+        )
+        bb order by bb.username desc ,bb.user_id desc)row_  where rownum &lt;= #{size})r where rownum_ &gt; #{start}
+
     </select>
 
     <select id="selectCounts" resultType="int">

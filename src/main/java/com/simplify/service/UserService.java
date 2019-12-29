@@ -21,16 +21,16 @@ public interface UserService {
         List<UserVO> listUserByNotId(String id);
 
         UserAuthorizeDTO findUserAuthorizeById(Long id);
-
-        List<UserAndDeptDTO> findUserAndDeptDeptId();//用户与部门多表查询
-
+        //添加用户基本信息
         int insertUser(User user);
-
+        //删除用户基本信息
+        int deleteByUserId(UserAndDeptVO userAndDeptVO);
+        //修改用户基本信息
         int updateByUserId(UserAndDeptVO u);
-
-        List<User> listUser(Map params);
+        //修改状态
+        int updateByState(UserAndDeptVO userAndDeptVO);
         //分页 模糊查询
         PageBean<UserAndDeptVO> listUserAndDept(String deptName, String userName, String enabled, Integer currentPage);
 
-        int deleteByUserId(UserAndDeptVO userAndDeptVO);
+
 }
