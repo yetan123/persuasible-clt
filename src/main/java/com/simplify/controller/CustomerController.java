@@ -11,10 +11,12 @@ import com.simplify.service.LinkmanService;
 import com.simplify.service.UserService;
 import com.simplify.utils.ExcelUtil;
 import com.simplify.utils.SnowFlake;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -107,6 +109,19 @@ public class CustomerController {
     @GetMapping("/filterDataInit")
     public Map<String, List<?>> filterDataInit() {
         return listState();
+    }
+
+    @GetMapping("/downloadExcel")
+    public ResponseEntity<byte[]> downloadExcel(HttpServletRequest request) {
+        return ExcelUtil.downloadExcel(request);
+    }
+
+    @GetMapping("/exportExcel")
+    public ResponseEntity<byte[]> exportExcel(String id) {
+        Map parmas = new HashMap();
+        parmas.put("userId", id);
+        List<CustomerVO> customerVOS = customerService.listCustomerAndLinkman(parmas);
+        return ExcelUtil.exportExcel(customerVOS);
     }
 
     /**
