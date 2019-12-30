@@ -45,7 +45,7 @@ FROM
 	TB_BUSINESS bu
 	INNER JOIN TB_CUSTOMER cu ON bu.CUSTOMER_ID = cu.ID
 	INNER JOIN TB_USER u ON bu.USER_ID = u.id
-	Order BY u.ID
+	Order BY bu.ID
     </select>
 
     <select id="listBusinessById" resultMap="BusinessAndCustomerAndCustomer" parameterType="java.lang.Long">
