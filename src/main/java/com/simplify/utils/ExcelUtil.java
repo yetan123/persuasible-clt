@@ -32,6 +32,7 @@ import java.util.List;
 public class ExcelUtil {
     public static List<Customer>  listCustomerByExcel(Workbook workbook) {
         List<Customer> customers = new ArrayList<>();
+        SnowFlake snowFlake = new SnowFlake(0, 0);
         if(workbook != null) {
             // 循环工作表Sheet
             for (int numSheet = 0; numSheet <workbook.getNumberOfSheets(); numSheet++) {
@@ -47,8 +48,8 @@ public class ExcelUtil {
                     if (hssfRow != null) {
                         customer = new Customer();
                         linkman = new Linkman();
-                        linkman.setId(new SnowFlake(0, 0).nextId());
-                        customer.setId(new SnowFlake(0, 0).nextId());
+                        linkman.setId(snowFlake.nextId());
+                        customer.setId(snowFlake.nextId());
                         linkman.setCustomerId(customer.getId());
                         linkman.setCustomerName(hssfRow.getCell(0) == null ? "" : hssfRow.getCell(0).toString());
                         linkman.setGenders(hssfRow.getCell(1) == null ? "" : hssfRow.getCell(1).toString());
