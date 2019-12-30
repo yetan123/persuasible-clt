@@ -1,21 +1,23 @@
 package com.simplify.security;
 
 import com.simplify.model.entity.User;
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Set;
 
 /**
  * 验证规则详细类
  * @author yuntian
  * @date 2019-12-5
  */
+@Data
 public class RulesDetails extends User implements UserDetails {
-    public RulesDetails() {
-    }
-
-    public RulesDetails(Long id, String account, String username, String password, String genders, String phone, String job, Long deptId, Integer userState) {
+    private Set<GrantedAuthority> grantedAuthoritySet;
+    public RulesDetails(Long id, String account, String username, String password, String genders, String phone, String job
+            , Long deptId, Integer userState, Set<GrantedAuthority> grantedAuthoritySet) {
         this.setId(id);
         this.setAccount(account);
         this.setUsername(username);
@@ -25,11 +27,12 @@ public class RulesDetails extends User implements UserDetails {
         this.setJob(job);
         this.setDeptId(deptId);
         this.setUserState(userState);
+        this.setGrantedAuthoritySet(grantedAuthoritySet);
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return this.getGrantedAuthoritySet();
     }
 
     @Override
@@ -49,7 +52,7 @@ public class RulesDetails extends User implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return this.getUserState() == 1;
     }
 
     @Override

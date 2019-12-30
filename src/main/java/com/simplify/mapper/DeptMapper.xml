@@ -8,18 +8,20 @@
         <result property="deptName" column="dept_name"/>
         <result property="enterpriseId" column="enterprise_id"/>
         <result property="describe" column="describe"/>
+        <result property="createTime" column="create_Time"/>
+        <result property="pid" column="pid"/>
     </resultMap>
 
     <update id="updateByDeptId" parameterType="com.simplify.model.dto.DeptVO">
         UPDATE PERSUASIBLE.tb_department
         <set>
-            <if test="username!=null">
+            <if test="deptName!=null">
                 dept_name = #{deptName},
             </if>
-            <if test="genders!=null">
+            <if test="enterpriseId!=null">
                 enterprise_id = #{enterpriseId},
             </if>
-            <if test="phone!=null">
+            <if test="describe!=null">
                 describe = #{describe}
             </if>
         </set>
@@ -30,30 +32,42 @@
         DELETE FROM PERSUASIBLE.TB_DEPARTMENT WHERE id = #{id}
     </delete>
 
+    <insert id="insertDept" parameterType="com.simplify.model.dto.DeptVO">
+		insert into PERSUASIBLE.TB_DEPARTMENT(id,dept_name,DESCRIBE,ENTERPRISE_ID,CREATE_TIME) values(#{id},#{deptName},1,#{describe},SYSDATE)
+    </insert>
+
     <select id="listDeptUser" resultMap="deptAuthorizeDTO">
-        SELECT * FROM (SELECT ROWNUM rownum_,d.id,d.DEPT_Name,d.DESCRIBE,d.ENTERPRISE_ID FROM PERSUASIBLE.TB_DEPARTMENT d
+        SELECT * FROM (SELECT ROWNUM rownum_,d.id,d.DEPT_Name,d.DESCRIBE,d.ENTERPRISE_ID,d.pid,d.create_time FROM PERSUASIBLE.TB_DEPARTMENT d
         where ROWNUM &lt;= #{size} order by d.id desc,d.dept_name desc) table_alias where table_alias.rownum_ &gt; #{start}
              <if test="deptname != null and deptname!= ''">
                 <bind name="deptname" value="'%'+deptname+'%'"/>
                 and table_alias.dept_name like #{deptname}
             </if>
-            <if test="enabled != null and enabled!= ''">
-                <bind name="enabled" value="'%'+enabled+'%'"/>
-                and u.user_State like #{enabled}
-            </if>
+        <!-- &lt;=  小于等于 -->
+        <!-- &gt;= 大于于等于 -->
         order by table_alias.id
     </select>
 
     <select id="selectCounts" resultType="int">
         select count(*) from PERSUASIBLE.TB_DEPARTMENT
+        <where>
             <if test="deptname != null and deptname!= ''">
                 <bind name="deptname" value="'%'+deptname+'%'"/>
                 and dept_name like #{deptname}
             </if>
-            <if test="enabled != null and enabled!= ''">
-                <bind name="enabled" value="'%'+enabled+'%'"/>
-                and u.user_State like #{enabled}
-            </if>
+        </where>
+    </select>
+
+    <select id="tree" resultMap="deptAuthorizeDTO">
+          SELECT id,dept_name,describe,pid,create_time FROM PERSUASIBLE.TB_DEPARTMENT WHERE pid = '0'
+    </select>
+
+    <select id="tree2" resultMap="deptAuthorizeDTO">
+          SELECT id,dept_name,describe,pid,create_time FROM PERSUASIBLE.TB_DEPARTMENT WHERE pid =#{id}
+    </select>
+
+    <select id="findAll" resultMap="deptAuthorizeDTO">
+          SELECT id,dept_name,describe,pid,create_time FROM PERSUASIBLE.TB_DEPARTMENT
     </select>
 
 </mapper>

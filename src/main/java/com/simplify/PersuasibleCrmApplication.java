@@ -16,7 +16,6 @@ import tk.mybatis.spring.annotation.MapperScan;
 public class PersuasibleCrmApplication {
     public static void main(String[] args) {
         SpringApplication.run(PersuasibleCrmApplication.class, args);
-
         Logger logger = LoggerFactory.getLogger(PersuasibleCrmApplication.class);
         logger.info("localhost:9624/");
     }

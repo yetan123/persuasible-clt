@@ -4,7 +4,7 @@ mybatis:
   configuration:
     map-underscore-to-camel-case: true
     cache-enabled: true
-  type-aliases-package: com.simplify.model.entity,com.simplify.model.dto
+  type-aliases-package: com.simplify.model.entity,com.simplify.model.dto,com.simplify.model.vo
 # 指定log4j2作为日志记录
 logging:
   level:
@@ -24,4 +24,3 @@ pagehelper:
   reasonable: true
   supportMethodsArguments: true
   params: count=countSql
-

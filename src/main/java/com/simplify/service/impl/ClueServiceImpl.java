@@ -1,6 +1,7 @@
 package com.simplify.service.impl;
 
 import com.simplify.mapper.ClueMapper;
+import com.simplify.model.dto.ClueVO;
 import com.simplify.model.entity.Clue;
 import com.simplify.service.ClueService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,5 +15,10 @@ public class ClueServiceImpl implements ClueService {
     private ClueMapper clueMapper;
 
     public List<Clue> getAllClue(){ return clueMapper.getAllClue();};
+
+    public ClueVO getClueVO(){
+//        ClueVO clueVO = new ClueVO(clueMapper.getAllClueState(), clueMapper.getAllClueSource());
+            return null;
+    }
 
 }

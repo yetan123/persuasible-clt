@@ -25,6 +25,8 @@ public class UserAndDeptVO {
 
     private Long deptId;
 
+    private Integer pid;
+
     private Integer userState;
 
     private List<String> depts;

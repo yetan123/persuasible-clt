@@ -3,10 +3,6 @@ package com.simplify.mapper;
 import com.simplify.model.dto.CustomerVO;
 import com.simplify.model.dto.UserVO;
 import com.simplify.model.entity.*;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Results;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -30,7 +26,15 @@ public interface CustomerMapper extends Mapper<Customer> {
     List<CustomerVO> listConver(Map params);
     List<CustomerVO> listConverToMe(Map params);
 
-    @Update("update tb_customer SET USER_ID=#{receiveUserId} WHERE ID='${targetCustomerId}' ")
+    /**
+     * 客户转交
+     * @param id
+     * @param receiveUserId
+     * @return
+     * @date 2019/12/27写的注释
+     * @author lanmu
+     */
+    @Update("update tb_customer SET USER_ID=#{receiveUserId} WHERE ID=#{targetCustomerId} ")
     int updateCustomerUserIdById(@Param("targetCustomerId") String id, @Param("receiveUserId") String receiveUserId);
 
 
@@ -47,4 +51,5 @@ public interface CustomerMapper extends Mapper<Customer> {
     @Select("select * from TB_CUSTOMER_RANK")
     List<CustomerRank> listCustomerRank();
 
+    List<CustomerVO> selectByID(String id);
 }

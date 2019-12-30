@@ -42,11 +42,6 @@ public class UserServiceImpl implements UserService
     }
 
     @Override
-    public List<UserAndDeptDTO> findUserAndDeptDeptId() {
-        return userMapper.findUserAndDeptDeptId();
-    }
-
-    @Override
     public int insertUser(User user) {
         return userMapper.insertUser(user);
     }
@@ -57,10 +52,9 @@ public class UserServiceImpl implements UserService
     }
 
     @Override
-    public List<User> listUser(Map params) {
-        return userMapper.listUser(params);
+    public int updateByState(UserAndDeptVO userAndDeptVO) {
+        return userMapper.updateByState(userAndDeptVO);
     }
-
     @Override
     public PageBean<UserAndDeptVO> listUserAndDept(String deptname, String username, String enabled, Integer currentPage) {
         PageBean<UserAndDeptVO> pageBean = new PageBean<UserAndDeptVO>();
@@ -81,7 +75,7 @@ public class UserServiceImpl implements UserService
         //封装每页显示的数据
         List<UserAndDeptVO> lists = userMapper.listUserAndDept(deptname,username,enabled,start,size);
         pageBean.setLists(lists);
-      /*  System.out.println(lists+"----------结束");*/
+        /*  System.out.println(lists+"----------结束");*/
         return pageBean;
     }
 

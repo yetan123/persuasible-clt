@@ -1,5 +1,6 @@
 package com.simplify.model.dto;
 
+import com.simplify.model.entity.Dept;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserAndDeptDTO {
-    private Long id;
+    private String id;
 
     private String account;
 
@@ -33,6 +34,6 @@ public class UserAndDeptDTO {
 
     private Integer userState;
 
-    private List<String> depts;
+    private List<DeptVO> depts;
 
 }

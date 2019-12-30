@@ -19,4 +19,8 @@ public class DeptVO {
     private Integer enterpriseId;
 
     private String describe;
+
+    private Integer pid;
+
+    private String createTime;
 }
