@@ -32,6 +32,7 @@ import java.util.List;
 public class ExcelUtil {
     public static List<Customer>  listCustomerByExcel(Workbook workbook) {
         List<Customer> customers = new ArrayList<>();
+        SnowFlake snowFlake = new SnowFlake(0, 0);
         if(workbook != null) {
             // 循环工作表Sheet
             for (int numSheet = 0; numSheet <workbook.getNumberOfSheets(); numSheet++) {
@@ -47,8 +48,8 @@ public class ExcelUtil {
                     if (hssfRow != null) {
                         customer = new Customer();
                         linkman = new Linkman();
-                        linkman.setId(new SnowFlake(0, 0).nextId());
-                        customer.setId(new SnowFlake(0, 0).nextId());
+                        linkman.setId(snowFlake.nextId());
+                        customer.setId(snowFlake.nextId());
                         linkman.setCustomerId(customer.getId());
                         linkman.setCustomerName(hssfRow.getCell(0) == null ? "" : hssfRow.getCell(0).toString());
                         linkman.setGenders(hssfRow.getCell(1) == null ? "" : hssfRow.getCell(1).toString());
@@ -98,7 +99,7 @@ public class ExcelUtil {
             rowHeader.createCell(12).setCellValue("客户类别");
             for (int i = 1; i < customers.size(); i++) {
                 Row row = sheet.createRow(i);
-                CustomerVO customerVO = customers.get(i);it a
+                CustomerVO customerVO = customers.get(i);
                 row.createCell(0).setCellValue(customerVO.getLinkmanList() == null ? "" : customerVO.getLinkmanList().get(0).getCustomerName());
                 row.createCell(1).setCellValue(customerVO.getLinkmanList() == null ? "" : customerVO.getLinkmanList().get(0).getGenders());
                 row.createCell(2).setCellValue(customerVO.getLinkmanList() == null ? "" : customerVO.getLinkmanList().get(0).getPhone());
