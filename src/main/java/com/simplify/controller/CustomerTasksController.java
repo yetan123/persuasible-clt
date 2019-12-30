@@ -50,7 +50,7 @@ public class CustomerTasksController {
     public int insertCustomerTasks(@RequestBody TasksDTO tasks){
         System.out.println(tasks);
         CustomerTasks c = new CustomerTasks();
-        c.setId(new SnowFlake(0,0).nextId());
+        c.setId(tasks.getId());
         c.setTaskName(tasks.getName());
         c.setCustomerId(tasks.getCustomer());
         c.setLinkmanId(tasks.getCustomer());

@@ -56,7 +56,7 @@ public class CustomerRecordControl {
     public int insertCustomerRecord(@RequestBody RecordDTO record){
         System.out.println(record);
         CustomerRecord c = new CustomerRecord();
-        c.setId(new SnowFlake(0,0).nextId());
+        c.setId(record.getId());
         c.setRecordContent(record.getRecordContent());
        c.setRecordType(record.getType());
        c.setRecordTime(record.getDate1());
