@@ -22,9 +22,13 @@
 
         <association property="createUser" column="create_user_id" select="com.simplify.mapper.UserMapper.selectByPrimaryKey"> </association>
 
+        <collection property="clueTasks" column="clue_id" ofType="com.simplify.model.entity.ClueTask">
+            <id column="id" property="id"/>
+            <result column="task_finish_time" property="taskFinishTime" />
+        </collection>
     </resultMap>
 
     <select id="getAllClue" resultMap="clue">
-         select * from TB_CLUE c left join TB_SOURCE s on c.CLUE_SOURCE_ID = s.ID
+         select * from TB_CLUE c left join TB_SOURCE s on c.CLUE_SOURCE_ID = s.ID left join TB_CLUE_TASK ct on c.id = ct.clue_id
     </select>
 </mapper>
