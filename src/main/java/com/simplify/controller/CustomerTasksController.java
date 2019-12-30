@@ -31,6 +31,21 @@ public class CustomerTasksController {
     }
 
     @ResponseBody
+    @PostMapping("/updateCustomerTasks")
+    public int updateCustomerTasks(@RequestBody TasksDTO tasks1){
+        System.out.println(tasks1);
+        CustomerTasks c1 = new CustomerTasks();
+        c1.setId(tasks1.getId());
+        c1.setCustomerId(tasks1.getCustomer());
+        c1.setLinkmanId(tasks1.getCustomer());
+        c1.setTaskContent(tasks1.getContent());
+        c1.setTaskStartTime(tasks1.getDate1());
+        c1.setTaskEndTime(tasks1.getDate2());
+        c1.setTaskParticipant(tasks1.getParticipant());
+        System.out.println(c1);
+        return customerTasksService.updateCustomerTasks(c1);
+    }
+    @ResponseBody
     @PostMapping("/insertCustomerTasks")
     public int insertCustomerTasks(@RequestBody TasksDTO tasks){
         System.out.println(tasks);
@@ -43,15 +58,6 @@ public class CustomerTasksController {
         c.setTaskStartTime(tasks.getDate1());
         c.setTaskEndTime(tasks.getDate2());
         c.setTaskParticipant(tasks.getParticipant());
-        return customerTasksService.insertCustomerTasks(c);
-    }
-
-    @ResponseBody
-    @PostMapping("/updateCustomerTasks")
-    public int updateCustomerTasks(@RequestBody TasksDTO tasks){
-        System.out.println(tasks);
-        CustomerTasks c = new CustomerTasks();
-        c.setId(tasks.getCustomer());
         return customerTasksService.insertCustomerTasks(c);
     }
 }
