@@ -31,4 +31,8 @@ inner join PERSUASIBLE.TB_CUSTOMER s on t.CUSTOMER_ID = s.ID
       insert into PERSUASIBLE.TB_CUSTOMER_TASKS VALUES(#{id},#{customerId},#{linkmanId},#{taskName},#{taskContent},#{taskStartTime},#{taskEndTime},#{taskParticipant})
     </insert>
 
+    <update id="updateCustomerTasks" parameterType="CustomerTasks">
+update PERSUASIBLE.TB_CUSTOMER_TASKS SET CUSTOMER_ID=#{customerId},LINKMAN_ID=#{linkmanId},TASK_NAME=#{taskName},TASK_CONTENT=#{taskContent},TASK_START_TIME=#{taskStartTime},TASK_END_TIME=#{taskEndTime},TASK_PARTICIPANT=#{taskParticipant} WHERE ID = #{id}
+    </update>
+
 </mapper>

@@ -11,6 +11,7 @@ import java.sql.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RecordDTO {
+    private Long id;
     private String recordContent;
     private Long customer;
     private String type;

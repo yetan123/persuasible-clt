@@ -65,7 +65,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     @CacheEvict(value = {"customerAndLinkman","converToMe","conver"}, allEntries = true)
     public int saveCustomer(Customer customer) {
-        return customerMapper.insert(customer);
+        return customerMapper.insertSelective(customer);
     }
 
     @Cacheable(value = "conver")

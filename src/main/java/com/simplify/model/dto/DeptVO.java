@@ -20,7 +20,7 @@ public class DeptVO {
 
     private String describe;
 
-    private String pid;
+    private Integer pid;
 
     private String createTime;
 }

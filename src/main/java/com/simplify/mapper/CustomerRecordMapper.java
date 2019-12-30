@@ -17,4 +17,6 @@ public interface CustomerRecordMapper extends Mapper<CustomerRecord> {
 
     int insertCustomerRecord(CustomerRecord customerRecord);
 
+    int updateCustomerRecord(CustomerRecord customerRecord);
+
 }

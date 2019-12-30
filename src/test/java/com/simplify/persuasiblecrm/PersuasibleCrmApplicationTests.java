@@ -10,7 +10,6 @@ import com.simplify.service.*;
 import com.simplify.service.BusinessService;
 import com.simplify.service.CustomerRecordService;
 import com.simplify.service.CustomerTasksService;
-import com.simplify.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

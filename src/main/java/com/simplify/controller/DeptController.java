@@ -7,7 +7,7 @@ import com.simplify.utils.SnowFlake;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
+import java.util.List;
 /**
  * 部门控制器,负责对部门实体的业务分发
  * @author yuntian
@@ -44,24 +44,54 @@ public class DeptController {
         long deptId = new SnowFlake(0,0).nextId();
         String id = String.valueOf(deptId);
         dept.setId(id);
-        System.out.println(id);
-        System.out.println(dept);
         return deptService.insertDept(dept);
     }
 
     @PostMapping("/update")
     public int update(@RequestBody DeptVO deptVO) {
         System.out.println("进入修改方法");
-        System.out.println(deptVO+""+deptVO.getId());
         return deptService.updateByDeptId(deptVO);
     }
     @ResponseBody
     @GetMapping("/deleteById")
     public int deleteUser(DeptVO deptVO){
-        System.out.println(deptVO+""+deptVO.getId());
         System.out.println("进入删除方法");
-        System.out.println(deptVO+""+deptVO.getId());
         return deptService.deleteByDeptId(deptVO);
+    }
+
+    @GetMapping("/tree")
+    public JSONObject tree(){
+        List<DeptVO> list=deptService.tree();
+        JSONObject json=new JSONObject();
+        json.put("treeList",list);
+        return json;
+    }
+
+    @GetMapping("/tree2")
+    public JSONObject tree2(@RequestParam(value ="id",required = false)@RequestBody String id){
+        System.out.println(id);
+        List<DeptVO> list=deptService.tree2(id);
+        JSONObject json=new JSONObject();
+        json.put("treeList",list);
+        return json;
+    }
+
+    @GetMapping("/findOrgUserTree")
+    @ResponseBody
+    public JSONObject findOrgUserTree(){
+        List<DeptVO> list=deptService.tree();
+        JSONObject json=new JSONObject();
+        json.put("treeList",list);
+        return json;
+    }
+
+    @GetMapping("/findAll")
+    @ResponseBody
+    public JSONObject findAll(){
+        List<DeptVO> list=deptService.findAll();
+        JSONObject json=new JSONObject();
+        json.put("treeList",list);
+        return json;
     }
 
 
