@@ -22,15 +22,29 @@ public class DeptController {
 
     @GetMapping("/selectAll")
     public JSONObject selectAll(@RequestParam(value ="deptname",required = false)String deptName,
+                                @RequestParam(value ="oldDate",required = false)String oldDate,
+                                @RequestParam(value ="newDate",required = false)String newDate,
                                 @RequestParam(defaultValue = "1",value ="pageNum",required = false)Integer pageNum){
         PageBean<DeptVO> pages;
-        if (deptName!=null) {
-            if (deptName=="" || deptName==null){
+        System.out.println(oldDate+"时间"+newDate);
+        if (deptName!=null || oldDate!=null || newDate!=null) {
+            if (deptName == "" || deptName == null){
                 deptName=null;
             }
-            pages= deptService.listDeptUser(deptName,pageNum);
+
+
+            if (oldDate == "" || newDate == null){
+                oldDate=null;
+            }
+
+
+            if (newDate=="" || newDate==null){
+                newDate=null;
+            }
+
+            pages= deptService.listDeptUser(deptName,oldDate,newDate,pageNum);
         }else{
-            pages= deptService.listDeptUser(null,pageNum);
+            pages= deptService.listDeptUser(null,null,null,pageNum);
         }
         //封装好信息返回给前台页面
         JSONObject json=new JSONObject();

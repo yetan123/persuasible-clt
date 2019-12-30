@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.Id;
+import java.util.Date;
+
 @Data
 @ToString
 @AllArgsConstructor
@@ -22,5 +24,5 @@ public class DeptVO {
 
     private Integer pid;
 
-    private String createTime;
+    private Date createTime;
 }

@@ -1,5 +1,6 @@
 package com.simplify.persuasiblecrm;
 
+import com.simplify.mapper.DeptMapper;
 import com.simplify.model.dto.DeptVO;
 import com.simplify.model.dto.RouteDTO;
 import com.simplify.service.DeptService;
@@ -14,22 +15,19 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @SpringBootTest
 public class UserApplication {
-<<<<<<< HEAD
     @Autowired
     private MenuService menuServiceImpl;
     @Autowired
     private DeptService deptService;
     @Autowired
+    private DeptMapper deptMapper;
+    @Autowired
     private UserService userService;
-    @Test
-    void contextLoads() {
-        System.out.println(userService.listUserAndDept(null,null,null,1));;
 
-=======
     @Test
     void contextLoads() {
-        System.out.println(new BCryptPasswordEncoder().encode("962464"));
->>>>>>> f5aec6cabafaaefe18c832e03c677ca468158a21
+        System.out.println("年后");
+        System.out.println(deptService.listDeptUser(null,"2019-12-01 00:00:00","2020-12-02 00:00:00",1));
     }
 
 }

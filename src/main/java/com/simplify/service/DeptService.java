@@ -22,7 +22,7 @@ public interface DeptService {
 
     int insertDept(DeptVO deptVO);
     //分页 模糊查询
-    PageBean<DeptVO> listDeptUser(String deptname,Integer currentPage );
+    PageBean<DeptVO> listDeptUser(String deptname,String oldDate,String newDate,Integer currentPage );
 
     /**
      * Tree树

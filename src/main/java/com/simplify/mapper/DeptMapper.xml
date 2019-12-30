@@ -43,6 +43,9 @@
                 <bind name="deptname" value="'%'+deptname+'%'"/>
                 and table_alias.dept_name like #{deptname}
             </if>
+            <if test="oldDate != null and newDate!=null">
+                and  create_Time between to_date(#{oldDate},'yyyy-MM-dd HH24:MI:SS') and to_date(#{newDate},'yyyy-MM-dd HH24:MI:SS')
+            </if>
         <!-- &lt;=  小于等于 -->
         <!-- &gt;= 大于于等于 -->
         order by table_alias.id
@@ -54,6 +57,9 @@
             <if test="deptname != null and deptname!= ''">
                 <bind name="deptname" value="'%'+deptname+'%'"/>
                 and dept_name like #{deptname}
+            </if>
+            <if test="oldDate != null and newDate!=null">
+                and create_Time between to_date(#{oldDate},'yyyy-MM-dd HH24:MI:SS') and to_date(#{newDate},'yyyy-MM-dd HH24:MI:SS')
             </if>
         </where>
     </select>

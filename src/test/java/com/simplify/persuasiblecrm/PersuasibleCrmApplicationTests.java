@@ -7,11 +7,7 @@ import com.simplify.model.entity.Business;
 import com.simplify.model.entity.CustomerRecord;
 import com.simplify.model.entity.User;
 import com.simplify.service.*;
-<<<<<<< HEAD
-
-=======
 import com.simplify.service.BusinessService;
->>>>>>> ea361d9eb07b242bcdff1e08dba97400d308c761
 import com.simplify.service.CustomerRecordService;
 import com.simplify.service.CustomerTasksService;
 import org.junit.jupiter.api.Test;
