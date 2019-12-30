@@ -1,5 +1,4 @@
 package com.simplify.controller;
-import com.simplify.model.dto.UserAndDeptDTO;
 import com.simplify.model.dto.UserAndDeptVO;
 import com.simplify.model.entity.User;
 import com.simplify.service.UserService;
@@ -72,7 +71,12 @@ public class UserController {
         System.out.println("进入删除方法");
         return userService.deleteByUserId(userAndDeptVO);
     }
-
+    @PostMapping("/updateByState")
+    public int updateByState(@RequestBody UserAndDeptVO user) {
+        System.out.println("进入修改状态方法");
+        System.out.println(user+""+user.getUserState());
+        return userService.updateByState(user);
+    }
     @GetMapping("qqLogin")
     public void qqLoginAfter(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
@@ -80,11 +84,4 @@ public class UserController {
         String state = request.getParameter("state");
         String uuid = (String) session.getAttribute("state");
     }
-    @PostMapping("/updateByState")
-    public int updateByState(@RequestBody UserAndDeptVO user) {
-        System.out.println("进入修改状态方法");
-        System.out.println(user+""+user.getUserState());
-        return userService.updateByState(user);
-    }
-
 }

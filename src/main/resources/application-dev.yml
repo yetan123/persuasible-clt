@@ -10,7 +10,6 @@ logging:
   level:
     #这个指定你的dao层，也就是mapper文件的所在包
     com.simplify.mapper: DEBUG
-
 spring:
   datasource:
     username: persuasible
@@ -18,7 +17,9 @@ spring:
     url: jdbc:oracle:thin:@47.106.177.220:1521:orcl
     type: com.mchange.v2.c3p0.ComboPooledDataSource
     driver-class-name: oracle.jdbc.driver.OracleDriver
-
+    mvc:
+      view:
+        suffix: .html
 pagehelper:
   helperDialect: oracle
   reasonable: true
