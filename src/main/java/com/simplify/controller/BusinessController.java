@@ -21,6 +21,7 @@ public class BusinessController {
 
     @Resource
     BusinessService businessService;
+
     @ResponseBody
     @GetMapping("/listBusiness")
     public List<BusinessDTO> listBusiness() {

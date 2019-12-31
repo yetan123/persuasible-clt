@@ -3,6 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.simplify.mapper.BusinessMapper">
+
     <resultMap id="BusinessAndCustomerAndCustomer" type="com.simplify.model.dto.BusinessDTO">
         <id property="id" column="id"/>
         <result property="businessName" column="BUSINESS_NAME"/>
@@ -27,6 +28,9 @@
             <result property="companyName" column="COMPANY_NAME"/>
         </association>
     </resultMap>
+    <select id="selectAll" resultType="Business">
+        SELECT * FROM TB_BUSINESS Order BY ID
+    </select>
 
     <select id="listBusiness" resultMap="BusinessAndCustomerAndCustomer">
         SELECT

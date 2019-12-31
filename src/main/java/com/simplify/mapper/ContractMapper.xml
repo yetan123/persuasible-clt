@@ -23,6 +23,7 @@
         <result property="companyName" column="COMPANY_NAME"/>
     </association>
 </resultMap>
+
     <select id="listContractById" resultMap="ContractAndCustomerAndCustomer" parameterType="Long">
         select co.CONTRACT_NAME,co.CONTRACT_CODE,cu.COMPANY_NAME,co.TOTAL_MONEY,co.START_TIME,co.END_TIME,co.CONTRACT_STATE,u.USERNAME
         from TB_CONTRACT co inner join TB_CUSTOMER cu on co.COSTOMER_ID = cu.id
@@ -37,6 +38,33 @@
     </select>
 
     <delete id="deleteContractByContractCode" parameterType="String">
-        delete from TB_CONTRACT where CONTRACT_CODE = #{contractCode}
+        delete from TB_CONTRACT where id = #{id}
     </delete>
+
+    <update id="updateContract" parameterType="com.simplify.model.dto.ContractVO">
+        update tb_contract
+        <trim prefix="set" suffixOverrides=",">
+            <if test="contractCode!=null">CONTRACT_CODE=#{contractCode},</if>
+            <if test="contractName!=null">CONTRACT_NAME=#{contractName},</if>
+            <if test="moneyUnit!=null">MONEY_UNIT=#{moneyUnit},</if>
+            <if test="totalMoney!=null">TOTAL_MONEY=#{totalMoney},</if>
+            <if test="contractContents!=null">CONTRACT_CONTENTS=#{contractContents},</if>
+            <if test="remark!=null">REMARK=#{remark},</if>
+            <if test="linkmanId!=null">LINKMAN_ID=#{linkmanId},</if>
+            <if test="contractType!=null">CONTRACT_TYPE=#{contractType},</if>
+            <if test="paymentMethod!=null">PAYMENT_METHOD=#{paymentMethod},</if>
+            <if test="contractState!=null">CONTRACT_STATE=#{contractState},</if>
+            <if test="contractParticipant!=null">CONTRACT_PARTICIPANT=#{contractParticipant},</if>
+            <if test="principalId!=null">PRINCIPAL_ID=#{principalId},</if>
+        </trim>
+        where ID=#{id}
+    </update>
+
+    <insert id="insertContract" parameterType="com.simplify.model.dto.ContractVO">
+        insert into tb_contract values (
+        #{id},#{contractCode},#{contractName},#{contractDate},#{startTime},#{endTime},#{moneyUnit},#{totalMoney},
+        #{contractContents},#{remark},#{commercialOpportunityId},#{costomerId},#{linkmanId},#{contractType},#{paymentMethod},
+        #{contractState},#{contractParticipant},#{secondPartyId},#{firstPartyId},#{creatorId},#{principalId},#{followTime}
+        )
+    </insert>
 </mapper>

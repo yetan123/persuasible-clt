@@ -20,7 +20,7 @@ public class ContractDTOServiceImpl implements ContractDTOService {
     }
 
     @Override
-    public Linkman getLinkmanByCustomerId(Long CustomerId) {
+    public List<Linkman> getLinkmanByCustomerId(Long CustomerId) {
         return contractDTOMapper.getLinkmanByCustomerId(CustomerId);
     }
 

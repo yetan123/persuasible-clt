@@ -8,7 +8,7 @@ public interface ContractDTOService {
 
     List<Customer> listCustomerIDAndCustomerName();
 
-    Linkman getLinkmanByCustomerId(Long CustomerId);
+    List<Linkman> getLinkmanByCustomerId(Long CustomerId);
 
     List<Business> listBusiness();
 

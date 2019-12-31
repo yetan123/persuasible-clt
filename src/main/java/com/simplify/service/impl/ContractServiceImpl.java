@@ -1,9 +1,12 @@
 package com.simplify.service.impl;
 
 import com.simplify.mapper.ContractMapper;
+import com.simplify.model.dto.ContractVO;
 import com.simplify.model.entity.Contract;
 import com.simplify.service.ContractService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,5 +30,15 @@ public class ContractServiceImpl implements ContractService {
     @Override
     public void deleteContractByContractCode(String contractCode) {
         contractMapper.deleteContractByContractCode(contractCode);
+    }
+
+    @Override
+    public int insertContract(ContractVO contractvo) {
+        return contractMapper.insertContract(contractvo);
+    }
+
+    @Override
+    public int updateContract(ContractVO contractVO) {
+        return contractMapper.updateContract(contractVO);
     }
 }

@@ -1,4 +1,4 @@
-package com.simplify.model.entity;
+package com.simplify.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,14 +8,12 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.sql.Date;
 
-/*
-  合同类
- */
+@Table(name = "tb_contract")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Contract {
-
+public class ContractVO {
+    @Id
     private Long id;
     private String contractCode;
     private String contractName;
@@ -38,6 +36,4 @@ public class Contract {
     private Long creatorId;
     private Long principalId;
     private Date followTime;
-    private User user;
-    private Customer customer;
 }

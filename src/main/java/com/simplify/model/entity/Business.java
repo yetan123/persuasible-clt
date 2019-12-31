@@ -36,5 +36,12 @@ public class Business {
     private String businessPhases;
     private Integer businessState;
     private Date createTime;
+    private User user;
+    private Customer customer;
+
+//    public Double getEstimatedSuccess() {
+//        estimatedSuccess=estimatedSuccess*100;
+//        return estimatedSuccess;
+//    }
 
 }
