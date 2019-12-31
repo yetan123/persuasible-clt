@@ -29,13 +29,14 @@ public class BusinessServiceImpl implements BusinessService {
 
     @Override
     public List<BusinessDTO> listBusiness() {
-        return businessMapper.listBusiness();
+        return null;
     }
 
     @Override
     public List<BusinessDTO> listBusinessById(Long id) {
-        return businessMapper.listBusinessById(id);
+        return null;
     }
+
 
     @Override
     public void deleteBusinessById(Long id) {
