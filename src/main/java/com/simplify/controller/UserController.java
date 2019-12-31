@@ -6,6 +6,7 @@ import com.simplify.utils.PageBean;
 import com.simplify.utils.SnowFlake;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -54,6 +55,7 @@ public class UserController {
         json.put("pageInfo",pages);
         return json;
     }
+    @PreAuthorize("hasAuthority('添加用户:POST')")
     @PostMapping("/add")
     public int add(@RequestBody User user) {
         user.setId(new SnowFlake(0,0).nextId());

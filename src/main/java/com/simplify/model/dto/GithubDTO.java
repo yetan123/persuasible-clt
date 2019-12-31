@@ -17,7 +17,7 @@ public class GithubDTO {
 
     private String name;
 
-    private Long login;
+    private String login;
 
     private String email;
 

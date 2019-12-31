@@ -63,7 +63,7 @@ public class LoginController {
             e.printStackTrace();
         }
         return new GitHub(Long.parseLong(responseMap.get("id")),responseMap.get("name")
-                ,Long.parseLong(responseMap.get("login")),
+                ,responseMap.get("login"),
                 responseMap.get("email"),responseMap.get("avatar_url"),null,null);
     }
 
@@ -79,6 +79,11 @@ public class LoginController {
         return user;
     }
 
+    /**
+     * 返回值说明：4000账号不存在,4010密码错误,4005已绑定账号,2000成功绑定
+     * @param githubDTO
+     * @return
+     */
     @PostMapping("bindingGithubAndUser")
     @ResponseBody
     public Integer bindingGithubAndUser(@RequestBody GithubDTO githubDTO){

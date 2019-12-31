@@ -22,7 +22,7 @@ public class GitHub {
 
     private String name;
 
-    private Long login;
+    private String login;
 
     private String email;
 
