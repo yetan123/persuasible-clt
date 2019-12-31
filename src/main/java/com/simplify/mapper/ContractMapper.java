@@ -8,11 +8,15 @@ import tk.mybatis.mapper.common.Mapper;
 import java.util.List;
 
 @Repository
-public interface ContractMapper extends Mapper<ContractVO> {
+public interface ContractMapper extends Mapper<Contract> {
 
-       List<ContractVO> listContract();
+       List<Contract> listContract();
 
-       List<ContractVO> listContractById(String id);
+       List<Contract> listContractById(Long id);
 
        void deleteContractByContractCode(String contractCode);
+
+       int insertContract(ContractVO contractVO);
+
+       int updateContract(ContractVO contractVO);
 }

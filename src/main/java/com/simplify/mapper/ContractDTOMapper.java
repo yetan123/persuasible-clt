@@ -26,12 +26,13 @@ public interface ContractDTOMapper  {
             @Result(column = "ID",property = "id",id = true),
             @Result(column = "CUSTOMER_NAME",property = "customerName")
     })
-    Linkman getLinkmanByCustomerId(Long CustomerId);
+    List<Linkman> getLinkmanByCustomerId(Long CustomerId);
 
-    @Select("select ID,BUSINESS_NAME from TB_BUSINESS")
+    @Select("select ID,BUSINESS_NAME,ESTIMATED_SUCCESS from TB_BUSINESS")
     @Results({
             @Result(column = "ID",property = "id",id = true),
-            @Result(column = "BUSINESS_NAME",property = "businessName")
+            @Result(column = "BUSINESS_NAME",property = "businessName"),
+            @Result(column = "ESTIMATED_SUCCESS",property = "estimatedSuccess")
     })
     List<Business> listBusiness();
 

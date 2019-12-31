@@ -39,9 +39,9 @@ public class Business {
     private User user;
     private Customer customer;
 
-    public Double getEstimatedSuccess() {
-        estimatedSuccess=estimatedSuccess*100;
-        return estimatedSuccess;
-    }
+//    public Double getEstimatedSuccess() {
+//        estimatedSuccess=estimatedSuccess*100;
+//        return estimatedSuccess;
+//    }
 
 }

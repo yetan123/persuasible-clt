@@ -60,7 +60,7 @@ public class ContractTest {
     @Test
     public void getLinkmanByCustomerId(){
         long id = 407157154483535872L;
-        Linkman list = contractDTOServiceImpl.getLinkmanByCustomerId(id);
+        List<Linkman> list = contractDTOServiceImpl.getLinkmanByCustomerId(id);
         System.out.println(list);
     }
 
@@ -76,7 +76,7 @@ public class ContractTest {
     public void listBusiness(){
         List<Business> list = contractDTOServiceImpl.listBusiness();
         for (Business c:list){
-            System.out.println(c.getId()+""+c.getBusinessName());
+            System.out.println(c.getId()+""+c.getBusinessName()+""+c.getEstimatedSuccess());
         }
     }
 

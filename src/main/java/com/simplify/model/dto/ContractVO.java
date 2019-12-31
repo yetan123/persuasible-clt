@@ -4,19 +4,23 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.sql.Date;
 
+@Table(name = "tb_contract")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class ContractVO {
-    private String id;
+    @Id
+    private Long id;
     private String contractCode;
     private String contractName;
     private Date contractDate;
     private Date startTime;
     private Date endTime;
-    private Double moneyUnit;
+    private String moneyUnit;
     private Double totalMoney;
     private String contractContents;
     private String remark;
@@ -32,6 +36,4 @@ public class ContractVO {
     private Long creatorId;
     private Long principalId;
     private Date followTime;
-    private UserVO userVO;
-    private CustomerVO customerVO;
 }
