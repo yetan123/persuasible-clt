@@ -23,5 +23,8 @@ public interface BusinessMapper extends Mapper<Business> {
     List<Business> selectAll();
     List<BusinessDTO> listBusiness();
     List<BusinessDTO> listBusinessById(Long id);
+
     void deleteBusinessById(Long id);
+    int insertBusiness(Business business);
+    int updateBusiness(Business business);
 }

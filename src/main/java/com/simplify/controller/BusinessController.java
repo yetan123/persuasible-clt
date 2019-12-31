@@ -38,4 +38,17 @@ public class BusinessController {
     public void deleteBusinessById(Long id) {
         businessService.deleteBusinessById(id);
     }
+
+    @ResponseBody
+    @GetMapping("/insertBusiness")
+    public void insertBusiness(Business business) {
+        businessService.insertBusiness(business);
+    }
+
+    @ResponseBody
+    @GetMapping("/updateBusiness")
+    public void updateBusiness(Business business) {
+        businessService.updateBusiness(business);
+    }
+
 }

@@ -41,4 +41,14 @@ public class BusinessServiceImpl implements BusinessService {
     public void deleteBusinessById(Long id) {
         businessMapper.deleteBusinessById(id);
     }
+
+    @Override
+    public int insertBusiness(Business business) {
+        return businessMapper.insertBusiness(business);
+    }
+
+    @Override
+    public int updateBusiness(Business business) {
+        return businessMapper.updateBusiness(business);
+    }
 }
