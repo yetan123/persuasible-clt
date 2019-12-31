@@ -8,6 +8,7 @@ import com.simplify.model.entity.User;
 import com.simplify.service.UserService;
 import com.simplify.utils.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 import java.util.List;
@@ -78,6 +79,12 @@ public class UserServiceImpl implements UserService
         /*  System.out.println(lists+"----------结束");*/
         return pageBean;
     }
+
+    @Override
+    public User findUserById(Long id) {
+        return userMapper.selectByPrimaryKey(id);
+    }
+
 
     @Override
     public int deleteByUserId(UserAndDeptVO userAndDeptVO) {
