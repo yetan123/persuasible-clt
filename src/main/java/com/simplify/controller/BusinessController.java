@@ -21,6 +21,7 @@ public class BusinessController {
 
     @Resource
     BusinessService businessService;
+
     @ResponseBody
     @GetMapping("/listBusiness")
     public List<BusinessDTO> listBusiness() {
@@ -38,4 +39,17 @@ public class BusinessController {
     public void deleteBusinessById(Long id) {
         businessService.deleteBusinessById(id);
     }
+
+    @ResponseBody
+    @GetMapping("/insertBusiness")
+    public void insertBusiness(Business business) {
+        businessService.insertBusiness(business);
+    }
+
+    @ResponseBody
+    @GetMapping("/updateBusiness")
+    public void updateBusiness(Business business) {
+        businessService.updateBusiness(business);
+    }
+
 }

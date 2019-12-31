@@ -17,17 +17,17 @@ import java.sql.Date;
 public class BusinessDTO {
 
     @Id
-    private Long id;
+    private String id;
     private String businessName;
-    private Long estimatedSales;
+    private String estimatedSales;
     private Date estimatedDate;
     private Double estimatedSuccess;
     private String customerDecision;
     private Date findDate;
     private String businessDescription;
-    private Long userId;
-    private Long businessSourceId;
-    private Long customerId;
+    private String userId;
+    private String businessSourceId;
+    private String customerId;
     private String businessType;
     private String businessPhases;
     private Integer businessState;
@@ -39,4 +39,6 @@ public class BusinessDTO {
         estimatedSuccess=estimatedSuccess*100;
         return estimatedSuccess;
     }
+
+
 }

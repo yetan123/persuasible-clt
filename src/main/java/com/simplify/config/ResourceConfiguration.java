@@ -28,6 +28,8 @@ public class ResourceConfiguration extends ResourceServerConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(HttpMethod.OPTIONS)
                 .permitAll()
+                .antMatchers("/oauth/**")
+                .permitAll()
                 .anyRequest().authenticated();
     }
 

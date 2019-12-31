@@ -1,5 +1,4 @@
 package com.simplify.controller;
-import com.simplify.model.dto.UserAndDeptDTO;
 import com.simplify.model.dto.UserAndDeptVO;
 import com.simplify.model.entity.User;
 import com.simplify.service.UserService;
@@ -7,6 +6,7 @@ import com.simplify.utils.PageBean;
 import com.simplify.utils.SnowFlake;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -55,24 +55,30 @@ public class UserController {
         json.put("pageInfo",pages);
         return json;
     }
+    @PreAuthorize("hasAuthority('添加用户:POST')")
     @PostMapping("/add")
     public int add(@RequestBody User user) {
         user.setId(new SnowFlake(0,0).nextId());
         return userService.insertUser(user);
     }
-    @PostMapping("/update")
+    @PreAuthorize("hasAuthority('修改用户:PUT')")
+    @PutMapping("/update")
     public int update(@RequestBody UserAndDeptVO user) {
         System.out.println("进入修改方法");
         user.setUsername(user.getUsername());
         return userService.updateByUserId(user);
     }
-    @ResponseBody
-    @GetMapping("/deleteById")
+    @PreAuthorize("hasAuthority('删除用户:DELETE')")
+    @DeleteMapping("/deleteById")
     public int deleteUser( UserAndDeptVO userAndDeptVO){
         System.out.println("进入删除方法");
         return userService.deleteByUserId(userAndDeptVO);
     }
-
+    @PreAuthorize("hasAuthority('修改用户状态:PUT')")
+    @PutMapping("/updateByState")
+    public int updateByState(@RequestBody UserAndDeptVO user) {
+        return userService.updateByState(user);
+    }
     @GetMapping("qqLogin")
     public void qqLoginAfter(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
@@ -80,10 +86,4 @@ public class UserController {
         String state = request.getParameter("state");
         String uuid = (String) session.getAttribute("state");
     }
-    @PostMapping("/updateByState")
-    public int updateByState(@RequestBody UserAndDeptVO user) {
-        System.out.println("进入修改状态方法");
-        return userService.updateByState(user);
-    }
-
 }

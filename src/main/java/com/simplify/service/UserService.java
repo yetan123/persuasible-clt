@@ -31,6 +31,6 @@ public interface UserService {
         int updateByState(UserAndDeptVO userAndDeptVO);
         //分页 模糊查询
         PageBean<UserAndDeptVO> listUserAndDept(String deptName, String userName, String enabled, Integer currentPage);
-
+        User findUserById(Long id);
 
 }

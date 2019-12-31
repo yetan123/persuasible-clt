@@ -11,6 +11,7 @@ import java.sql.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TasksDTO {
+    private Long id;
     private String name;
     private Long customer;
     private String content;
