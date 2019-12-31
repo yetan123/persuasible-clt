@@ -36,5 +36,4 @@ public class Menu {
 
     private Integer sort;
 
-    private String permission;
 }

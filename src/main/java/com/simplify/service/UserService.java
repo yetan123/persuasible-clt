@@ -1,12 +1,10 @@
 package com.simplify.service;
-
 import com.simplify.model.dto.UserAndDeptDTO;
+import com.simplify.model.dto.UserAndDeptVO;
 import com.simplify.model.dto.UserAuthorizeDTO;
 import com.simplify.model.dto.UserVO;
 import com.simplify.model.entity.User;
 import com.simplify.utils.PageBean;
-import org.apache.ibatis.annotations.Param;
-
 import java.util.List;
 import java.util.Map;
 
@@ -23,16 +21,16 @@ public interface UserService {
         List<UserVO> listUserByNotId(String id);
 
         UserAuthorizeDTO findUserAuthorizeById(Long id);
-
-        List<UserAndDeptDTO> findUserAndDeptDeptId();//用户与部门多表查询
-
+        //添加用户基本信息
         int insertUser(User user);
+        //删除用户基本信息
+        int deleteByUserId(UserAndDeptVO userAndDeptVO);
+        //修改用户基本信息
+        int updateByUserId(UserAndDeptVO u);
+        //修改状态
+        int updateByState(UserAndDeptVO userAndDeptVO);
+        //分页 模糊查询
+        PageBean<UserAndDeptVO> listUserAndDept(String deptName, String userName, String enabled, Integer currentPage);
+        User findUserById(Long id);
 
-        int updateById(User u);
-
-        List<User> listUser(Map params);
-
-        /*List<UserAndDeptDTO> listUserAndDept(String deptName, String userSearch);*/
-
-        PageBean<UserAndDeptDTO> listUserAndDept(String deptName, String userSearch,Integer currentPage);
 }

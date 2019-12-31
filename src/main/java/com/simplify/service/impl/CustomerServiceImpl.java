@@ -65,7 +65,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     @CacheEvict(value = {"customerAndLinkman","converToMe","conver"}, allEntries = true)
     public int saveCustomer(Customer customer) {
-        return customerMapper.insert(customer);
+        return customerMapper.insertSelective(customer);
     }
 
     @Cacheable(value = "conver")
@@ -98,12 +98,9 @@ public class CustomerServiceImpl implements CustomerService {
         return customerMapper.listCustomerRank();
     }
 
-
     @Override
-    public List<Customer> selectbyId(Long id) {
-        Example example = new Example(Customer.class);
-        Example.Criteria criteria = example.createCriteria();
-        criteria.andEqualTo("id", id);
-        return customerMapper.selectByExample(example);
+    public List<CustomerVO> selectByID(String id) {
+        return customerMapper.selectByID(id);
     }
+
 }

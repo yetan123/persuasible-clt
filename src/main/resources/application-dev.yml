@@ -4,13 +4,12 @@ mybatis:
   configuration:
     map-underscore-to-camel-case: true
     cache-enabled: true
-  type-aliases-package: com.simplify.model.entity,com.simplify.model.dto
+  type-aliases-package: com.simplify.model.entity,com.simplify.model.dto,com.simplify.model.vo
 # 指定log4j2作为日志记录
 logging:
   level:
     #这个指定你的dao层，也就是mapper文件的所在包
     com.simplify.mapper: DEBUG
-
 spring:
   datasource:
     username: persuasible
@@ -18,10 +17,11 @@ spring:
     url: jdbc:oracle:thin:@47.106.177.220:1521:orcl
     type: com.mchange.v2.c3p0.ComboPooledDataSource
     driver-class-name: oracle.jdbc.driver.OracleDriver
-
+    mvc:
+      view:
+        suffix: .html
 pagehelper:
   helperDialect: oracle
   reasonable: true
   supportMethodsArguments: true
   params: count=countSql
-

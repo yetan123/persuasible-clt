@@ -1,16 +1,16 @@
 package com.simplify.service.impl;
-
 import com.simplify.mapper.UserMapper;
 import com.simplify.model.dto.UserAndDeptDTO;
+import com.simplify.model.dto.UserAndDeptVO;
 import com.simplify.model.dto.UserAuthorizeDTO;
 import com.simplify.model.dto.UserVO;
 import com.simplify.model.entity.User;
 import com.simplify.service.UserService;
 import com.simplify.utils.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
-
 import java.util.List;
 import java.util.Map;
 
@@ -21,7 +21,6 @@ import java.util.Map;
  */
 @Service
 public class UserServiceImpl implements UserService
-
 {
     @Autowired
     private UserMapper userMapper;
@@ -44,53 +43,53 @@ public class UserServiceImpl implements UserService
     }
 
     @Override
-    public List<UserAndDeptDTO> findUserAndDeptDeptId() {
-        return userMapper.findUserAndDeptDeptId();
-    }
-
-    @Override
     public int insertUser(User user) {
         return userMapper.insertUser(user);
     }
 
     @Override
-    public int updateById(User u) {
-        return userMapper.updateById(u);
+    public int updateByUserId(UserAndDeptVO u) {
+        return userMapper.updateByUserId(u);
     }
 
     @Override
-    public List<User> listUser(Map params) {
-        return userMapper.listUser(params);
+    public int updateByState(UserAndDeptVO userAndDeptVO) {
+        return userMapper.updateByState(userAndDeptVO);
     }
-
     @Override
-    public PageBean<UserAndDeptDTO> listUserAndDept(String deptName, String userSearch, Integer currentPage) {
-        PageBean<UserAndDeptDTO> pageBean = new PageBean<UserAndDeptDTO>();
+    public PageBean<UserAndDeptVO> listUserAndDept(String deptname, String username, String enabled, Integer currentPage) {
+        PageBean<UserAndDeptVO> pageBean = new PageBean<UserAndDeptVO>();
+        //封装当前页数
         pageBean.setPageNum(currentPage);
-        int pageSize=4;
+        //每页显示的数据
+        int pageSize=5;
         pageBean.setPageSize(pageSize);
-        int totalCount = userMapper.selectCounts(deptName,userSearch);
+        //封装总记录数
+        int totalCount = userMapper.selectCounts(deptname,username,enabled);
         pageBean.setTotalCount(totalCount);
+        //封装总页数
         double tc = totalCount;
         Double num = Math.ceil(tc / pageSize);//向上取整
         pageBean.setTotalPage(num.intValue());
         int start=(currentPage-1)*pageSize;
-        int size =pageBean.getPageSize();
+        int size = pageBean.getPageSize()*pageBean.getPageNum();
         //封装每页显示的数据
-        List<UserAndDeptDTO> lists = userMapper.listUserAndDept(deptName,userSearch,start,size);
+        List<UserAndDeptVO> lists = userMapper.listUserAndDept(deptname,username,enabled,start,size);
         pageBean.setLists(lists);
-        System.out.println(lists+"----------");
+        /*  System.out.println(lists+"----------结束");*/
         return pageBean;
     }
 
+    @Override
+    public User findUserById(Long id) {
+        return userMapper.selectByPrimaryKey(id);
+    }
 
 
-
-
-  /*  @Override
-    public List<UserAndDeptDTO> listUserAndDept(String deptName, String userSearch) {
-        return userMapper.listUserAndDept(deptName,userSearch);
-    }*/
+    @Override
+    public int deleteByUserId(UserAndDeptVO userAndDeptVO) {
+        return userMapper.deleteByUserId(userAndDeptVO);
+    }
 
 
 

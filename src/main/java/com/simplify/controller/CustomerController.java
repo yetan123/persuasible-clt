@@ -9,10 +9,14 @@ import com.simplify.service.CustomerConverService;
 import com.simplify.service.CustomerService;
 import com.simplify.service.LinkmanService;
 import com.simplify.service.UserService;
+import com.simplify.utils.ExcelUtil;
 import com.simplify.utils.SnowFlake;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -47,6 +51,18 @@ public class CustomerController {
         return pageInfo;
     }
 
+    @PostMapping("/import")
+    public void readExcel(MultipartFile file, @RequestParam("id") String id) {
+        List<Customer> customers = ExcelUtil.listCustomerByExcel(ExcelUtil.getWorkBook(file));
+        for(Customer customer: customers) {
+            customer.setCreateTime(new Date());
+            customer.setCustomerSourceId(new Long(0).longValue());
+            customer.setUserId(Long.valueOf(id));
+            customerService.saveCustomer(customer);
+            linkmanService.saveLinkman(customer.getLinkman());
+        }
+    }
+
     @GetMapping("/listConvertUser")
     public List<UserVO> listConvertUser(String id) {
         return userService.listUserByNotId(id);
@@ -62,6 +78,8 @@ public class CustomerController {
 
     @GetMapping("deleteCustomer")
     public int deleteCustomer(Long id) {
+        // 删除客户联系人
+        linkmanService.deleteLinkmanByCustomerId(id);
         return customerService.deleteCustomerById(id);
     }
 
@@ -72,7 +90,7 @@ public class CustomerController {
         LocalDateTime nowTime= LocalDateTime.now();
         Date createTime = Date.from(nowTime.atZone(ZoneId.systemDefault()).toInstant());
         customer.setCreateTime(createTime);
-        if(Objects.equals("",customer.getCustomerState()) || customer.getCustomerState() == null) {
+        if(Objects.equals("", customer.getCustomerState()) || customer.getCustomerState() == null) {
             customer.setCustomerState("无状态");
         }
         int customerResult = customerService.saveCustomer(customer);
@@ -93,6 +111,19 @@ public class CustomerController {
         return listState();
     }
 
+    @GetMapping("/downloadExcel")
+    public ResponseEntity<byte[]> downloadExcel(HttpServletRequest request) {
+        return ExcelUtil.downloadExcel(request);
+    }
+
+    @GetMapping("/exportExcel")
+    public ResponseEntity<byte[]> exportExcel(String id) {
+        Map parmas = new HashMap();
+        parmas.put("userId", id);
+        List<CustomerVO> customerVOS = customerService.listCustomerAndLinkman(parmas);
+        return ExcelUtil.exportExcel(customerVOS);
+    }
+
     /**
      * 获取分页信息
      * @param params: 前端发送过来的参数
@@ -105,7 +136,7 @@ public class CustomerController {
      */
     private PageInfo<CustomerVO> getPageInfo(Map params, String pageType) throws ParseException {
         int pageNum = 1;
-        int pageSize = 4;
+        int pageSize = 5;
         List<CustomerVO> customers = null;
         if(params.get("pageNum") != null) {
             pageNum = (Integer) params.get("pageNum");
@@ -116,20 +147,12 @@ public class CustomerController {
        PageHelper.startPage(pageNum, pageSize, true);
         // 我的客户
         if("my".equals(pageType)) {
-            System.out.println("my");
             customers = customerService.listCustomerAndLinkman(params);
             // 我转交的
         } else if("i_pass".equals(pageType)) {
-            System.out.println("i_pass");
             customers = customerService.listConver(params);
         } else if("pass_me".equals(pageType)) {
-            System.out.println("pass_me");
             customers = customerService.listConverToMe(params);
-        } else {
-            throw new RuntimeException("沒有指定分頁參數頁面");
-        }
-        for(CustomerVO customerVO: customers) {
-            System.out.println(customerVO);
         }
         PageInfo<CustomerVO> page = new PageInfo<>(customers);
         return page;
@@ -155,7 +178,7 @@ public class CustomerController {
     }
 
     private Map filterParamsConver(Map params) throws ParseException {
-        if(params.get("customerFollowDate") != null) {
+        if(params.get("customerFollowDate") != null && !"".equals(params.get("customerFollowDate"))) {
            String  customerCreateDate = params.get("customerFollowDate").toString();
             params.put("customerFollowDate", converTime(customerCreateDate));
         }
@@ -173,26 +196,24 @@ public class CustomerController {
         return params;
     }
 
-
     private String converTime(String time) throws ParseException {
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
         Date parse = df.parse(time);
         SimpleDateFormat df1 = new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy", Locale.UK);
         Date date1 = df1.parse(parse.toString());
         df = new SimpleDateFormat("yyyy-MM-dd");
-        System.out.println(df.format(date1));
         return df.format(date1);
-
     }
+
     @ResponseBody
-    @GetMapping("selectById")
-    public List<Customer> selectById(String id){
-        long l = Long.valueOf(id).longValue();
-        System.out.println(l);
-        List<Customer> list = customerService.selectbyId(l);
+    @GetMapping("/selectById")
+    public List<CustomerVO> selectById(String id){
+        System.out.println(id);
+        String l = "407151960928550912";
+        List<CustomerVO> list = customerService.selectByID(l);
         System.out.println(list);
         return list;
-
     }
+
 }
 

@@ -20,9 +20,13 @@ public class Dept {
     @Id
     private Long id;
 
-    private String dept_Name;
+    private String deptName;
 
-    private Integer enterprise_Id;
+    private Integer enterpriseId;
 
     private String describe;
+/*
+    private String pid;
+
+    private String createTime;*/
 }

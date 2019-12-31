@@ -1,9 +1,9 @@
 package com.simplify.persuasiblecrm;
 
+import com.simplify.model.dto.BusinessDTO;
 import com.simplify.model.entity.Business;
 import com.simplify.service.BusinessService;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;
@@ -25,24 +25,24 @@ public class BusinessTest {
 
     @Test
     public void listBusiness(){
-        List<Business> business=businessService.listBusiness();
-        for (Business b:business) {
+        List<BusinessDTO> business=businessService.listBusiness();
+        for (BusinessDTO b:business) {
             System.out.println(b);
         }
     }
 
     @Test
     public void listBusinessById(){
-        Long id =new Long(1);
-        List<Business> business=businessService.listBusinessById(id);
-        for (Business b:business) {
+        Long id = new Long(1);
+        List<BusinessDTO> business=businessService.listBusinessById(id);
+        for (BusinessDTO b:business) {
             System.out.println(b);
         }
     }
 
     @Test
     public void deleteBusinessById(){
-        Long id = new Long(5);
+        Long id = new Long(10);
         businessService.deleteBusinessById(id);
     }
 

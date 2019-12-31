@@ -30,7 +30,7 @@ public class RouteDTO {
 
     private String title;
 
-    private String permission;
+    private List<String> permission;
 
     private List<RouteDTO> children;
 }

@@ -29,5 +29,15 @@ inner join PERSUASIBLE.TB_LINKMAN l on r.LINKMAN_ID=l.CUSTOMER_ID
 inner join PERSUASIBLE.TB_CUSTOMER s on r.CUSTOMER_ID = s.ID
    </select>
 
+    <insert id="insertCustomerRecord" parameterType="CustomerRecord">
+      insert into PERSUASIBLE.TB_CUSTOMER_RECORD VALUES(#{id},#{recordContent},#{recordType},#{recordProgress},#{recordTime},#{recordNextTime},#{customerId},#{linkmanId})
+    </insert>
+
+    <update id="updateCustomerRecord" parameterType="CustomerRecord">
+       update PERSUASIBLE.TB_CUSTOMER_RECORD SET RECORD_CONTENT=#{recordContent},RECORD_TYPE=#{recordType},RECORD_PROGRESS=#{recordProgress},RECORD_TIME=#{recordTime},RECORD_NEXT_TIME=#{recordNextTime},CUSTOMER_ID=#{customerId},LINKMAN_ID=#{linkmanId} WHERE ID =#{id}
+    </update>
+
+
+
 </mapper>
 

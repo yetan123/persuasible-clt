@@ -1,5 +1,6 @@
 package com.simplify.controller;
 
+import com.simplify.model.dto.BusinessDTO;
 import com.simplify.model.entity.Business;
 import com.simplify.service.BusinessService;
 import org.springframework.stereotype.Controller;
@@ -23,13 +24,13 @@ public class BusinessController {
 
     @ResponseBody
     @GetMapping("/listBusiness")
-    public List<Business> listBusiness() {
+    public List<BusinessDTO> listBusiness() {
         return businessService.listBusiness();
     }
 
     @ResponseBody
     @GetMapping("/listBusinessById")
-    public List<Business> listBusinessById(Long id) {
+    public List<BusinessDTO> listBusinessById(Long id) {
         return businessService.listBusinessById(id);
     }
 
@@ -37,7 +38,18 @@ public class BusinessController {
     @GetMapping("/deleteBusinessById")
     public void deleteBusinessById(Long id) {
         businessService.deleteBusinessById(id);
-        businessService.listBusiness();
+    }
+
+    @ResponseBody
+    @GetMapping("/insertBusiness")
+    public void insertBusiness(Business business) {
+        businessService.insertBusiness(business);
+    }
+
+    @ResponseBody
+    @GetMapping("/updateBusiness")
+    public void updateBusiness(Business business) {
+        businessService.updateBusiness(business);
     }
 
 }

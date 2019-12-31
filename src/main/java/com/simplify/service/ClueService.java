@@ -1,5 +1,6 @@
 package com.simplify.service;
 
+import com.simplify.model.dto.ClueVO;
 import com.simplify.model.entity.Clue;
 
 import java.util.List;
@@ -12,4 +13,5 @@ import java.util.List;
 public interface ClueService {
     List<Clue> getAllClue();
 
+    ClueVO getClueVO();
 }

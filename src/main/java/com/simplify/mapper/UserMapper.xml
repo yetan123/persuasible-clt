@@ -17,7 +17,7 @@
         </collection>
     </resultMap>
     <resultMap id="userAndDeptDTO" type="UserAndDeptDTO">
-        <id property="id" column="id"/>
+        <id property="id" column="user_id"/>
         <result property="account" column="account"/>
         <result property="username" column="username"/>
         <result property="password" column="password"/>
@@ -26,10 +26,12 @@
         <result property="job" column="job"/>
         <result property="deptId" column="dept_id"/>
         <result property="userState" column="user_state"/>
-        <collection property="depts"  ofType="String" >
-            <result column="dept_name"/>
-            <result column="enterprise_id"/>
-            <result column="describe"/>
+        <collection property="depts"   ofType="DeptVO" >
+            <result property="deptName" column="dept_name"/>
+            <result property="createTime" column="create_Time"/>
+            <result property="enterpriseId" column="enterprise_id"/>
+            <result property="describe" column="describe"/>
+            <result property="pid" column="pid"/>
         </collection>
     </resultMap>
     <select id="findUserAndRoleByUserId" resultMap="userAuthorizeDTO">
@@ -39,10 +41,12 @@
         join tb_user_role usr_rol on usr.id = usr_rol.user_id
         join tb_role rol on rol.id = usr_rol.role_id where usr.id = #{id}
     </select>
-    <select id="findUserAndDeptDeptId" resultMap="userAndDeptDTO">
-        select *from PERSUASIBLE.tb_User u inner join PERSUASIBLE.TB_DEPARTMENT d on u.dept_id=d.id
-    </select>
-    <update id="updateById" parameterType="userAuthorizeDTO">
+
+    <delete id="deleteByUserId" parameterType="com.simplify.model.dto.UserAndDeptDTO">
+        DELETE FROM PERSUASIBLE.tb_User WHERE id = #{id}
+    </delete>
+
+    <update id="updateByUserId" parameterType="com.simplify.model.dto.UserAndDeptDTO">
         UPDATE PERSUASIBLE.tb_user
         <set>
             <if test="username!=null">
@@ -58,52 +62,62 @@
                 job = #{job},
             </if>
             <if test="deptId!=null">
-                dept_id = #{deptId},
-            </if>
-            <if test="userState!=null">
-                user_State = #{userState}
+                dept_id = #{deptId}
             </if>
         </set>
-         WHERE id = #{id}
+        WHERE id = #{id}
     </update>
 
-    <select id="listUser" parameterType="java.util.Map" resultMap="userAndDeptDTO">
-        select *from PERSUASIBLE.tb_User u inner join PERSUASIBLE.TB_DEPARTMENT d on u.dept_id=d.id where u.user_id = #{userId}
-    </select>
-
-
-    <select id="listUserAndDept" parameterType="java.lang.String" resultType="userAndDeptDTO">
-        select *from PERSUASIBLE.tb_User u inner join PERSUASIBLE.TB_DEPARTMENT d on u.dept_id=d.id
-        <where>
-            <if test="deptName != null">
-                <bind name="deptName" value="'%'+deptName+'%'"/>
-                or u.username like #{deptName}
+    <update id="updateByState" parameterType="com.simplify.model.dto.UserAndDeptDTO">
+        UPDATE PERSUASIBLE.tb_user
+        <set>
+            <if test="userState!=null">
+                user_State = #{userState},
             </if>
-            <if test="userSearch != null">
-                <bind name="userSearch" value="'%'+userSearch+'%'"/>
-                or d.dept_name like #{userSearch}
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="listUserAndDept" resultMap="userAndDeptDTO">
+        select * from (select row_.*,rownum rownum_ from (
+        select bb.* from(select bw.id as user_id,bw.ACCOUNT,bw.username,bw.job,bw.genders,bw.dept_id,bw.phone,bw.USER_STATE,bwm.id,bw.password,bwm.pid,
+        bwm.DEPT_Name,bwm.DESCRIBE,bwm.ENTERPRISE_ID from PERSUASIBLE.tb_User bw inner join PERSUASIBLE.TB_DEPARTMENT bwm on bw.dept_id=bwm.id
+        <where>
+            <if test="deptname != null and deptname!= ''">
+                <bind name="deptname" value="'%'+deptname+'%'"/>
+                and bwm.dept_name like #{deptname}
+            </if>
+            <if test="username != null and username!= ''">
+                <bind name="username" value="'%'+username+'%'"/>
+                and bw.username like #{username}
+            </if>
+            <if test="enabled != null and enabled!= ''">
+                <bind name="enabled" value="'%'+enabled+'%'"/>
+                and bw.user_State like #{enabled}
             </if>
         </where>
+        )
+        bb order by bb.username desc ,bb.user_id desc)row_  where rownum &lt;= #{size})r where rownum_ &gt; #{start}
+
     </select>
 
     <select id="selectCounts" resultType="int">
         select count(*) from PERSUASIBLE.tb_User u inner join PERSUASIBLE.TB_DEPARTMENT d on u.dept_id=d.id
-        <where>
-            <if test="deptName != null">
-                <bind name="deptName" value="'%'+deptName+'%'"/>
-                or u.username like #{deptName}
+            <if test="deptname != null and deptname!= ''">
+                <bind name="deptname" value="'%'+deptname+'%'"/>
+                and d.dept_name like #{deptname}
             </if>
-            <if test="userSearch != null">
-                <bind name="userSearch" value="'%'+userSearch+'%'"/>
-                or d.dept_name like #{userSearch}
+            <if test="enabled != null and enabled!= ''">
+                <bind name="enabled" value="'%'+enabled+'%'"/>
+                and u.user_State like #{enabled}
             </if>
-        </where>
+            <if test="username != null and username!= ''">
+                <bind name="username" value="'%'+username+'%'"/>
+                and u.username like #{username}
+            </if>
     </select>
 
-
-
-
     <insert id="insertUser" parameterType="userAuthorizeDTO" >
-        insert into PERSUASIBLE.tb_User(id,account,username,password,genders,phone,job,dept_id,user_state) values(#{id},#{account},#{username},#{password},#{genders},#{phone},#{job},#{deptId},1)
+        insert into PERSUASIBLE.tb_User(id,account,username,password,genders,phone,job,dept_id,user_state) values(#{id},#{account},#{username},#{password},#{genders},#{phone},#{job},#{deptId},#{userState})
     </insert>
 </mapper>
