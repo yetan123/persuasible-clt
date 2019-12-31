@@ -61,19 +61,21 @@ public class UserController {
         user.setId(new SnowFlake(0,0).nextId());
         return userService.insertUser(user);
     }
-    @PostMapping("/update")
+    @PreAuthorize("hasAuthority('修改用户:PUT')")
+    @PutMapping("/update")
     public int update(@RequestBody UserAndDeptVO user) {
         System.out.println("进入修改方法");
         user.setUsername(user.getUsername());
         return userService.updateByUserId(user);
     }
-    @ResponseBody
-    @GetMapping("/deleteById")
+    @PreAuthorize("hasAuthority('删除用户:DELETE')")
+    @DeleteMapping("/deleteById")
     public int deleteUser( UserAndDeptVO userAndDeptVO){
         System.out.println("进入删除方法");
         return userService.deleteByUserId(userAndDeptVO);
     }
-    @PostMapping("/updateByState")
+    @PreAuthorize("hasAuthority('修改用户状态:PUT')")
+    @PutMapping("/updateByState")
     public int updateByState(@RequestBody UserAndDeptVO user) {
         return userService.updateByState(user);
     }
