@@ -1,23 +1,30 @@
-package com.simplify.persuasiblecrm;
-
-
+package com.simplify.service.impl;
 
 import com.simplify.mapper.ChartMapper;
 import com.simplify.model.dto.ChartDateDTO;
-import org.junit.jupiter.api.Test;
+import com.simplify.model.vo.ChartVO;
+import com.simplify.service.ChartService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-
+import org.springframework.stereotype.Service;
 
 import java.util.*;
 
-
-@SpringBootTest
-class PersuasibleCrmApplicationTests {
+/**
+ * 图表业务实现类
+ * @author yuntian
+ * @date 2020-1-1
+ */
+@Service
+public class ChartServiceImpl implements ChartService {
     @Autowired
     private ChartMapper chartMapper;
-    @Test
-    void contextLoads() {
+    @Override
+    public ChartVO findChart() {
+        return chartMapper.countChart();
+    }
+
+    @Override
+    public Map<Integer,Integer> countChartGroupByDay() {
         List<ChartDateDTO> chartDateDTOS = chartMapper.countChartGroupByDay();
         Map<Integer,Integer> dateMap = new HashMap<>();
         GregorianCalendar gregorianCalendar = new GregorianCalendar();
@@ -26,8 +33,9 @@ class PersuasibleCrmApplicationTests {
             dateMap.put(day,0);
             gregorianCalendar.set(Calendar.DATE,gregorianCalendar.get(Calendar.DATE)+1);
         }
-        chartDateDTOS.forEach(chartDate-> dateMap.put(chartDate.getDay(),chartDate.getCount()));
-        System.out.println(dateMap);
+        chartDateDTOS.forEach((chartDate)->{
+            dateMap.put(chartDate.getDay(),chartDate.getCount());
+        });
+        return dateMap;
     }
-
 }

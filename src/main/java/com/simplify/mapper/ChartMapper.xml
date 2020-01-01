@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.simplify.mapper.ChartMapper">
+    <select id="countChart" resultType="ChartVO">
+        select
+         (select count(*) from TB_CUSTOMER) consumerCount,
+         (select count(*) from tb_clue) clueCount,
+         (select count(*) from tb_business) businessCount,
+         (select count(*) from TB_CONTRACT) contractCount
+         from dual
+    </select>
+
+    <select id="countChartGroupByDay" resultType="ChartDateDTO">
+        select TO_CHAR(create_time,'dd') day,count(*) count
+        from TB_CUSTOMER group by TO_CHAR(create_time,'dd')
+    </select>
+</mapper>
