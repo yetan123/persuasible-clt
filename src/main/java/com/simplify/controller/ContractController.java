@@ -44,24 +44,40 @@ public class ContractController {
         contractDTO.setContractState(contractDTOServiceImpl.listContractState());
         contractDTO.setContractType(contractDTOServiceImpl.listContractType());
         contractDTO.setUser(contractDTOServiceImpl.listUser());
+        Long ContractCode  = new SnowFlake(0,0).nextId();
+        contractDTO.setContractNo(ContractCode.toString());
         return contractDTO;
     }
 
     @GetMapping(value = "/getLinkman")
     public List<Linkman> getLinkman(Long id){
-        //System.out.println("客户编号"+id);
+        System.out.println("客户编号"+id);
         return contractDTOServiceImpl.getLinkmanByCustomerId(id);
     }
 
     @PostMapping(value = "/insertContract")
     public int insertContract(@RequestBody ContractVO contractvo){
-        //System.out.println("1111");
-        Long ContractCode  = new SnowFlake(0,0).nextId();
-        contractvo.setId(ContractCode);
-        //contract.setContractCode(ContractCode.toString());
         contractvo.setPrincipalId(contractvo.getCreatorId());
         contractvo.setFollowTime(contractvo.getContractDate());
         System.out.println(contractvo.toString());
         return contractServiceImpl.insertContract(contractvo);
+    }
+
+    @PostMapping(value = "/deleteContratById")
+    public int deleteContratById(String id){
+        System.out.println(id);
+        return contractServiceImpl.deleteContractByContractCode(id);
+    }
+
+    @GetMapping(value = "/getContractByCode")
+    public ContractVO getContractByCode(String code){
+        //System.out.println("合同编号"+code);
+        return contractServiceImpl.getContractByCode(code);
+    }
+
+    @PostMapping(value = "/updateContract")
+    public int getContractByCode(@RequestBody ContractVO contract){
+        System.out.println("对象"+contract);
+        return contractServiceImpl.updateContract(contract);
     }
 }

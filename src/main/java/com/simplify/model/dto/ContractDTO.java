@@ -11,17 +11,19 @@ public class ContractDTO {
     private List<ContractType> contractType;
     private List<User> user;
     private List<ContractState> contractState;
+    private String contractNo;
 
     public ContractDTO() {
     }
 
-    public ContractDTO(List<Customer> customer, List<Linkman> linkman, List<Business> business, List<ContractType> contractType, List<User> user, List<ContractState> contractState) {
+    public ContractDTO(List<Customer> customer, List<Linkman> linkman, List<Business> business, List<ContractType> contractType, List<User> user, List<ContractState> contractState, String contractNo) {
         this.customer = customer;
         this.linkman = linkman;
         this.business = business;
         this.contractType = contractType;
         this.user = user;
         this.contractState = contractState;
+        this.contractNo = contractNo;
     }
 
     public List<Customer> getCustomer() {
@@ -70,5 +72,13 @@ public class ContractDTO {
 
     public void setContractState(List<ContractState> contractState) {
         this.contractState = contractState;
+    }
+
+    public String getContractNo() {
+        return contractNo;
+    }
+
+    public void setContractNo(String contractNo) {
+        this.contractNo = contractNo;
     }
 }
