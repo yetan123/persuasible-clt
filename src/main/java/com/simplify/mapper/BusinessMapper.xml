@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.simplify.mapper.BusinessMapper">
 
-    <resultMap id="BusinessAndCustomerAndCustomer" type="com.simplify.model.dto.BusinessDTO">
+    <resultMap id="BusinessAndCustomerAndCustomer" type="com.simplify.model.dto.BusinessVO">
         <id property="id" column="id"/>
         <result property="businessName" column="BUSINESS_NAME"/>
         <result property="estimatedSales" column="ESTIMATED_SALES"/>
@@ -77,11 +77,29 @@ WHERE
         DELETE FROM TB_BUSINESS WHERE ID=#{id}
     </delete>
 
-    <insert id="insertBusiness" parameterType="com.simplify.model.entity.Business">
-
+    <insert id="insertBusiness" parameterType="com.simplify.model.dto.BusinessVO">
+        INSERT INTO TB_BUSINESS
+        VALUES
+            (
+            #{id},
+            #{businessName},
+            #{estimatedSales},
+            #{estimatedDate},
+            #{estimatedSuccess},
+            #{customerDecision},
+            #{findDate},
+            #{businessDescription},
+            #{userId},
+            #{businessSourceId},
+            #{customerId},
+            #{businessType},
+            #{businessPhases},
+            #{businessState},
+            DEFAULT
+            )
     </insert>
 
-    <update id="updateBusiness" parameterType="com.simplify.model.entity.Business">
+    <update id="updateBusiness" parameterType="com.simplify.model.dto.BusinessVO">
 
     </update>
 </mapper>
