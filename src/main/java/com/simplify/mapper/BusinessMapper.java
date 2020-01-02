@@ -18,16 +18,9 @@ import java.util.Map;
 
 @Repository
 public interface BusinessMapper extends Mapper<Business> {
-<<<<<<< HEAD
-
-=======
-
-
-    List<Business> selectAll();
     List<BusinessDTO> listBusiness();
     List<BusinessDTO> listBusinessById(Long id);
 
->>>>>>> 69a4a9a3134cf95cdc01b23a5853bade0273d298
     void deleteBusinessById(Long id);
     int insertBusiness(Business business);
     int updateBusiness(Business business);
