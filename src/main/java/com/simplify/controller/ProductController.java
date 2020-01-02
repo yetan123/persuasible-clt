@@ -2,7 +2,7 @@ package com.simplify.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.simplify.model.dto.ProductVO;
+import com.simplify.model.vo.ProductVO;
 import com.simplify.model.entity.Product;
 import com.simplify.model.entity.ProductClassify;
 import com.simplify.model.vo.ProductClassifyVO;
@@ -42,7 +42,7 @@ public class ProductController {
     }
 
     @GetMapping("/getProductById")
-    public Product getProductById(Long id) {
+    public ProductVO getProductById(Long id) {
         return productService.getProductById(id);
     }
 
@@ -64,5 +64,11 @@ public class ProductController {
     @PostMapping("/updateProductClassify")
     public int updateProductClassify(@RequestBody ProductClassify productClassify) {
         return productService.updateProductClassify(productClassify);
+    }
+
+
+    @GetMapping("/deleteProductById")
+    public int deleteProductById(Long id) {
+        return productService.deleteProduct(id);
     }
 }

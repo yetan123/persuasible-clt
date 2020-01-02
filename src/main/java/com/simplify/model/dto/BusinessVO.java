@@ -37,10 +37,5 @@ public class BusinessVO {
     private UserBusinessVO userBusinessVO;
     private CustomerBusinessVO customerBusinessVO;
 
-    public Double getEstimatedSuccess() {
-        estimatedSuccess=estimatedSuccess*100;
-        return estimatedSuccess;
-    }
-
 
 }

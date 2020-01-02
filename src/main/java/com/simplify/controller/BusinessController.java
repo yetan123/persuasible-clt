@@ -9,6 +9,9 @@ import com.simplify.model.vo.BusinessLinkmanVO;
 import com.simplify.service.BusinessDTOService;
 import com.simplify.service.BusinessService;
 import com.simplify.utils.SnowFlake;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,7 +35,8 @@ public class BusinessController {
     @Resource
     BusinessDTOService businessDTOService;
 
-    @GetMapping("/listBusiness")
+    @PreAuthorize("hasAuthority('查看全部商机:GET')")
+    @GetMapping("listBusiness")
     public List<BusinessVO> listBusiness() {
         return businessServiceImpl.listBusiness();
     }
@@ -42,7 +46,7 @@ public class BusinessController {
         return businessServiceImpl.listBusinessById(id);
     }
 
-    @GetMapping("/deleteBusinessById")
+    @DeleteMapping("/deleteBusinessById")
     public void deleteBusinessById(Long id) {
         businessServiceImpl.deleteBusinessById(id);
     }
@@ -52,6 +56,7 @@ public class BusinessController {
         System.out.println(businessInfoDTO);
         businessServiceImpl.insertBusiness(businessInfoDTO);
     }
+
 
     @GetMapping("getBusinessDTO")
     public BusinessDTO getBusinessDTO(){

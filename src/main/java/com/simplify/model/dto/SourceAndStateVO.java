@@ -11,7 +11,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ClueVO {
+public class SourceAndStateVO {
     private List<ClueState> clueStates;
     private List<CustomerSource> customerSources;
 }

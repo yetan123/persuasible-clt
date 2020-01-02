@@ -24,4 +24,5 @@ public class Product {
     private Integer productStatus;
     private Date establishDate;
     private Long userId;
+    private User user;
 }

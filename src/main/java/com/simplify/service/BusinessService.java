@@ -22,4 +22,5 @@ public interface BusinessService {
     int insertBusiness(BusinessInfoDTO businessInfoDTO);
     int updateBusiness(BusinessInfoDTO businessInfoDTO);
 
+
 }

@@ -8,6 +8,8 @@ import com.simplify.model.entity.Business;
 import com.simplify.service.BusinessService;
 import com.simplify.utils.SnowFlake;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -30,20 +32,24 @@ public class BusinessServiceImpl implements BusinessService {
         return businessMapper.selectAll();
     }
 
+    @Cacheable("listBusiness")
     @Override
     public List<BusinessVO> listBusiness() {
         return businessMapper.listBusiness();
     }
 
+    @Cacheable("listBusinessById")
     @Override
     public List<BusinessVO> listBusinessById(Long id) {
         return businessMapper.listBusinessById(id);
     }
+    @CacheEvict(cacheNames = {"listBusiness", "listBusinessById"})
     @Override
     public void deleteBusinessById (Long id){
         businessMapper.deleteBusinessById(id);
     }
 
+    @CacheEvict(cacheNames = {"listBusiness", "listBusinessById"})
     @Override
     public int insertBusiness (BusinessInfoDTO businessInfoDTO){
         Long id=new SnowFlake(0,0).nextId();
@@ -51,8 +57,10 @@ public class BusinessServiceImpl implements BusinessService {
         return businessMapper.insertBusiness(businessInfoDTO);
     }
 
+    @CacheEvict(cacheNames = {"listBusiness", "listBusinessById"})
     @Override
     public int updateBusiness (BusinessInfoDTO businessInfoDTO){
         return businessMapper.updateBusiness(businessInfoDTO);
     }
+
 }

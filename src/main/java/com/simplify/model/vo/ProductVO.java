@@ -1,5 +1,6 @@
-package com.simplify.model.dto;
+package com.simplify.model.vo;
 
+import com.simplify.model.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,4 +21,5 @@ public class ProductVO {
     private Integer productStatus;
     private Date establishDate;
     private Long userId;
+    private User user;
 }
