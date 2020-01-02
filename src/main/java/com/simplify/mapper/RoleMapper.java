@@ -16,8 +16,8 @@ import java.util.List;
 @Repository
 public interface RoleMapper extends Mapper<Role> {
     //分页 模糊查询
-    List<RoleAuthorizeVO> listRoleAuthorize(@Param("roleName") String roleName,int start, @Param("size") int size);
+    List<RoleAuthorizeVO> listRoleAuthorize(@Param("roleName") String roleName,@Param("oldDate") String oldDate,@Param("newDate") String newDate,int start, @Param("size") int size);
 
     //查询总记录
-    int selectCounts(@Param("roleName") String roleName);
+    int selectCounts(@Param("roleName") String roleName,@Param("oldDate") String oldDate,@Param("newDate") String newDate);
 }

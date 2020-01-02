@@ -34,16 +34,28 @@ public class RoleController {
     ResourceService resourceServiceImpl;
     @GetMapping("")
     public Map<String,Object> selectRoleAuthorize(@RequestParam(defaultValue = "1",value ="pageNum",required = false)Integer pageNum,
+                                                  @RequestParam(value ="oldDate",required = false)String oldDate,
+                                                  @RequestParam(value ="newDate",required = false)String newDate,
                                                   @RequestParam(value ="roleName",required = false)String roleName){
         PageBean<RoleAuthorizeVO> pages;
         Map<String,Object> roleMap = new HashMap<>();
-        if (roleName!=null) {
+        if (roleName!=null || oldDate!=null || newDate!=null) {
             if (roleName=="" || roleName==null){
                 roleName=null;
             }
-            pages= roleServiceImpl.listRoleAuthorize(roleName,pageNum);
+
+
+            if (oldDate == "" || newDate == null){
+                oldDate=null;
+            }
+
+
+            if (newDate=="" || newDate==null){
+                newDate=null;
+            }
+            pages= roleServiceImpl.listRoleAuthorize(roleName,oldDate,newDate,pageNum);
         }else{
-            pages= roleServiceImpl.listRoleAuthorize(null,pageNum);
+            pages= roleServiceImpl.listRoleAuthorize(null,null,null,pageNum);
         }
         List<Menu> menus = menuServiceImpl.listMenu();
         List<ResourceVO> resourceVOS = resourceServiceImpl.listResourceViewObject();
