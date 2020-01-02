@@ -24,6 +24,9 @@
                 <bind name="roleName" value="'%'+roleName+'%'"/>
                 and role.role_name like #{roleName}
             </if>
+            <if test="oldDate != null and newDate!=null">
+                and  role.create_Time between to_date(#{oldDate},'yyyy-MM-dd HH24:MI:SS') and to_date(#{newDate},'yyyy-MM-dd HH24:MI:SS')
+            </if>
         </where>
         ) role where role.row_num &gt; #{start}) role where role.row_num &lt;#{size}
     </select>

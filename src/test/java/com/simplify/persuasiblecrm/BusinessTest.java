@@ -15,58 +15,5 @@ import java.util.List;
 @SpringBootTest
 public class BusinessTest {
 
-<<<<<<< HEAD
-    @Resource
-    BusinessService businessService;
-
-    @Resource
-    BusinessDTOService businessDTOService;
-
-
-    @Test
-    public void deleteBusinessById(){
-        Long id = new Long(10);
-        businessService.deleteBusinessById(id);
-    }
-
-=======
-//    @Resource
-//    BusinessService businessService;
-//
-//    @Resource
-//    BusinessDTOService businessDTOService;
-//
-//    @Test
-//    public void selectAll(){
-//        List<Business> business=businessService.selectALl();
-//        for (Business b:business) {
-//            System.out.println(b);
-//        }
-//    }
-//
-//    @Test
-//    public void listBusiness(){
-//        List<BusinessVO> business=businessService.listBusiness();
-//        for (BusinessVO b:business) {
-//            System.out.println(b);
-//        }
-//    }
-//
-//    @Test
-//    public void listBusinessById(){
-//        Long id = new Long(1);
-//        List<BusinessVO> business=businessService.listBusinessById(id);
-//        for (BusinessVO b:business) {
-//            System.out.println(b);
-//        }
-//    }
-//
-//    @Test
-//    public void deleteBusinessById(){
-//        Long id = new Long(10);
-//        businessService.deleteBusinessById(id);
-//    }
-//
->>>>>>> e52cc5832427de982b3f1dce136f5ba52aa52078
 
 }

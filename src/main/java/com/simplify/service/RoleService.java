@@ -15,7 +15,7 @@ import java.util.List;
 public interface RoleService {
     List<Role> listRole();
     //分页 模糊查询
-    PageBean<RoleAuthorizeVO> listRoleAuthorize(String roleName,Integer currentPage);
+    PageBean<RoleAuthorizeVO> listRoleAuthorize(String roleName,String oldDate,String newDate,Integer currentPage);
 
     Integer updateRole(Role role);
 

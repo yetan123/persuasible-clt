@@ -5,7 +5,6 @@ import com.simplify.model.dto.BusinessVO;
 import com.simplify.model.entity.Business;
 import com.simplify.model.entity.Linkman;
 import com.simplify.service.BusinessDTOService;
-import com.simplify.service.BusinessService;
 import com.simplify.utils.SnowFlake;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -23,27 +22,11 @@ import java.util.List;
 @RequestMapping("business")
 @CrossOrigin
 public class BusinessController {
-<<<<<<< HEAD
 
-    @Resource
-    BusinessService businessService;
 
     @Resource
     BusinessDTOService businessDTOService;
 
-    @ResponseBody
-    @GetMapping("/deleteBusinessById")
-    public void deleteBusinessById(Long id) {
-        businessService.deleteBusinessById(id);
-    }
-
-    @ResponseBody
-    @GetMapping("/insertBusiness")
-    public void insertBusiness(BusinessVO businessVO) {
-        Long id=new SnowFlake(0,0).nextId();
-        businessVO.setId(id);
-        businessService.insertBusiness(businessVO);
-    }
 
     @PostMapping(value = "/getBusinessDTO")
     public BusinessDTO getBusinessDTO(){
@@ -63,68 +46,6 @@ public class BusinessController {
         return businessDTOService.getLinkmanByCustomerId(id);
     }
 
-    @ResponseBody
-    @GetMapping("/updateBusiness")
-    public void updateBusiness(BusinessVO businessVO) {
-        businessService.updateBusiness(businessVO);
-    }
-=======
-//
-//    @Resource
-//    BusinessService businessService;
-//
-//    @Resource
-//    BusinessDTOService businessDTOService;
-//
-//    @ResponseBody
-//    @GetMapping("/listBusiness")
-//    public List<BusinessVO> listBusiness() {
-//        return businessService.listBusiness();
-//    }
-//
-//    @ResponseBody
-//    @GetMapping("/listBusinessById")
-//    public List<BusinessVO> listBusinessById(Long id) {
-//        return businessService.listBusinessById(id);
-//    }
-//
-//    @ResponseBody
-//    @GetMapping("/deleteBusinessById")
-//    public void deleteBusinessById(Long id) {
-//        businessService.deleteBusinessById(id);
-//    }
-//
-//    @ResponseBody
-//    @GetMapping("/insertBusiness")
-//    public void insertBusiness(BusinessVO businessVO) {
-//        Long id=new SnowFlake(0,0).nextId();
-//        businessVO.setId(id);
-//        businessService.insertBusiness(businessVO);
-//    }
-//
-//    @PostMapping(value = "/getBusinessDTO")
-//    public BusinessDTO getBusinessDTO(){
-//
-//        System.out.println("进入getBusinessDTO（）方法");
-//        BusinessDTO businessDTO = new BusinessDTO();
-//        businessDTO.setCustomer(businessDTOService.listCustomerIDAndCustomerName());
-//        businessDTO.setBusinessType(businessDTOService.listBusinessType());
-//        businessDTO.setBusinessSource(businessDTOService.listBusinessSource());
-//        businessDTO.setUser(businessDTOService.listUser());
-//        return businessDTO;
-//    }
-//
-//    @GetMapping(value = "/getLinkman")
-//    public List<Linkman> getLinkman(Long id){
-//        //System.out.println("客户编号"+id);
-//        return businessDTOService.getLinkmanByCustomerId(id);
-//    }
-//
-//    @ResponseBody
-//    @GetMapping("/updateBusiness")
-//    public void updateBusiness(BusinessVO businessVO) {
-//        businessService.updateBusiness(businessVO);
-//    }
->>>>>>> e52cc5832427de982b3f1dce136f5ba52aa52078
+
 
 }

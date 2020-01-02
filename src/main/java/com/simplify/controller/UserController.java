@@ -145,7 +145,8 @@ public class UserController {
         JSONObject json =null;
             String code = String.valueOf(new Random().nextInt(99999));
             ZhenziSmsClient client = new ZhenziSmsClient(apiUrl, appId, appSecret);
-            String result = client.send(user.getPhone(), "【】您正在使用手机动态码方式登录，验证码为："+code+",该码有效期为5分钟，该码只能使用一次!请勿向任何单位或个人泄漏。");
+            String result = client.send(user.getPhone(), "您正在使用手机动态码方式登录，验证码为："+code+",该码有效期为5分钟，该码只能使用一次!请勿向任何单位或个人泄漏。");
+        System.out.println(user.getPhone());
             json = JSONObject.parseObject(result);
             if (json.getIntValue("code")!=0){//发送短信失败
             }
