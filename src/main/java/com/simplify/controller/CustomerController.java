@@ -210,7 +210,7 @@ public class CustomerController {
     public List<CustomerVO> selectById(String id){
         System.out.println(id);
         String l = "407151960928550912";
-        List<CustomerVO> list = customerService.selectByID(l);
+        List<CustomerVO> list = customerService.selectByID(id);
         System.out.println(list);
         return list;
     }
