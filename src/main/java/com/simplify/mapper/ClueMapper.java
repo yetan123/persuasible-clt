@@ -26,4 +26,6 @@ public interface ClueMapper extends Mapper<Clue> {
   //查询线索状态
   @Select("select * from TB_CLUE_STATE")
   List<ClueState> getAllClueState();
+
+  ClueVO getClueById(String id);
 }

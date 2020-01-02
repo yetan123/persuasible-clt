@@ -29,38 +29,29 @@ public class BusinessServiceImpl implements BusinessService {
     }
 
     @Override
-<<<<<<< HEAD
     public List<BusinessVO> listBusiness() {
-        return businessMapper.listBusiness();
+        return null;
     }
 
     @Override
     public List<BusinessVO> listBusinessById(Long id) {
-        return businessMapper.listBusinessById(id);
-=======
-    public List<BusinessDTO> listBusiness() {
         return null;
     }
-
-    @Override
-    public List<BusinessDTO> listBusinessById(Long id) {
-        return null;
->>>>>>> 9db4e79f730ae6727b7c87e10d46a0ba693c703b
-    }
-
 
     @Override
     public void deleteBusinessById(Long id) {
-        businessMapper.deleteBusinessById(id);
+
     }
 
     @Override
     public int insertBusiness(BusinessVO businessVO) {
-        return businessMapper.insertBusiness(businessVO);
+        return 0;
     }
 
     @Override
     public int updateBusiness(BusinessVO businessVO) {
-        return businessMapper.updateBusiness(businessVO);
+        return 0;
     }
+
+
 }

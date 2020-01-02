@@ -35,4 +35,8 @@ public class ClueServiceImpl implements ClueService {
         return num;
     }
 
+    public ClueVO getClueById(String id){
+        return clueMapper.getClueById(id);
+    }
+
 }
