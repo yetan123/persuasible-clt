@@ -34,6 +34,20 @@
             <result property="describe" column="describe"/>
     </collection>
     </resultMap>
+    <resultMap id="userRoleVO" type="UserRoleVO">
+        <id property="id" column="id"/>
+        <result property="troleId" column="trole_Id"/>
+        <result property="roleId" column="role_Id"/>
+        <result property="roleName" column="role_Name"/>
+    </resultMap>
+    <!--权限-->
+    <select id="selectRoleName" resultMap="userRoleVO">
+        select u.id as user_id,tr.id as trole_id,r.id as role_id,r.role_name
+        from PERSUASIBLE.tb_user u join PERSUASIBLE.tb_user_role tr on u.id = tr.user_id
+        join PERSUASIBLE.tb_role r on r.id=tr.role_id
+        where u.id=#{id} and tr.role_id=#{roleId}
+    </select>
+<!--权限结束-->
     <select id="findUserAndRoleByUserId" resultMap="userAuthorizeDTO">
         select usr.id,usr.account,usr.username,usr.genders,usr.phone,usr.job,
         usr.dept_id,usr.user_state,rol.role_name
@@ -42,13 +56,20 @@
         join tb_role rol on rol.id = usr_rol.role_id where usr.id = #{id}
     </select>
 
-    <delete id="deleteByUserId" parameterType="com.simplify.model.dto.UserAndDeptDTO">
+    <delete id="deleteByUserId" parameterType="com.simplify.model.dto.UserAndDeptVO">
         DELETE FROM PERSUASIBLE.tb_User WHERE id = #{id}
     </delete>
+
+    <select id="selectByName" parameterType="java.lang.String" resultType="com.simplify.model.dto.UserAndDeptVO">
+        select *from PERSUASIBLE.tb_user where account = #{account}
+    </select>
 
     <update id="updateByUserId" parameterType="com.simplify.model.dto.UserAndDeptDTO">
         UPDATE PERSUASIBLE.tb_user
         <set>
+            <if test="account!=null">
+                account = #{account},
+            </if>
             <if test="username!=null">
                 username = #{username},
             </if>

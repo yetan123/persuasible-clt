@@ -5,9 +5,11 @@ import com.simplify.model.dto.UserAndDeptVO;
 import com.simplify.model.dto.UserAuthorizeDTO;
 import com.simplify.model.dto.UserVO;
 import com.simplify.model.entity.User;
+import com.simplify.model.vo.UserRoleVO;
 import com.simplify.service.UserService;
 import com.simplify.utils.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 import java.util.List;
@@ -20,7 +22,6 @@ import java.util.Map;
  */
 @Service
 public class UserServiceImpl implements UserService
-
 {
     @Autowired
     private UserMapper userMapper;
@@ -83,6 +84,20 @@ public class UserServiceImpl implements UserService
     @Override
     public int updateCodeById(UserAndDeptVO userAndDeptVO) {
         return userMapper.updateCodeById(userAndDeptVO);
+    }
+    @Override
+    public User findUserById(Long id) {
+        return userMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public UserAndDeptVO selectByName(String account) {
+        return userMapper.selectByName(account);
+    }
+
+    @Override
+    public UserRoleVO selectRoleName(String id, String roleId) {
+        return userMapper.selectRoleName(id,roleId);
     }
 
     @Override

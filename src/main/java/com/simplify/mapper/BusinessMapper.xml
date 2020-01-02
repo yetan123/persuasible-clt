@@ -3,29 +3,30 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.simplify.mapper.BusinessMapper">
-    <resultMap id="BusinessAndCustomerAndCustomer" type="com.simplify.model.dto.BusinessDTO">
-    <id property="id" column="id"/>
-    <result property="businessName" column="BUSINESS_NAME"/>
-    <result property="estimatedSales" column="ESTIMATED_SALES"/>
-    <result property="estimatedDate" column="ESTIMATED_Date"/>
-    <result property="estimatedSuccess" column="ESTIMATED_SUCCESS"/>
-    <result property="customerDecision" column="CUSTOMER_DECISION"/>
-    <result property="findDate" column="FIND_DATE"/>
-    <result property="businessDescription" column="BUSINESS_DESCRIPTION"/>
+
+    <resultMap id="BusinessAndCustomerAndCustomer" type="com.simplify.model.dto.BusinessVO">
+        <id property="id" column="id"/>
+        <result property="businessName" column="BUSINESS_NAME"/>
+        <result property="estimatedSales" column="ESTIMATED_SALES"/>
+        <result property="estimatedDate" column="ESTIMATED_Date"/>
+        <result property="estimatedSuccess" column="ESTIMATED_SUCCESS"/>
+        <result property="customerDecision" column="CUSTOMER_DECISION"/>
+        <result property="findDate" column="FIND_DATE"/>
+        <result property="businessDescription" column="BUSINESS_DESCRIPTION"/>
         <result property="businessType" column="BUISNESS_TYPE"/>
         <result property="businessPhases" column="BUSINESS_PHASES"/>
         <result property="businessState" column="BUSINESS_STATE"/>
         <result property="createTime" column="CREATE_TIME"/>
 
-    <association property="user" javaType="com.simplify.model.entity.User">
-        <id property="id" column="id"/>
-        <result property="username" column="USERNAME"/>
-    </association>
+        <association property="user" javaType="com.simplify.model.entity.User">
+            <id property="id" column="id"/>
+            <result property="username" column="USERNAME"/>
+        </association>
 
-    <association property="customer" javaType="com.simplify.model.entity.Customer">
-        <id property="id" column="id"/>
-        <result property="companyName" column="COMPANY_NAME"/>
-    </association>
+        <association property="customer" javaType="com.simplify.model.entity.Customer">
+            <id property="id" column="id"/>
+            <result property="companyName" column="COMPANY_NAME"/>
+        </association>
     </resultMap>
 
     <select id="listBusiness" resultMap="BusinessAndCustomerAndCustomer">
@@ -48,28 +49,13 @@ FROM
 	Order BY bu.ID
     </select>
 
-    <select id="listBusinessById" resultMap="BusinessAndCustomerAndCustomer" parameterType="java.lang.Long">
-        SELECT
-    bu.ID,
-	bu.BUSINESS_NAME,
-	cu.COMPANY_NAME,
-	bu.BUISNESS_TYPE,
-	bu.BUSINESS_PHASES,
-	bu.ESTIMATED_SALES,
-	bu.ESTIMATED_DATE,
-	bu.ESTIMATED_SUCCESS,
-	bu.BUSINESS_STATE,
-	bu.CREATE_TIME,
-	u.USERNAME
-FROM
-	TB_BUSINESS bu
-	INNER JOIN TB_CUSTOMER cu ON bu.CUSTOMER_ID = cu.ID
-	INNER JOIN TB_USER u ON bu.USER_ID = u.id
-WHERE
-	u.id =#{id}
-    </select>
 
     <delete id="deleteBusinessById" parameterType="java.lang.Long">
         DELETE FROM TB_BUSINESS WHERE ID=#{id}
     </delete>
+
+
+    <update id="updateBusiness" parameterType="com.simplify.model.dto.BusinessVO">
+
+    </update>
 </mapper>

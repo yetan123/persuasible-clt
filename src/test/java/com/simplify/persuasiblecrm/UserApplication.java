@@ -1,17 +1,15 @@
 package com.simplify.persuasiblecrm;
 
 import com.simplify.mapper.DeptMapper;
-import com.simplify.model.dto.DeptVO;
-import com.simplify.model.dto.RouteDTO;
+import com.simplify.mapper.RoleMapper;
+import com.simplify.mapper.RoleMiddleMapper;
+import com.simplify.mapper.UserMapper;
 import com.simplify.service.DeptService;
 import com.simplify.service.MenuService;
 import com.simplify.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
-import java.util.Random;
 
 
 @SpringBootTest
@@ -24,9 +22,13 @@ public class UserApplication {
     private DeptMapper deptMapper;
     @Autowired
     private UserService userService;
+    @Autowired
+    private UserMapper userMapper;
+    @Autowired
+    private RoleMiddleMapper roleMiddleMapper;
     @Test
     void contextLoads() {
-       /* String code = String.valueOf(new Random().nextInt(9999));*/
+        System.out.println(roleMiddleMapper.listRole());
     }
 
 }

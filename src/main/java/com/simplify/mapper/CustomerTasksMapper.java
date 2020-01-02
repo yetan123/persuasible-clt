@@ -24,4 +24,6 @@ public interface CustomerTasksMapper extends Mapper<CustomerTasks> {
     List<CustomerTasks> selectAllTasksCustomerTasks();
 
     int insertCustomerTasks(CustomerTasks customerTasks);
+
+    int updateCustomerTasks(CustomerTasks customerTasks);
 }

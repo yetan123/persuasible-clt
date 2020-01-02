@@ -11,19 +11,18 @@ import java.sql.Date;
 /*
   合同类
  */
-@Table(name="tb_contract")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Contract {
-    @Id
+
     private Long id;
     private String contractCode;
     private String contractName;
     private Date contractDate;
     private Date startTime;
     private Date endTime;
-    private Double moneyUnit;
+    private String moneyUnit;
     private Double totalMoney;
     private String contractContents;
     private String remark;

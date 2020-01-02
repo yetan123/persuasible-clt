@@ -1,12 +1,17 @@
 package com.simplify.controller;
 import com.alibaba.fastjson.JSONObject;
+
 import com.simplify.model.dto.UserAndDeptVO;
 import com.simplify.model.entity.User;
+import com.simplify.model.vo.RoleMiddleVO;
+import com.simplify.service.RoleMiddleService;
 import com.simplify.service.UserService;
 import com.simplify.utils.PageBean;
 import com.simplify.utils.SnowFlake;
 import com.zhenzi.sms.ZhenziSmsClient;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -32,6 +38,8 @@ import java.util.Random;
 public class UserController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private RoleMiddleService roleMiddleService;
 
     /*分页*/
     @GetMapping("/selectAll")
@@ -67,6 +75,7 @@ public class UserController {
         return userMap;
     }
 
+    @PreAuthorize("hasAuthority('添加用户:POST')")
     @PostMapping("/add")
     public int add(@RequestBody UserAndDeptVO user) {
         System.out.println("添加");
@@ -76,19 +85,47 @@ public class UserController {
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         return userService.insertUser(user);
     }
-    @PostMapping("/update")
+    @PreAuthorize("hasAuthority('修改用户:PUT')")
+    @PutMapping("/update")
     public int update(@RequestBody UserAndDeptVO user) {
         System.out.println("根据id修改");
-        user.setUsername(user.getUsername());
-        return userService.updateByUserId(user);
+        System.out.println(user);
+        String userid = user.getId();
+        String roleid = user.getId1();//销售经理  404641889191460127
+        String roleid1 = user.getId2();//系统管理员 404641889191460864
+        String roleid2 = user.getId3();//客户经理  404641889191460123
+        /**/
+        if(userService.selectRoleName(userid,roleid)!=null){
+            RoleMiddleVO r=new RoleMiddleVO();
+            long longVal =new SnowFlake(0,0).nextId();
+            String rid=String.valueOf(longVal);
+            r.setId(rid);
+            r.setUserId(userid);
+            r.setRoleId(roleid2);
+            System.out.println(r);
+            roleMiddleService.insertRole(r);
+            System.out.println("没有客户经理/系统管理员");
+        }
+        if(userService.selectRoleName(userid,roleid1)!=null && userService.selectRoleName(userid,roleid2)!=null) {
+            System.out.println("没有系统管理员");
+        }
+        if(userService.selectRoleName(userid,roleid1)!=null && userService.selectRoleName(userid,roleid2)!=null){
+            System.out.println("没有销售经理");
+        }
+      /*  return userService.updateByUserId(user);*/
+        return 1;
     }
-    @ResponseBody
-    @GetMapping("/deleteById")
+    @PreAuthorize("hasAuthority('删除用户:DELETE')")
+    @DeleteMapping("/deleteById")
     public int deleteUser( UserAndDeptVO userAndDeptVO){
         System.out.println("根据id删除");
         return userService.deleteByUserId(userAndDeptVO);
     }
-
+    @PreAuthorize("hasAuthority('修改用户状态:PUT')")
+    @PutMapping("/updateByState")
+    public int updateByState(@RequestBody UserAndDeptVO user) {
+        return userService.updateByState(user);
+    }
     @GetMapping("qqLogin")
     public void qqLoginAfter(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
@@ -96,11 +133,7 @@ public class UserController {
         String state = request.getParameter("state");
         String uuid = (String) session.getAttribute("state");
     }
-    @PostMapping("/updateByState")
-    public int updateByState(@RequestBody UserAndDeptVO user) {
-        System.out.println("修改状态");
-        return userService.updateByState(user);
-    }
+
 
     private String apiUrl = "https://sms_developer.zhenzikj.com";
     private String appId = "104110";
@@ -132,5 +165,12 @@ public class UserController {
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         System.out.println(user+"修改之后");
         return userService.updateCodeById(user);
+    }
+    /*以短信的方式修改密码*/
+    @GetMapping("/findByName")
+    public UserAndDeptVO findByName(@RequestParam(value ="account",required = false)String account) {
+        System.out.println("查看账号");
+        System.out.println(account);
+        return userService.selectByName(account);
     }
 }

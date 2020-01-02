@@ -3,6 +3,8 @@ import com.simplify.model.dto.UserAndDeptVO;
 import com.simplify.model.dto.UserAuthorizeDTO;
 import com.simplify.model.dto.UserVO;
 import com.simplify.model.entity.User;
+import com.simplify.model.vo.RoleMiddleVO;
+import com.simplify.model.vo.UserRoleVO;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
@@ -33,6 +35,16 @@ public interface UserMapper extends Mapper<User> {
     int selectCounts(@Param("deptname") String deptname,@Param("username") String username,@Param("pid") String pid,@Param("enabled") String enabled);
     //根据验证码修改密码
     int updateCodeById(UserAndDeptVO userAndDeptVO);
+    //根据账号名称查找避免重复
+    UserAndDeptVO selectByName(@Param("account") String account);
+    /**
+     * 权限
+     * @date 2019/12/25
+     * @author lanmu
+     * @param id
+     * @return
+     */
+    UserRoleVO selectRoleName(String id,String roleId);
     /**
      * 查询一个不包含自己的用户集合
      * @date 2019/12/25
@@ -42,4 +54,5 @@ public interface UserMapper extends Mapper<User> {
      */
     @Select(" select * from tb_user where ( ( id <> #{0} ) ) ")
     List<UserVO>listUserByNotId(String id);
+
 }

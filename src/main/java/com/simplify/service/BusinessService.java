@@ -1,6 +1,7 @@
 package com.simplify.service;
 
 import com.simplify.model.dto.BusinessDTO;
+import com.simplify.model.dto.BusinessVO;
 import com.simplify.model.entity.Business;
 
 import java.util.List;
@@ -13,15 +14,8 @@ import java.util.Map;
  */
 
 public interface BusinessService {
-    List<Business> selectALl();
-
-    //查询商机所有数据及实现分页功能
-    List<BusinessDTO> listBusiness();
-
-    //根据id查询商机数据
-    List<BusinessDTO> listBusinessById(Long id);
-
-    //根据id删除商机数据
     void deleteBusinessById(Long id);
+    int insertBusiness(BusinessVO businessVO);
+    int updateBusiness(BusinessVO businessVO);
 
 }
