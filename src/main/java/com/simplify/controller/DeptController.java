@@ -26,7 +26,6 @@ public class DeptController {
                                 @RequestParam(value ="newDate",required = false)String newDate,
                                 @RequestParam(defaultValue = "1",value ="pageNum",required = false)Integer pageNum){
         PageBean<DeptVO> pages;
-        System.out.println(oldDate+"时间"+newDate);
         if (deptName!=null || oldDate!=null || newDate!=null) {
             if (deptName == "" || deptName == null){
                 deptName=null;
@@ -55,9 +54,10 @@ public class DeptController {
     @PostMapping("/add")
     public int add(@RequestBody DeptVO dept) {
         System.out.println("进入添加方法");
-        long deptId = new SnowFlake(0,0).nextId();
-        String id = String.valueOf(deptId);
+        long deptIds = new SnowFlake(0,0).nextId();
+        String id = String.valueOf(deptIds);
         dept.setId(id);
+        System.out.println(dept);
         return deptService.insertDept(dept);
     }
 
@@ -66,47 +66,16 @@ public class DeptController {
         System.out.println("进入修改方法");
         return deptService.updateByDeptId(deptVO);
     }
-    @ResponseBody
     @GetMapping("/deleteById")
     public int deleteUser(DeptVO deptVO){
         System.out.println("进入删除方法");
         return deptService.deleteByDeptId(deptVO);
     }
 
-    @GetMapping("/tree")
-    public JSONObject tree(){
-        List<DeptVO> list=deptService.tree();
-        JSONObject json=new JSONObject();
-        json.put("treeList",list);
-        return json;
-    }
 
-    @GetMapping("/tree2")
-    public JSONObject tree2(@RequestParam(value ="id",required = false)@RequestBody String id){
-        System.out.println(id);
-        List<DeptVO> list=deptService.tree2(id);
-        JSONObject json=new JSONObject();
-        json.put("treeList",list);
-        return json;
+        @GetMapping("/findAllDept")
+    public List<DeptVO> findAllDept(){
+       return deptService.findAll();
     }
-
-    @GetMapping("/findOrgUserTree")
-    @ResponseBody
-    public JSONObject findOrgUserTree(){
-        List<DeptVO> list=deptService.tree();
-        JSONObject json=new JSONObject();
-        json.put("treeList",list);
-        return json;
-    }
-
-    @GetMapping("/findAll")
-    @ResponseBody
-    public JSONObject findAll(){
-        List<DeptVO> list=deptService.findAll();
-        JSONObject json=new JSONObject();
-        json.put("treeList",list);
-        return json;
-    }
-
 
 }

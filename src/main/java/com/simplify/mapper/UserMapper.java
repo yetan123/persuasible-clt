@@ -24,14 +24,15 @@ public interface UserMapper extends Mapper<User> {
     //删除用户基本信息
     int deleteByUserId(UserAndDeptVO userAndDeptVO);
     //新增用户基本信息
-    int insertUser(User user);
+    int insertUser(UserAndDeptVO user);
     //修改状态
     int updateByState(UserAndDeptVO userAndDeptVO);
     //分页 模糊查询
-    List<UserAndDeptVO> listUserAndDept(@Param("deptname") String deptname, @Param("username") String username,@Param("enabled") String enabled, @Param("start") int start, @Param("size") int size);
+    List<UserAndDeptVO> listUserAndDept(@Param("deptname") String deptname, @Param("username") String username,@Param("enabled") String enabled,@Param("pid") String pid, @Param("start") int start, @Param("size") int size);
     //查询总记录
-    int selectCounts(@Param("deptname") String deptname,@Param("username") String username,@Param("enabled") String enabled);
-
+    int selectCounts(@Param("deptname") String deptname,@Param("username") String username,@Param("pid") String pid,@Param("enabled") String enabled);
+    //根据验证码修改密码
+    int updateCodeById(UserAndDeptVO userAndDeptVO);
     /**
      * 查询一个不包含自己的用户集合
      * @date 2019/12/25

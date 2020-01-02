@@ -64,16 +64,6 @@ public class DeptServiceImpl implements DeptService {
     }
 
     @Override
-    public List<DeptVO>  tree() {
-        return deptMapper.tree();
-    }
-
-    @Override
-    public List<DeptVO> tree2(String id) {
-        return deptMapper.tree2(id);
-    }
-
-    @Override
     public List<DeptVO> findAll() {
         return deptMapper.findAll();
     }

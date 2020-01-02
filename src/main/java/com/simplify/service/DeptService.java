@@ -25,12 +25,6 @@ public interface DeptService {
     PageBean<DeptVO> listDeptUser(String deptname,String oldDate,String newDate,Integer currentPage );
 
     /**
-     * Tree树
-     */
-    /* List<DeptVO> findAll();*/
-    List<DeptVO> tree();
-    List<DeptVO> tree2(String id);
-    /**
      * 部门树节点
      * @return
      */

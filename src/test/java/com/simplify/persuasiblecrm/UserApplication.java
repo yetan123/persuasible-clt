@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import java.util.Random;
 
 
 @SpringBootTest
@@ -23,11 +24,9 @@ public class UserApplication {
     private DeptMapper deptMapper;
     @Autowired
     private UserService userService;
-
     @Test
     void contextLoads() {
-        System.out.println("年后");
-        System.out.println(deptService.listDeptUser(null,"2019-12-01 00:00:00","2020-12-02 00:00:00",1));
+       /* String code = String.valueOf(new Random().nextInt(9999));*/
     }
 
 }

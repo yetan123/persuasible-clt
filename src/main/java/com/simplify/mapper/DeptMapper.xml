@@ -3,6 +3,14 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.simplify.mapper.DeptMapper">
+    <!--<resultMap id="deptAuthorizeDTO" type="DeptVO">-->
+        <!--<id property="id" column="id"/>-->
+        <!--<result property="deptName" column="dept_name"/>-->
+        <!--<result property="enterpriseId" column="enterprise_id"/>-->
+        <!--<result property="describe" column="describe"/>-->
+        <!--<result property="createTime" column="create_Time"/>-->
+        <!--<result property="pid" column="pid"/>-->
+    <!--</resultMap>-->
     <resultMap id="deptAuthorizeDTO" type="DeptVO">
         <id property="id" column="id"/>
         <result property="deptName" column="dept_name"/>
@@ -10,7 +18,10 @@
         <result property="describe" column="describe"/>
         <result property="createTime" column="create_Time"/>
         <result property="pid" column="pid"/>
+        <collection property="children" column="id" select="findAll" />
     </resultMap>
+
+
 
     <update id="updateByDeptId" parameterType="com.simplify.model.dto.DeptVO">
         UPDATE PERSUASIBLE.tb_department
@@ -33,7 +44,7 @@
     </delete>
 
     <insert id="insertDept" parameterType="com.simplify.model.dto.DeptVO">
-		insert into PERSUASIBLE.TB_DEPARTMENT(id,dept_name,DESCRIBE,ENTERPRISE_ID,CREATE_TIME) values(#{id},#{deptName},1,#{describe},SYSDATE)
+		insert into PERSUASIBLE.TB_DEPARTMENT(id,dept_name,DESCRIBE,ENTERPRISE_ID,CREATE_TIME,pid) values(#{id},#{deptName},#{describe},1,SYSDATE,#{pid})
     </insert>
 
     <select id="listDeptUser" resultMap="deptAuthorizeDTO">
@@ -64,16 +75,15 @@
         </where>
     </select>
 
-    <select id="tree" resultMap="deptAuthorizeDTO">
-          SELECT id,dept_name,describe,pid,create_time FROM PERSUASIBLE.TB_DEPARTMENT WHERE pid = '0'
-    </select>
-
-    <select id="tree2" resultMap="deptAuthorizeDTO">
-          SELECT id,dept_name,describe,pid,create_time FROM PERSUASIBLE.TB_DEPARTMENT WHERE pid =#{id}
-    </select>
-
     <select id="findAll" resultMap="deptAuthorizeDTO">
-          SELECT id,dept_name,describe,pid,create_time FROM PERSUASIBLE.TB_DEPARTMENT
+          SELECT id,dept_name,describe,pid,create_time FROM PERSUASIBLE.TB_DEPARTMENT <where>
+        <if test="id == null">
+           and pid is null
+        </if>
+        <if test="id != null">
+            and pid = #{id}
+        </if>
+    </where>
     </select>
 
 </mapper>

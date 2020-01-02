@@ -1,7 +1,9 @@
 package com.simplify.mapper;
 
 
+import com.simplify.model.dto.BusinessDTO;
 import com.simplify.model.entity.Business;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.common.Mapper;
 
@@ -17,11 +19,9 @@ import java.util.Map;
 @Repository
 public interface BusinessMapper extends Mapper<Business> {
 
-    //查询商机所有数据及实现分页功能
-    List<Business> listBusiness();
 
-    //根据id查询商机数据
-    List<Business> listBusinessById(Long id);
-
+    List<Business> selectAll();
+    List<BusinessDTO> listBusiness();
+    List<BusinessDTO> listBusinessById(Long id);
     void deleteBusinessById(Long id);
 }

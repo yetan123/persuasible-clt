@@ -31,5 +31,10 @@ public class ClueTest {
 //            System.out.println(clue);
 //        }
         // 根据id查询
+        List<Clue> clueList = clueService.getAllClue();
+        for (Clue clue: clueList
+        ) {
+            System.out.println(clue);
+        }
     }
 }
