@@ -3,20 +3,13 @@ package com.simplify.controller;
 import com.simplify.model.dto.BusinessDTO;
 import com.simplify.model.dto.BusinessInfoDTO;
 import com.simplify.model.dto.BusinessVO;
-import com.simplify.model.entity.Business;
-import com.simplify.model.entity.Linkman;
 import com.simplify.model.vo.BusinessLinkmanVO;
 import com.simplify.service.BusinessDTOService;
 import com.simplify.service.BusinessService;
-import com.simplify.utils.SnowFlake;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import javax.xml.crypto.Data;
 import java.util.List;
 
 /**
@@ -46,7 +39,9 @@ public class BusinessController {
         return businessServiceImpl.listBusinessById(id);
     }
 
-    @DeleteMapping("/deleteBusinessById")
+
+    @ResponseBody
+    @GetMapping("/deleteBusinessById")
     public void deleteBusinessById(Long id) {
         businessServiceImpl.deleteBusinessById(id);
     }

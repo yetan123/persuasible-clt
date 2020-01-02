@@ -1,7 +1,9 @@
 package com.simplify.service;
 
+import com.simplify.model.dto.UserAndDeptVO;
 import com.simplify.model.entity.Role;
 import com.simplify.model.vo.RoleAuthorizeVO;
+import com.simplify.model.vo.RoleVO;
 import com.simplify.utils.PageBean;
 import org.apache.ibatis.annotations.Param;
 
@@ -22,4 +24,7 @@ public interface RoleService {
     Integer removeRoleById(Long id);
 
     RoleAuthorizeVO insertRole(Role role);
+
+    List<RoleVO> listRoleVO();
+
 }

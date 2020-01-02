@@ -103,4 +103,9 @@ public class CustomerServiceImpl implements CustomerService {
         return customerMapper.selectByID(id);
     }
 
+    @Override
+    public List<Customer> selectALL() {
+        return customerMapper.selectAll();
+    }
+
 }

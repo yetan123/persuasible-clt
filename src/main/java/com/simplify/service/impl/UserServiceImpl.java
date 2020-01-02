@@ -1,13 +1,13 @@
 package com.simplify.service.impl;
 import com.simplify.mapper.UserMapper;
-import com.simplify.model.dto.UserAndDeptDTO;
-import com.simplify.model.dto.UserAndDeptVO;
-import com.simplify.model.dto.UserAuthorizeDTO;
-import com.simplify.model.dto.UserVO;
+import com.simplify.model.dto.*;
 import com.simplify.model.entity.User;
+import com.simplify.model.vo.UserRoleVO;
 import com.simplify.service.UserService;
 import com.simplify.utils.PageBean;
+import com.simplify.utils.SnowFlake;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService
     }
 
     @Override
-    public int insertUser(User user) {
+    public int insertUser(UserAndDeptVO user) {
         return userMapper.insertUser(user);
     }
 
@@ -57,7 +57,7 @@ public class UserServiceImpl implements UserService
         return userMapper.updateByState(userAndDeptVO);
     }
     @Override
-    public PageBean<UserAndDeptVO> listUserAndDept(String deptname, String username, String enabled, Integer currentPage) {
+    public PageBean<UserAndDeptVO> listUserAndDept(String deptname, String username, String enabled,String pid, Integer currentPage) {
         PageBean<UserAndDeptVO> pageBean = new PageBean<UserAndDeptVO>();
         //封装当前页数
         pageBean.setPageNum(currentPage);
@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService
         int pageSize=5;
         pageBean.setPageSize(pageSize);
         //封装总记录数
-        int totalCount = userMapper.selectCounts(deptname,username,enabled);
+        int totalCount = userMapper.selectCounts(deptname,username,enabled,pid);
         pageBean.setTotalCount(totalCount);
         //封装总页数
         double tc = totalCount;
@@ -74,17 +74,41 @@ public class UserServiceImpl implements UserService
         int start=(currentPage-1)*pageSize;
         int size = pageBean.getPageSize()*pageBean.getPageNum();
         //封装每页显示的数据
-        List<UserAndDeptVO> lists = userMapper.listUserAndDept(deptname,username,enabled,start,size);
+        List<UserAndDeptVO> lists = userMapper.listUserAndDept(deptname,username,enabled,pid,start,size);
         pageBean.setLists(lists);
         /*  System.out.println(lists+"----------结束");*/
         return pageBean;
     }
 
     @Override
+    public int updateCodeById(UserAndDeptVO userAndDeptVO) {
+        return userMapper.updateCodeById(userAndDeptVO);
+    }
+    @Override
     public User findUserById(Long id) {
         return userMapper.selectByPrimaryKey(id);
     }
 
+    @Override
+    public UserAndDeptVO selectByName(String account) {
+        return userMapper.selectByName(account);
+    }
+
+    @Override
+    public UserRoleVO selectRoleName(String id, String roleId) {
+        return userMapper.selectRoleName(id,roleId);
+    }
+
+    @PreAuthorize("hasAuthority('修改用户角色:PUT')")
+    @Override
+    public int updateUserRole(UserAndDeptVO userAndDeptVO) {
+        System.out.println(userAndDeptVO);
+        SnowFlake snowFlake = new SnowFlake(0,0);
+        List<String> roleIds = userAndDeptVO.getRoleIds();
+        roleIds.forEach(roleId->userMapper.updateUserRole(new UserRoleDTO(snowFlake.nextId(),Long.parseLong(userAndDeptVO.getId()),Long.parseLong(roleId))));
+        int i = userMapper.deleteUserRole(userAndDeptVO);
+        return i;
+    }
 
     @Override
     public int deleteByUserId(UserAndDeptVO userAndDeptVO) {

@@ -36,4 +36,5 @@ public class UserAndDeptDTO {
 
     private List<DeptVO> depts;
 
+    private List<String> roleIds;
 }

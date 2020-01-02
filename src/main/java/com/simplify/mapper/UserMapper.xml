@@ -29,11 +29,28 @@
         <collection property="depts"   ofType="DeptVO" >
             <result property="deptName" column="dept_name"/>
             <result property="createTime" column="create_Time"/>
+            <result property="pid" column="pid"/>
             <result property="enterpriseId" column="enterprise_id"/>
             <result property="describe" column="describe"/>
-            <result property="pid" column="pid"/>
-        </collection>
+    </collection>
+    <collection property="roleIds" column="user_id" select="selectByUserId">
+        <result column="role_id"/>
+    </collection>
     </resultMap>
+    <resultMap id="userRoleVO" type="UserRoleVO">
+        <id property="id" column="id"/>
+        <result property="troleId" column="trole_Id"/>
+        <result property="roleId" column="role_Id"/>
+        <result property="roleName" column="role_Name"/>
+    </resultMap>
+    <!--权限-->
+    <select id="selectRoleName" resultMap="userRoleVO">
+        select u.id as user_id,tr.id as trole_id,r.id as role_id,r.role_name
+        from PERSUASIBLE.tb_user u join PERSUASIBLE.tb_user_role tr on u.id = tr.user_id
+        join PERSUASIBLE.tb_role r on r.id=tr.role_id
+        where u.id=#{id} and tr.role_id=#{roleId}
+    </select>
+<!--权限结束-->
     <select id="findUserAndRoleByUserId" resultMap="userAuthorizeDTO">
         select usr.id,usr.account,usr.username,usr.genders,usr.phone,usr.job,
         usr.dept_id,usr.user_state,rol.role_name
@@ -42,13 +59,20 @@
         join tb_role rol on rol.id = usr_rol.role_id where usr.id = #{id}
     </select>
 
-    <delete id="deleteByUserId" parameterType="com.simplify.model.dto.UserAndDeptDTO">
+    <delete id="deleteByUserId" parameterType="com.simplify.model.dto.UserAndDeptVO">
         DELETE FROM PERSUASIBLE.tb_User WHERE id = #{id}
     </delete>
+
+    <select id="selectByName" parameterType="java.lang.String" resultType="com.simplify.model.dto.UserAndDeptVO">
+        select *from PERSUASIBLE.tb_user where account = #{account}
+    </select>
 
     <update id="updateByUserId" parameterType="com.simplify.model.dto.UserAndDeptDTO">
         UPDATE PERSUASIBLE.tb_user
         <set>
+            <if test="account!=null">
+                account = #{account},
+            </if>
             <if test="username!=null">
                 username = #{username},
             </if>
@@ -95,6 +119,10 @@
                 <bind name="enabled" value="'%'+enabled+'%'"/>
                 and bw.user_State like #{enabled}
             </if>
+            <if test="pid != null and pid!= ''">
+                <bind name="pid" value="'%'+pid+'%'"/>
+                and bwm.pid like #{pid}
+            </if>
         </where>
         )
         bb order by bb.username desc ,bb.user_id desc)row_  where rownum &lt;= #{size})r where rownum_ &gt; #{start}
@@ -115,9 +143,34 @@
                 <bind name="username" value="'%'+username+'%'"/>
                 and u.username like #{username}
             </if>
+            <if test="pid != null and pid!= ''">
+                <bind name="pid" value="'%'+pid+'%'"/>
+                and d.pid like #{pid}
+            </if>
     </select>
 
-    <insert id="insertUser" parameterType="userAuthorizeDTO" >
+    <select id="selectByUserId" resultType="String">
+		select role_id from tb_user_role where user_id = #{userId}
+    </select>
+    <insert id="insertUser" parameterType="UserAndDeptVO" >
         insert into PERSUASIBLE.tb_User(id,account,username,password,genders,phone,job,dept_id,user_state) values(#{id},#{account},#{username},#{password},#{genders},#{phone},#{job},#{deptId},#{userState})
     </insert>
+
+    <update id="updateCodeById" parameterType="com.simplify.model.dto.UserAndDeptDTO">
+        update PERSUASIBLE.tb_user set password=#{password}  where id=#{id}
+    </update>
+
+    <update id="updateUserRole">
+        MERGE INTO  tb_user_role user_role
+            USING (select #{userId}  userId, #{roleId} roleId from dual) t2
+            on (user_role.role_id=t2.roleId and user_role.user_id = t2.userId)
+            WHEN NOT MATCHED  THEN insert values(#{id},t2.userId, t2.roleId)
+    </update>
+
+    <delete id="deleteUserRole">
+        delete tb_user_role where user_id = #{id} and
+        role_id not in <foreach collection="roleIds" item="roleId" open="(" separator="," close=")">
+        #{roleId}
+        </foreach>
+    </delete>
 </mapper>

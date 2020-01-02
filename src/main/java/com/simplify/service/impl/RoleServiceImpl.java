@@ -1,8 +1,10 @@
 package com.simplify.service.impl;
 
 import com.simplify.mapper.RoleMapper;
+import com.simplify.model.dto.UserAndDeptVO;
 import com.simplify.model.entity.Role;
 import com.simplify.model.vo.RoleAuthorizeVO;
+import com.simplify.model.vo.RoleVO;
 import com.simplify.service.RoleService;
 import com.simplify.utils.PageBean;
 import com.simplify.utils.SnowFlake;
@@ -79,4 +81,13 @@ public class RoleServiceImpl implements RoleService {
         roleAuthorizeVO.setCreateTime(new Date(new java.util.Date().getTime()));
         return roleAuthorizeVO;
     }
+
+    @Override
+    public List<RoleVO> listRoleVO() {
+        List<Role> roles = roleMapper.selectAll();
+        List<RoleVO> roleList = new ArrayList<>();
+        roles.forEach(role->roleList.add(new RoleVO(role.getId().toString(),role.getRoleName())));
+        return roleList;
+    }
+
 }
