@@ -1,7 +1,8 @@
 package com.simplify.service;
 
-import com.simplify.model.dto.ClueVO;
+import com.simplify.model.dto.SourceAndStateVO;
 import com.simplify.model.entity.Clue;
+import com.simplify.model.vo.ClueVO;
 
 import java.util.List;
 
@@ -11,7 +12,11 @@ import java.util.List;
  * 线索表业务接口
  */
 public interface ClueService {
-    List<Clue> getAllClue();
+    List<ClueVO> getAllClue();
 
-    ClueVO getClueVO();
+    SourceAndStateVO getSourceAndStateVO();
+
+    int addClue(Clue clue);
+
+    int deleteClue(String clueId);
 }

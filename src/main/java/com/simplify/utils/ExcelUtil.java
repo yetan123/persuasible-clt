@@ -98,7 +98,7 @@ public class ExcelUtil {
             rowHeader.createCell(12).setCellValue("客户类别");
             for (int i = 1; i < customers.size(); i++) {
                 Row row = sheet.createRow(i);
-                CustomerVO customerVO = customers.get(i);it a
+                CustomerVO customerVO = customers.get(i);
                 row.createCell(0).setCellValue(customerVO.getLinkmanList() == null ? "" : customerVO.getLinkmanList().get(0).getCustomerName());
                 row.createCell(1).setCellValue(customerVO.getLinkmanList() == null ? "" : customerVO.getLinkmanList().get(0).getGenders());
                 row.createCell(2).setCellValue(customerVO.getLinkmanList() == null ? "" : customerVO.getLinkmanList().get(0).getPhone());
