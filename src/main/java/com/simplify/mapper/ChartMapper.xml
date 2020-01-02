@@ -14,6 +14,7 @@
 
     <select id="countChartGroupByDay" resultType="ChartDateDTO">
         select TO_CHAR(create_time,'dd') day,count(*) count
-        from TB_CUSTOMER group by TO_CHAR(create_time,'dd')
+        from TB_CUSTOMER where sysdate - create_time &lt;= 30 and trunc(create_time,'MM') = trunc(ADD_MONTHS (sysdate,-1), 'MM')
+        group by TO_CHAR(create_time,'dd')
     </select>
 </mapper>

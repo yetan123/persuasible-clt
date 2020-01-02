@@ -2,6 +2,7 @@ package com.simplify.mapper;
 
 
 import com.simplify.model.dto.BusinessDTO;
+import com.simplify.model.dto.BusinessInfoDTO;
 import com.simplify.model.dto.BusinessVO;
 import com.simplify.model.entity.Business;
 import org.apache.ibatis.annotations.Param;
@@ -19,17 +20,11 @@ import java.util.Map;
 
 @Repository
 public interface BusinessMapper extends Mapper<Business> {
-<<<<<<< HEAD
-
-=======
-
 
     List<Business> selectAll();
     List<BusinessVO> listBusiness();
     List<BusinessVO> listBusinessById(Long id);
-
->>>>>>> 69a4a9a3134cf95cdc01b23a5853bade0273d298
     void deleteBusinessById(Long id);
-    int insertBusiness(BusinessVO businessVO);
-    int updateBusiness(BusinessVO businessVO);
+    int insertBusiness(BusinessInfoDTO businessInfoDTO);
+    int updateBusiness(BusinessInfoDTO businessInfoDTO);
 }

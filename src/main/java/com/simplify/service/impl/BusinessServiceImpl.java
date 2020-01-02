@@ -2,9 +2,11 @@ package com.simplify.service.impl;
 
 import com.simplify.mapper.BusinessMapper;
 import com.simplify.model.dto.BusinessDTO;
+import com.simplify.model.dto.BusinessInfoDTO;
 import com.simplify.model.dto.BusinessVO;
 import com.simplify.model.entity.Business;
 import com.simplify.service.BusinessService;
+import com.simplify.utils.SnowFlake;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +31,6 @@ public class BusinessServiceImpl implements BusinessService {
     }
 
     @Override
-<<<<<<< HEAD
     public List<BusinessVO> listBusiness() {
         return businessMapper.listBusiness();
     }
@@ -37,30 +38,21 @@ public class BusinessServiceImpl implements BusinessService {
     @Override
     public List<BusinessVO> listBusinessById(Long id) {
         return businessMapper.listBusinessById(id);
-=======
-    public List<BusinessDTO> listBusiness() {
-        return null;
     }
-
     @Override
-    public List<BusinessDTO> listBusinessById(Long id) {
-        return null;
->>>>>>> 9db4e79f730ae6727b7c87e10d46a0ba693c703b
-    }
-
-
-    @Override
-    public void deleteBusinessById(Long id) {
+    public void deleteBusinessById (Long id){
         businessMapper.deleteBusinessById(id);
     }
 
     @Override
-    public int insertBusiness(BusinessVO businessVO) {
-        return businessMapper.insertBusiness(businessVO);
+    public int insertBusiness (BusinessInfoDTO businessInfoDTO){
+        Long id=new SnowFlake(0,0).nextId();
+        businessInfoDTO.setId(id);
+        return businessMapper.insertBusiness(businessInfoDTO);
     }
 
     @Override
-    public int updateBusiness(BusinessVO businessVO) {
-        return businessMapper.updateBusiness(businessVO);
+    public int updateBusiness (BusinessInfoDTO businessInfoDTO){
+        return businessMapper.updateBusiness(businessInfoDTO);
     }
 }
