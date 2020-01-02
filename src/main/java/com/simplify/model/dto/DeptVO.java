@@ -6,6 +6,9 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.Id;
+import java.util.Date;
+import java.util.List;
+
 @Data
 @ToString
 @AllArgsConstructor
@@ -20,7 +23,9 @@ public class DeptVO {
 
     private String describe;
 
-    private Integer pid;
-
     private String createTime;
+
+    private String pid;
+
+    private List<DeptVO> children;
 }

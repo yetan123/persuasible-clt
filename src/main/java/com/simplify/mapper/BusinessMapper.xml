@@ -28,9 +28,6 @@
             <result property="companyName" column="COMPANY_NAME"/>
         </association>
     </resultMap>
-    <select id="selectAll" resultType="Business">
-        SELECT * FROM TB_BUSINESS Order BY ID
-    </select>
 
     <select id="listBusiness" resultMap="BusinessAndCustomerAndCustomer">
         SELECT
@@ -52,52 +49,11 @@ FROM
 	Order BY bu.ID
     </select>
 
-    <select id="listBusinessById" resultMap="BusinessAndCustomerAndCustomer">
-        SELECT
-    bu.ID,
-	bu.BUSINESS_NAME,
-	cu.COMPANY_NAME,
-	bu.BUISNESS_TYPE,
-	bu.BUSINESS_PHASES,
-	bu.ESTIMATED_SALES,
-	bu.ESTIMATED_DATE,
-	bu.ESTIMATED_SUCCESS,
-	bu.BUSINESS_STATE,
-	bu.CREATE_TIME,
-	u.USERNAME
-FROM
-	TB_BUSINESS bu
-	INNER JOIN TB_CUSTOMER cu ON bu.CUSTOMER_ID = cu.ID
-	INNER JOIN TB_USER u ON bu.USER_ID = u.id
-WHERE
-	u.id =#{id}
-    </select>
 
     <delete id="deleteBusinessById" parameterType="java.lang.Long">
         DELETE FROM TB_BUSINESS WHERE ID=#{id}
     </delete>
 
-    <insert id="insertBusiness" parameterType="com.simplify.model.dto.BusinessVO">
-        INSERT INTO TB_BUSINESS
-        VALUES
-            (
-            #{id},
-            #{businessName},
-            #{estimatedSales},
-            #{estimatedDate},
-            #{estimatedSuccess},
-            #{customerDecision},
-            #{findDate},
-            #{businessDescription},
-            #{userId},
-            #{businessSourceId},
-            #{customerId},
-            #{businessType},
-            #{businessPhases},
-            #{businessState},
-            DEFAULT
-            )
-    </insert>
 
     <update id="updateBusiness" parameterType="com.simplify.model.dto.BusinessVO">
 

@@ -51,16 +51,7 @@ public class RoleController {
         roleMap.put("resources",resourceVOS);
         return roleMap;
     }
-   /* public Map<String,Object> selectRoleAuthorize(@RequestParam(defaultValue = "1",value ="pageNum",required = false)Integer pageNum){
-        Map<String,Object> roleMap = new HashMap<>();
-        List<RoleAuthorizeVO> roleAuthorizeVOS = roleServiceImpl.listRoleAuthorize();
-        List<Menu> menus = menuServiceImpl.listMenu();
-        List<ResourceVO> resourceVOS = resourceServiceImpl.listResourceViewObject();
-        roleMap.put("roleAuthorize",roleAuthorizeVOS);
-        roleMap.put("menus",menus);
-        roleMap.put("resources",resourceVOS);
-        return roleMap;
-    }*/
+
     @PutMapping("")
     @PreAuthorize("hasAuthority('修改角色:PUT')")
     public Integer updateRole(@RequestBody Role role){

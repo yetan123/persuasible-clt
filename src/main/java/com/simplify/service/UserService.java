@@ -4,6 +4,7 @@ import com.simplify.model.dto.UserAndDeptVO;
 import com.simplify.model.dto.UserAuthorizeDTO;
 import com.simplify.model.dto.UserVO;
 import com.simplify.model.entity.User;
+import com.simplify.model.vo.UserRoleVO;
 import com.simplify.utils.PageBean;
 import java.util.List;
 import java.util.Map;
@@ -22,7 +23,7 @@ public interface UserService {
 
         UserAuthorizeDTO findUserAuthorizeById(Long id);
         //添加用户基本信息
-        int insertUser(User user);
+        int insertUser(UserAndDeptVO user);
         //删除用户基本信息
         int deleteByUserId(UserAndDeptVO userAndDeptVO);
         //修改用户基本信息
@@ -30,7 +31,16 @@ public interface UserService {
         //修改状态
         int updateByState(UserAndDeptVO userAndDeptVO);
         //分页 模糊查询
-        PageBean<UserAndDeptVO> listUserAndDept(String deptName, String userName, String enabled, Integer currentPage);
+
+        PageBean<UserAndDeptVO> listUserAndDept(String deptName, String userName, String enabled,String pid, Integer currentPage);
+        //根据验证码修改密码
+        int updateCodeById(UserAndDeptVO userAndDeptVO);
+
         User findUserById(Long id);
+        //根据账号名称查找避免重复
+        UserAndDeptVO selectByName(String account);
+        //权限
+        UserRoleVO selectRoleName(String id, String roleId);
+
 
 }
