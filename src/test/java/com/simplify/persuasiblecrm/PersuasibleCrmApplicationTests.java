@@ -23,17 +23,14 @@ import java.util.Date;
 class PersuasibleCrmApplicationTests {
 
     @Autowired
-    private CustomerService customerService;
     private CustomerRecordService customerRecordService;
 
-
-    private CustomerTasksService customerTasksService;
 
 
 
     @Test
     void contextLoads() {
-        System.out.println(customerService.selectALL());
+        System.out.println(customerRecordService.selectAllCustomerRecord());
     }
 
 }
