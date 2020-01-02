@@ -15,7 +15,6 @@ public class RecordDTO {
     private String recordContent;
     private Long customer;
     private String type;
-    private String desc;
     private Date date1;
     private Date date2;
     private String process;

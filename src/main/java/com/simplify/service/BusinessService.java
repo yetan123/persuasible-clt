@@ -14,8 +14,17 @@ import java.util.Map;
  */
 
 public interface BusinessService {
+<<<<<<< HEAD
     void deleteBusinessById(Long id);
     int insertBusiness(BusinessVO businessVO);
     int updateBusiness(BusinessVO businessVO);
+=======
+//    List<Business> selectALl();
+//    List<BusinessVO> listBusiness();
+//    List<BusinessVO> listBusinessById(Long id);
+//    void deleteBusinessById(Long id);
+//    int insertBusiness(BusinessVO businessVO);
+//    int updateBusiness(BusinessVO businessVO);
+>>>>>>> e52cc5832427de982b3f1dce136f5ba52aa52078
 
 }

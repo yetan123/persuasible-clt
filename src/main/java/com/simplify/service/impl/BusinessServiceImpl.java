@@ -13,9 +13,52 @@ import java.util.List;
  * @author 杨泓
  * @date 2019-12-18
  */
-@Service
-public class BusinessServiceImpl implements BusinessService {
+//@Service
+//public class BusinessServiceImpl implements BusinessService {
+//
+//    @Resource
+//    private BusinessMapper businessMapper;
+//
+//    @Override
+//    public List<Business> selectALl() {
+//        return businessMapper.selectAll();
+//    }
+//
+//    @Override
+//    public List<BusinessVO> listBusiness() {
+//        return businessMapper.listBusiness();
+//    }
+//
+//    @Override
+//    public List<BusinessVO> listBusinessById(Long id) {
+//        return businessMapper.listBusinessById(id);
+//
+//    public List<BusinessDTO> listBusiness() {
+//        return null;
+//    }
+//
+//    @Override
+//    public List<BusinessDTO> listBusinessById(Long id) {
+//        return null;
+//    }
+//
+//
+//    @Override
+//    public void deleteBusinessById(Long id) {
+//        businessMapper.deleteBusinessById(id);
+//    }
+//
+//    @Override
+//    public int insertBusiness(BusinessVO businessVO) {
+//        return businessMapper.insertBusiness(businessVO);
+//    }
+//
+//    @Override
+//    public int updateBusiness(BusinessVO businessVO) {
+//        return businessMapper.updateBusiness(businessVO);
+//    }
 
+<<<<<<< HEAD
     @Resource
     private BusinessMapper businessMapper;
 
@@ -34,3 +77,5 @@ public class BusinessServiceImpl implements BusinessService {
         return businessMapper.updateBusiness(businessVO);
     }
 }
+=======
+>>>>>>> e52cc5832427de982b3f1dce136f5ba52aa52078
