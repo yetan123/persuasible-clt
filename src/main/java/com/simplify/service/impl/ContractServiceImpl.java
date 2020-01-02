@@ -28,8 +28,8 @@ public class ContractServiceImpl implements ContractService {
     }
 
     @Override
-    public void deleteContractByContractCode(String contractCode) {
-        contractMapper.deleteContractByContractCode(contractCode);
+    public int deleteContractByContractCode(String id) {
+        return contractMapper.deleteContractByContractCode(id);
     }
 
     @Override
@@ -40,5 +40,10 @@ public class ContractServiceImpl implements ContractService {
     @Override
     public int updateContract(ContractVO contractVO) {
         return contractMapper.updateContract(contractVO);
+    }
+
+    @Override
+    public ContractVO getContractByCode(String code) {
+        return contractMapper.getContractByCode(code);
     }
 }

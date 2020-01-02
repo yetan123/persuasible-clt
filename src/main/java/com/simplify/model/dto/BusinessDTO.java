@@ -1,44 +1,64 @@
 package com.simplify.model.dto;
 
-import com.simplify.model.entity.Customer;
-import com.simplify.model.entity.User;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.simplify.model.entity.*;
+import java.util.List;
 
-import javax.persistence.Id;
-import javax.persistence.Table;
-import java.sql.Date;
-
-@Table(name="tb_business")
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class BusinessDTO {
+    private List<Customer> customer;
+    private List<Linkman> linkman;
+    private List<BusinessType> businessType;
+    private List<BusinessSource> businessSource;
+    private List<User> user;
 
-    @Id
-    private String id;
-    private String businessName;
-    private String estimatedSales;
-    private Date estimatedDate;
-    private Double estimatedSuccess;
-    private String customerDecision;
-    private Date findDate;
-    private String businessDescription;
-    private String userId;
-    private String businessSourceId;
-    private String customerId;
-    private String businessType;
-    private String businessPhases;
-    private Integer businessState;
-    private Date createTime;
-    private User user;
-    private Customer customer;
+    public BusinessDTO(){
 
-    public Double getEstimatedSuccess() {
-        estimatedSuccess=estimatedSuccess*100;
-        return estimatedSuccess;
     }
 
+    public BusinessDTO(List<Customer> customer, List<Linkman> linkman, List<BusinessType> businessType, List<BusinessSource> businessSource, List<User> user) {
+        this.customer = customer;
+        this.linkman = linkman;
+        this.businessType = businessType;
+        this.businessSource = businessSource;
+        this.user = user;
+    }
 
+    public List<Customer> getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(List<Customer> customer) {
+        this.customer = customer;
+    }
+
+    public List<Linkman> getLinkman() {
+        return linkman;
+    }
+
+    public void setLinkman(List<Linkman> linkman) {
+        this.linkman = linkman;
+    }
+
+    public List<BusinessType> getBusinessType() {
+        return businessType;
+    }
+
+    public void setBusinessType(List<BusinessType> businessType) {
+        this.businessType = businessType;
+    }
+
+    public List<BusinessSource> getBusinessSource() {
+        return businessSource;
+    }
+
+    public void setBusinessSource(List<BusinessSource> businessSource) {
+        this.businessSource = businessSource;
+    }
+
+    public List<User> getUser() {
+        return user;
+    }
+
+    public void setUser(List<User> user) {
+        this.user = user;
+    }
 }

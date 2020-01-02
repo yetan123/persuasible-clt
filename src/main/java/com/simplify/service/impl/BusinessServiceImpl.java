@@ -2,6 +2,7 @@ package com.simplify.service.impl;
 
 import com.simplify.mapper.BusinessMapper;
 import com.simplify.model.dto.BusinessDTO;
+import com.simplify.model.dto.BusinessVO;
 import com.simplify.model.entity.Business;
 import com.simplify.service.BusinessService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,34 +23,4 @@ public class BusinessServiceImpl implements BusinessService {
     @Resource
     private BusinessMapper businessMapper;
 
-    @Override
-    public List<Business> selectALl() {
-        return businessMapper.selectAll();
-    }
-
-    @Override
-    public List<BusinessDTO> listBusiness() {
-        return null;
-    }
-
-    @Override
-    public List<BusinessDTO> listBusinessById(Long id) {
-        return null;
-    }
-
-
-    @Override
-    public void deleteBusinessById(Long id) {
-        businessMapper.deleteBusinessById(id);
-    }
-
-    @Override
-    public int insertBusiness(Business business) {
-        return businessMapper.insertBusiness(business);
-    }
-
-    @Override
-    public int updateBusiness(Business business) {
-        return businessMapper.updateBusiness(business);
-    }
 }
