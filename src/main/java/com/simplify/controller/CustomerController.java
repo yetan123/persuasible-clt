@@ -215,5 +215,10 @@ public class CustomerController {
         return list;
     }
 
+    @ResponseBody
+    @GetMapping("/selectALL")
+    public List<Customer> selectALL(){
+        return customerService.selectALL();
+    }
 }
 

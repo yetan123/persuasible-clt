@@ -23,61 +23,61 @@ import java.util.List;
 @RequestMapping("business")
 @CrossOrigin
 public class BusinessController {
-
-    @Resource
-    BusinessService businessService;
-
-    @Resource
-    BusinessDTOService businessDTOService;
-
-    @ResponseBody
-    @GetMapping("/listBusiness")
-    public List<BusinessVO> listBusiness() {
-        return businessService.listBusiness();
-    }
-
-    @ResponseBody
-    @GetMapping("/listBusinessById")
-    public List<BusinessVO> listBusinessById(Long id) {
-        return businessService.listBusinessById(id);
-    }
-
-    @ResponseBody
-    @GetMapping("/deleteBusinessById")
-    public void deleteBusinessById(Long id) {
-        businessService.deleteBusinessById(id);
-    }
-
-    @ResponseBody
-    @GetMapping("/insertBusiness")
-    public void insertBusiness(BusinessVO businessVO) {
-        Long id=new SnowFlake(0,0).nextId();
-        businessVO.setId(id);
-        businessService.insertBusiness(businessVO);
-    }
-
-    @PostMapping(value = "/getBusinessDTO")
-    public BusinessDTO getBusinessDTO(){
-
-        System.out.println("进入getBusinessDTO（）方法");
-        BusinessDTO businessDTO = new BusinessDTO();
-        businessDTO.setCustomer(businessDTOService.listCustomerIDAndCustomerName());
-        businessDTO.setBusinessType(businessDTOService.listBusinessType());
-        businessDTO.setBusinessSource(businessDTOService.listBusinessSource());
-        businessDTO.setUser(businessDTOService.listUser());
-        return businessDTO;
-    }
-
-    @GetMapping(value = "/getLinkman")
-    public List<Linkman> getLinkman(Long id){
-        //System.out.println("客户编号"+id);
-        return businessDTOService.getLinkmanByCustomerId(id);
-    }
-
-    @ResponseBody
-    @GetMapping("/updateBusiness")
-    public void updateBusiness(BusinessVO businessVO) {
-        businessService.updateBusiness(businessVO);
-    }
+//
+//    @Resource
+//    BusinessService businessService;
+//
+//    @Resource
+//    BusinessDTOService businessDTOService;
+//
+//    @ResponseBody
+//    @GetMapping("/listBusiness")
+//    public List<BusinessVO> listBusiness() {
+//        return businessService.listBusiness();
+//    }
+//
+//    @ResponseBody
+//    @GetMapping("/listBusinessById")
+//    public List<BusinessVO> listBusinessById(Long id) {
+//        return businessService.listBusinessById(id);
+//    }
+//
+//    @ResponseBody
+//    @GetMapping("/deleteBusinessById")
+//    public void deleteBusinessById(Long id) {
+//        businessService.deleteBusinessById(id);
+//    }
+//
+//    @ResponseBody
+//    @GetMapping("/insertBusiness")
+//    public void insertBusiness(BusinessVO businessVO) {
+//        Long id=new SnowFlake(0,0).nextId();
+//        businessVO.setId(id);
+//        businessService.insertBusiness(businessVO);
+//    }
+//
+//    @PostMapping(value = "/getBusinessDTO")
+//    public BusinessDTO getBusinessDTO(){
+//
+//        System.out.println("进入getBusinessDTO（）方法");
+//        BusinessDTO businessDTO = new BusinessDTO();
+//        businessDTO.setCustomer(businessDTOService.listCustomerIDAndCustomerName());
+//        businessDTO.setBusinessType(businessDTOService.listBusinessType());
+//        businessDTO.setBusinessSource(businessDTOService.listBusinessSource());
+//        businessDTO.setUser(businessDTOService.listUser());
+//        return businessDTO;
+//    }
+//
+//    @GetMapping(value = "/getLinkman")
+//    public List<Linkman> getLinkman(Long id){
+//        //System.out.println("客户编号"+id);
+//        return businessDTOService.getLinkmanByCustomerId(id);
+//    }
+//
+//    @ResponseBody
+//    @GetMapping("/updateBusiness")
+//    public void updateBusiness(BusinessVO businessVO) {
+//        businessService.updateBusiness(businessVO);
+//    }
 
 }

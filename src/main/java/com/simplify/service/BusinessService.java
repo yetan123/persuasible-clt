@@ -14,11 +14,11 @@ import java.util.Map;
  */
 
 public interface BusinessService {
-    List<Business> selectALl();
-    List<BusinessVO> listBusiness();
-    List<BusinessVO> listBusinessById(Long id);
-    void deleteBusinessById(Long id);
-    int insertBusiness(BusinessVO businessVO);
-    int updateBusiness(BusinessVO businessVO);
+//    List<Business> selectALl();
+//    List<BusinessVO> listBusiness();
+//    List<BusinessVO> listBusinessById(Long id);
+//    void deleteBusinessById(Long id);
+//    int insertBusiness(BusinessVO businessVO);
+//    int updateBusiness(BusinessVO businessVO);
 
 }

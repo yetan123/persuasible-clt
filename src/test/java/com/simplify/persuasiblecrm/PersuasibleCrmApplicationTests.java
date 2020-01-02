@@ -33,16 +33,7 @@ class PersuasibleCrmApplicationTests {
 
     @Test
     void contextLoads() {
-        CustomerRecord c = new CustomerRecord();
-        c.setCustomerId(5l);
-        c.setRecordContent("测试");
-        c.setRecordType("QQ");
-        c.setRecordProgress("开始测试");
-        c.setCustomerId(407016855044096000l);
-        c.setLinkmanId(407016855044096000l);
-
-        System.out.println(c);
-        int i = customerRecordService.insertCustomerRecord(c);
+        System.out.println(customerService.selectALL());
     }
 
 }
