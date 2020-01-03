@@ -3,7 +3,11 @@ package com.simplify.mapper;
 import com.simplify.model.dto.SourceAndStateVO;
 import com.simplify.model.entity.Clue;
 import com.simplify.model.entity.ClueState;
+import com.simplify.model.entity.ClueTask;
 import com.simplify.model.entity.CustomerSource;
+import com.simplify.model.vo.ClueAndTaskVO;
+import com.simplify.model.vo.ClueTaskDVO;
+import com.simplify.model.vo.ClueTaskVO;
 import com.simplify.model.vo.ClueVO;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
@@ -28,4 +32,14 @@ public interface ClueMapper extends Mapper<Clue> {
   List<ClueState> getAllClueState();
 
   ClueVO getClueById(String id);
+
+  /*任务*/
+  List<ClueTaskDVO> findAll(ClueTaskDVO clueTaskVO);
+  /*添加*/
+  int insertClueTask(ClueTaskDVO clueTaskVO);
+  /*修改*/
+  int updateByClueId(ClueTaskDVO clueTaskDVO);
+  /*删除*/
+  int deleteByClueId(ClueTaskDVO clueTaskDVO);
+  List<ClueTaskDVO> findByName();
 }

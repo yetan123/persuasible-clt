@@ -2,15 +2,19 @@ package com.simplify.controller;
 
 import com.simplify.model.dto.SourceAndStateVO;
 import com.simplify.model.entity.Clue;
+import com.simplify.model.vo.ClueAndTaskVO;
+import com.simplify.model.vo.ClueTaskDVO;
+import com.simplify.model.vo.ClueTaskVO;
 import com.simplify.model.vo.ClueVO;
 import com.simplify.service.ClueService;
 import com.simplify.utils.SnowFlake;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @RestController
 @RequestMapping(value = "clue")
@@ -63,5 +67,56 @@ public class ClueController {
         map.put("clueVO",  clueVOById);
         map.put("sourceAndStateVO",  sourceAndStateVO);
         return map;
+    }
+
+    //跟进任务
+    @GetMapping(value = "/getTask")
+    public List<ClueTaskDVO> getTask(ClueTaskDVO clueTaskVO) {
+        System.out.println(clueTaskVO);
+        List<ClueTaskDVO> list= clueService.findAll(clueTaskVO);
+        System.out.println(list);
+        return clueService.findAll(clueTaskVO);
+    }
+    //下拉
+    @GetMapping(value = "/getName")
+    public List<ClueTaskDVO> getName() {
+        System.out.println(clueService.findByName());
+        return clueService.findByName();
+}
+    /*添加任务*/
+    @PostMapping("/add")
+    public int add(@RequestBody ClueTaskDVO clueTaskVO) throws ParseException {
+        System.out.println("进入添加");
+        long longVal =new SnowFlake(0,0).nextId();
+        String id=String.valueOf(longVal);
+        clueTaskVO.setId(id);
+        clueTaskVO.setTaskStartTime(convet(clueTaskVO.getTaskStartTime()));
+        clueTaskVO.setTaskFinishTime(convet(clueTaskVO.getTaskFinishTime()));
+        System.out.println(clueTaskVO);
+        return clueService.insertClueTask(clueTaskVO);
+    }
+
+    @PostMapping("/update")
+    public int update(@RequestBody ClueTaskDVO clueTaskVO) throws ParseException {
+        System.out.println("进入修改方法");
+        clueTaskVO.setTaskStartTime(convet(clueTaskVO.getTaskStartTime()));
+        clueTaskVO.setTaskFinishTime(convet(clueTaskVO.getTaskFinishTime()));
+        System.out.println(clueTaskVO);
+        return clueService.updateByClueId(clueTaskVO);
+    }
+
+    @GetMapping("/deleteById")
+    public int deleteUser(ClueTaskDVO clueTaskVO){
+        System.out.println("进入删除方法");
+        return clueService.deleteByClueId(clueTaskVO);
+    }
+
+    private String convet(String time) throws ParseException {
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        Date parse = df.parse(time);
+        SimpleDateFormat df1 = new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy", Locale.UK);
+        Date date1 = df1.parse(parse.toString());
+        df = new SimpleDateFormat("yyyy-MM-dd");
+        return df.format(date1);
     }
 }
