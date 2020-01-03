@@ -38,48 +38,35 @@ public class BusinessServiceImpl implements BusinessService {
     @Cacheable("listBusinessById")
     @Override
     public List<BusinessVO> listBusinessById(Long id) {
-<<<<<<< HEAD
         return businessMapper.listBusinessById(id);
     }
     @CacheEvict(cacheNames = {"listBusiness", "listBusinessById"})
     @Override
     public void deleteBusinessById (Long id){
         businessMapper.deleteBusinessById(id);
-=======
         return null;
     }
 
     @Override
     public void deleteBusinessById(Long id) {
-
->>>>>>> linx
     }
 
     @CacheEvict(cacheNames = {"listBusiness", "listBusinessById"})
     @Override
-<<<<<<< HEAD
     public int insertBusiness (BusinessInfoDTO businessInfoDTO){
         Long id=new SnowFlake(0,0).nextId();
         businessInfoDTO.setId(id);
         return businessMapper.insertBusiness(businessInfoDTO);
-=======
     public int insertBusiness(BusinessVO businessVO) {
         return 0;
->>>>>>> linx
     }
 
     @CacheEvict(cacheNames = {"listBusiness", "listBusinessById"})
     @Override
-<<<<<<< HEAD
     public int updateBusiness (BusinessInfoDTO businessInfoDTO){
         return businessMapper.updateBusiness(businessInfoDTO);
     }
-
-=======
     public int updateBusiness(BusinessVO businessVO) {
         return 0;
     }
-
-
->>>>>>> linx
 }
