@@ -19,4 +19,6 @@ public interface ClueService {
     int addClue(Clue clue);
 
     int deleteClue(String clueId);
+
+    ClueVO getClueById(String  id);
 }
