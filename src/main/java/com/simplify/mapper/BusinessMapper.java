@@ -20,14 +20,10 @@ import java.util.Map;
 @Repository
 public interface BusinessMapper extends Mapper<Business> {
 
-<<<<<<< HEAD
-=======
-
     List<Business> selectAll();
     List<BusinessVO> listBusiness();
     List<BusinessVO> listBusinessById(Long id);
 
->>>>>>> e52cc5832427de982b3f1dce136f5ba52aa52078
     void deleteBusinessById(Long id);
     int insertBusiness(BusinessVO businessVO);
     int updateBusiness(BusinessVO businessVO);
