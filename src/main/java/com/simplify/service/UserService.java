@@ -42,5 +42,6 @@ public interface UserService {
         //权限
         UserRoleVO selectRoleName(String id, String roleId);
 
+        int updateUserRole(UserAndDeptVO userAndDeptVO);
 
 }

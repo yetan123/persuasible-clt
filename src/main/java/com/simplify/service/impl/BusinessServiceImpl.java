@@ -1,10 +1,15 @@
 package com.simplify.service.impl;
 
 import com.simplify.mapper.BusinessMapper;
+import com.simplify.model.dto.BusinessInfoDTO;
 import com.simplify.model.dto.BusinessVO;
 import com.simplify.model.entity.Business;
 import com.simplify.service.BusinessService;
+import com.simplify.utils.SnowFlake;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+
 import javax.annotation.Resource;
 import java.util.List;
 
@@ -13,69 +18,46 @@ import java.util.List;
  * @author 杨泓
  * @date 2019-12-18
  */
-//@Service
-//public class BusinessServiceImpl implements BusinessService {
-//
-//    @Resource
-//    private BusinessMapper businessMapper;
-//
-//    @Override
-//    public List<Business> selectALl() {
-//        return businessMapper.selectAll();
-//    }
-//
-//    @Override
-//    public List<BusinessVO> listBusiness() {
-//        return businessMapper.listBusiness();
-//    }
-//
-//    @Override
-//    public List<BusinessVO> listBusinessById(Long id) {
-//        return businessMapper.listBusinessById(id);
-//
-//    public List<BusinessDTO> listBusiness() {
-//        return null;
-//    }
-//
-//    @Override
-//    public List<BusinessDTO> listBusinessById(Long id) {
-//        return null;
-//    }
-//
-//
-//    @Override
-//    public void deleteBusinessById(Long id) {
-//        businessMapper.deleteBusinessById(id);
-//    }
-//
-//    @Override
-//    public int insertBusiness(BusinessVO businessVO) {
-//        return businessMapper.insertBusiness(businessVO);
-//    }
-//
-//    @Override
-//    public int updateBusiness(BusinessVO businessVO) {
-//        return businessMapper.updateBusiness(businessVO);
-//    }
+@Service
+public class BusinessServiceImpl implements BusinessService {
 
-<<<<<<< HEAD
     @Resource
     private BusinessMapper businessMapper;
 
     @Override
-    public void deleteBusinessById(Long id) {
+    public List<Business> selectALl() {
+        return businessMapper.selectAll();
+    }
+
+    @Cacheable("listBusiness")
+    @Override
+    public List<BusinessVO> listBusiness() {
+        return businessMapper.listBusiness();
+    }
+
+    @Cacheable("listBusinessById")
+    @Override
+    public List<BusinessVO> listBusinessById(Long id) {
+        return businessMapper.listBusinessById(id);
+    }
+    @CacheEvict(cacheNames = {"listBusiness", "listBusinessById"})
+    @Override
+    public void deleteBusinessById (Long id){
         businessMapper.deleteBusinessById(id);
     }
 
+    @CacheEvict(cacheNames = {"listBusiness", "listBusinessById"})
     @Override
-    public int insertBusiness(BusinessVO businessVO) {
-        return businessMapper.insertBusiness(businessVO);
+    public int insertBusiness (BusinessInfoDTO businessInfoDTO){
+        Long id=new SnowFlake(0,0).nextId();
+        businessInfoDTO.setId(id);
+        return businessMapper.insertBusiness(businessInfoDTO);
     }
 
+    @CacheEvict(cacheNames = {"listBusiness", "listBusinessById"})
     @Override
-    public int updateBusiness(BusinessVO businessVO) {
-        return businessMapper.updateBusiness(businessVO);
+    public int updateBusiness (BusinessInfoDTO businessInfoDTO){
+        return businessMapper.updateBusiness(businessInfoDTO);
     }
+
 }
-=======
->>>>>>> e52cc5832427de982b3f1dce136f5ba52aa52078

@@ -33,16 +33,5 @@ public class UserAndDeptVO {
 
     private List<String> depts;
 
-    /*暂时存放*/
-    private String id1;
-
-    private String id2;
-
-    private String id3;
-
-    private String text1;
-
-    private String text2;
-
-    private String text3;
+        private List<String> roleIds;
 }

@@ -1,6 +1,7 @@
 package com.simplify.mapper;
 import com.simplify.model.dto.UserAndDeptVO;
 import com.simplify.model.dto.UserAuthorizeDTO;
+import com.simplify.model.dto.UserRoleDTO;
 import com.simplify.model.dto.UserVO;
 import com.simplify.model.entity.User;
 import com.simplify.model.vo.RoleMiddleVO;
@@ -35,6 +36,10 @@ public interface UserMapper extends Mapper<User> {
     int selectCounts(@Param("deptname") String deptname,@Param("username") String username,@Param("pid") String pid,@Param("enabled") String enabled);
     //根据验证码修改密码
     int updateCodeById(UserAndDeptVO userAndDeptVO);
+
+    int updateUserRole(UserRoleDTO userRoleDTO);
+
+    int deleteUserRole(UserAndDeptVO userAndDeptVO);
     //根据账号名称查找避免重复
     UserAndDeptVO selectByName(@Param("account") String account);
     /**

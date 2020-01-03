@@ -33,6 +33,9 @@
             <result property="enterpriseId" column="enterprise_id"/>
             <result property="describe" column="describe"/>
     </collection>
+    <collection property="roleIds" column="user_id" select="selectByUserId">
+        <result column="role_id"/>
+    </collection>
     </resultMap>
     <resultMap id="userRoleVO" type="UserRoleVO">
         <id property="id" column="id"/>
@@ -146,6 +149,9 @@
             </if>
     </select>
 
+    <select id="selectByUserId" resultType="String">
+		select role_id from tb_user_role where user_id = #{userId}
+    </select>
     <insert id="insertUser" parameterType="UserAndDeptVO" >
         insert into PERSUASIBLE.tb_User(id,account,username,password,genders,phone,job,dept_id,user_state) values(#{id},#{account},#{username},#{password},#{genders},#{phone},#{job},#{deptId},#{userState})
     </insert>
@@ -153,4 +159,18 @@
     <update id="updateCodeById" parameterType="com.simplify.model.dto.UserAndDeptDTO">
         update PERSUASIBLE.tb_user set password=#{password}  where id=#{id}
     </update>
+
+    <update id="updateUserRole">
+        MERGE INTO  tb_user_role user_role
+            USING (select #{userId}  userId, #{roleId} roleId from dual) t2
+            on (user_role.role_id=t2.roleId and user_role.user_id = t2.userId)
+            WHEN NOT MATCHED  THEN insert values(#{id},t2.userId, t2.roleId)
+    </update>
+
+    <delete id="deleteUserRole">
+        delete tb_user_role where user_id = #{id} and
+        role_id not in <foreach collection="roleIds" item="roleId" open="(" separator="," close=")">
+        #{roleId}
+        </foreach>
+    </delete>
 </mapper>

@@ -16,13 +16,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -50,8 +47,6 @@ public class UserController {
                                                   @RequestParam(defaultValue = "1",value ="pageNum",required = false)Integer pageNum){
         PageBean<UserAndDeptVO> pages;
         Map<String,Object> userMap = new HashMap<>();
-        System.out.println(pid);
-
         if (deptName!=null || userName!=null || enabled!=null || pid!=null) {
             if (enabled =="" || enabled==null){
                 enabled=null;
@@ -88,32 +83,9 @@ public class UserController {
     @PreAuthorize("hasAuthority('修改用户:PUT')")
     @PutMapping("/update")
     public int update(@RequestBody UserAndDeptVO user) {
-        System.out.println("根据id修改");
-        System.out.println(user);
-        String userid = user.getId();
-        String roleid = user.getId1();//销售经理  404641889191460127
-        String roleid1 = user.getId2();//系统管理员 404641889191460864
-        String roleid2 = user.getId3();//客户经理  404641889191460123
-        /**/
-        if(userService.selectRoleName(userid,roleid)!=null){
-            RoleMiddleVO r=new RoleMiddleVO();
-            long longVal =new SnowFlake(0,0).nextId();
-            String rid=String.valueOf(longVal);
-            r.setId(rid);
-            r.setUserId(userid);
-            r.setRoleId(roleid2);
-            System.out.println(r);
-            roleMiddleService.insertRole(r);
-            System.out.println("没有客户经理/系统管理员");
-        }
-        if(userService.selectRoleName(userid,roleid1)!=null && userService.selectRoleName(userid,roleid2)!=null) {
-            System.out.println("没有系统管理员");
-        }
-        if(userService.selectRoleName(userid,roleid1)!=null && userService.selectRoleName(userid,roleid2)!=null){
-            System.out.println("没有销售经理");
-        }
-      /*  return userService.updateByUserId(user);*/
-        return 1;
+        int updateByUserId = userService.updateByUserId(user);
+        int i = userService.updateUserRole(user);
+        return updateByUserId + i;
     }
     @PreAuthorize("hasAuthority('删除用户:DELETE')")
     @DeleteMapping("/deleteById")
@@ -145,7 +117,8 @@ public class UserController {
         JSONObject json =null;
             String code = String.valueOf(new Random().nextInt(99999));
             ZhenziSmsClient client = new ZhenziSmsClient(apiUrl, appId, appSecret);
-            String result = client.send(user.getPhone(), "【】您正在使用手机动态码方式登录，验证码为："+code+",该码有效期为5分钟，该码只能使用一次!请勿向任何单位或个人泄漏。");
+            String result = client.send(user.getPhone(), "您正在使用手机动态码方式登录，验证码为："+code+",该码有效期为5分钟，该码只能使用一次!请勿向任何单位或个人泄漏。");
+        System.out.println(user.getPhone());
             json = JSONObject.parseObject(result);
             if (json.getIntValue("code")!=0){//发送短信失败
             }

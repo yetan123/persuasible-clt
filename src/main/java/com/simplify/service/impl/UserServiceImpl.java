@@ -1,14 +1,13 @@
 package com.simplify.service.impl;
 import com.simplify.mapper.UserMapper;
-import com.simplify.model.dto.UserAndDeptDTO;
-import com.simplify.model.dto.UserAndDeptVO;
-import com.simplify.model.dto.UserAuthorizeDTO;
-import com.simplify.model.dto.UserVO;
+import com.simplify.model.dto.*;
 import com.simplify.model.entity.User;
 import com.simplify.model.vo.UserRoleVO;
 import com.simplify.service.UserService;
 import com.simplify.utils.PageBean;
+import com.simplify.utils.SnowFlake;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
@@ -98,6 +97,17 @@ public class UserServiceImpl implements UserService
     @Override
     public UserRoleVO selectRoleName(String id, String roleId) {
         return userMapper.selectRoleName(id,roleId);
+    }
+
+    @PreAuthorize("hasAuthority('修改用户角色:PUT')")
+    @Override
+    public int updateUserRole(UserAndDeptVO userAndDeptVO) {
+        System.out.println(userAndDeptVO);
+        SnowFlake snowFlake = new SnowFlake(0,0);
+        List<String> roleIds = userAndDeptVO.getRoleIds();
+        roleIds.forEach(roleId->userMapper.updateUserRole(new UserRoleDTO(snowFlake.nextId(),Long.parseLong(userAndDeptVO.getId()),Long.parseLong(roleId))));
+        int i = userMapper.deleteUserRole(userAndDeptVO);
+        return i;
     }
 
     @Override

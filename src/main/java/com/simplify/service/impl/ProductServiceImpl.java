@@ -1,9 +1,11 @@
 package com.simplify.service.impl;
 
 import com.simplify.mapper.ProductMapper;
-import com.simplify.model.dto.ProductVO;
+import com.simplify.mapper.UserMapper;
+import com.simplify.model.vo.ProductVO;
 import com.simplify.model.entity.Product;
 import com.simplify.model.entity.ProductClassify;
+import com.simplify.model.entity.User;
 import com.simplify.model.vo.ProductClassifyVO;
 import com.simplify.service.ProductService;
 import com.simplify.utils.SnowFlake;
@@ -18,6 +20,8 @@ import java.util.List;
 public class ProductServiceImpl implements ProductService {
     @Resource
     ProductMapper productMapper;
+    @Resource
+    UserMapper userMapper;
     SnowFlake snowFlake = new SnowFlake(0, 0);
 
     @CacheEvict(value = {"listProduct"}, allEntries = true)
@@ -47,14 +51,24 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product getProductById(Long id) {
-        return productMapper.selectByPrimaryKey(id);
+    public ProductVO getProductById(Long id) {
+        ProductVO product = productMapper.getProductVoById(id);
+        User user = userMapper.selectByPrimaryKey(product.getUserId());
+        product.setUser(user);
+        return product;
     }
 
     @Cacheable(value = "listProductClassify")
     @Override
     public List<ProductClassifyVO> listProductClassify() {
         return productMapper.listProductClassify();
+    }
+
+
+    @CacheEvict(value = {"listProduct"}, allEntries = true)
+    @Override
+    public int deleteProduct(Long id) {
+        return productMapper.deleteByPrimaryKey(id);
     }
 
     @CacheEvict(value = {"listProduct"}, allEntries = true)

@@ -1,6 +1,6 @@
 package com.simplify.mapper;
 
-import com.simplify.model.dto.ProductVO;
+import com.simplify.model.vo.ProductVO;
 import com.simplify.model.entity.Product;
 import com.simplify.model.entity.ProductClassify;
 import com.simplify.model.vo.ProductClassifyVO;
@@ -22,6 +22,9 @@ public interface ProductMapper extends Mapper<Product> {
     List<ProductVO> listProduct(Integer productState);
     @Select("select * from TB_PRODUCT_CLASSIFY")
     List<ProductClassifyVO> listProductClassify();
+
+    @Select(" select * from TB_PRODUCT where id = #{0}")
+    ProductVO getProductVoById(Long id);
 
     @Insert("insert into TB_PRODUCT_CLASSIFY values(#{id},#{classifyName},#{describe})")
     int saveProductClassify(ProductClassify productClassify);

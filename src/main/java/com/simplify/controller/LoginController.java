@@ -7,7 +7,6 @@ import com.simplify.service.GitHubService;
 import com.simplify.service.UserService;
 import com.simplify.utils.GitHubConstant;
 import com.simplify.utils.HttpClientUtils;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -22,7 +21,6 @@ import java.util.Objects;
 
 @Controller
 @RequestMapping("oauth")
-@CrossOrigin
 public class LoginController {
     @Autowired
     private GitHubService gitHubServiceImpl;
@@ -48,8 +46,12 @@ public class LoginController {
     }
     @GetMapping("getUserInfo")
     @ResponseBody
-    public GitHub getUserInfo(@RequestParam("token") String token, HttpServletRequest request){
-        if(StringUtils.isEmpty(token)){
+    public GitHub getUserInfo(String token, HttpServletRequest request){
+        if(StringUtils.isEmpty(token)
+                || Objects.equals("{\"type\":\"webpackClose\"}",token)
+                || Objects.equals("{\"type\":\"webpackOk\"}",token)
+                ||Objects.equals("{\"type\":\"webpackInvalid\"}",token)
+                ||Objects.equals("{\"source\":\"vue-devtools-proxy\",\"payload\":\"init\"}",token)){
             return null;
         }
         //根据token发送请求获取登录人的信息  ，通过令牌去获得用户信息
@@ -69,7 +71,10 @@ public class LoginController {
 
     @GetMapping("checkGithub")
     @ResponseBody
-    public User checkGitHub(@RequestParam("id") Long id){
+    public User checkGitHub(Long id){
+        if(StringUtils.isEmpty(id)){
+            return null;
+        }
         GitHub gitHub = gitHubServiceImpl.selectGitHubById(id);
         if(Objects.isNull(gitHub)){
             return null;

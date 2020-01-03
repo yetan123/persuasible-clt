@@ -1,8 +1,10 @@
 package com.simplify.service.impl;
 
 import com.simplify.mapper.RoleMapper;
+import com.simplify.model.dto.UserAndDeptVO;
 import com.simplify.model.entity.Role;
 import com.simplify.model.vo.RoleAuthorizeVO;
+import com.simplify.model.vo.RoleVO;
 import com.simplify.service.RoleService;
 import com.simplify.utils.PageBean;
 import com.simplify.utils.SnowFlake;
@@ -28,7 +30,7 @@ public class RoleServiceImpl implements RoleService {
     }
     @Cacheable(value = "roleAuthorize")
     @Override
-    public PageBean<RoleAuthorizeVO> listRoleAuthorize(String roleName,Integer currentPage) {
+    public PageBean<RoleAuthorizeVO> listRoleAuthorize(String roleName,String oldDate,String newDate,Integer currentPage) {
         PageBean<RoleAuthorizeVO> pageBean = new PageBean<RoleAuthorizeVO>();
         //封装当前页数
         pageBean.setPageNum(currentPage);
@@ -36,7 +38,7 @@ public class RoleServiceImpl implements RoleService {
         int pageSize=5;
         pageBean.setPageSize(pageSize);
         //封装总记录数
-        int totalCount = roleMapper.selectCounts(roleName);
+        int totalCount = roleMapper.selectCounts(roleName,oldDate,newDate);
         pageBean .setTotalCount(totalCount);
         //封装总页数
         double tc = totalCount;
@@ -45,7 +47,7 @@ public class RoleServiceImpl implements RoleService {
         int start=(currentPage-1)*pageSize;
         int size = pageBean.getPageSize() * pageBean.getPageNum();
         //封装每页显示的数据
-        List<RoleAuthorizeVO> lists = roleMapper.listRoleAuthorize(roleName,start,size);
+        List<RoleAuthorizeVO> lists = roleMapper.listRoleAuthorize(roleName,oldDate,newDate,start,size);
         pageBean.setLists(lists);
         return pageBean;
     }
@@ -79,4 +81,13 @@ public class RoleServiceImpl implements RoleService {
         roleAuthorizeVO.setCreateTime(new Date(new java.util.Date().getTime()));
         return roleAuthorizeVO;
     }
+
+    @Override
+    public List<RoleVO> listRoleVO() {
+        List<Role> roles = roleMapper.selectAll();
+        List<RoleVO> roleList = new ArrayList<>();
+        roles.forEach(role->roleList.add(new RoleVO(role.getId().toString(),role.getRoleName())));
+        return roleList;
+    }
+
 }

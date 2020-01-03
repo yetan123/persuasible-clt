@@ -27,4 +27,5 @@ public interface BusinessMapper extends Mapper<Business> {
     void deleteBusinessById(Long id);
     int insertBusiness(BusinessInfoDTO businessInfoDTO);
     int updateBusiness(BusinessInfoDTO businessInfoDTO);
+
 }

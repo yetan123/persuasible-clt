@@ -2,6 +2,8 @@ package com.simplify.service.impl;
 
 import com.simplify.mapper.BusinessDTOMapper;
 import com.simplify.model.entity.*;
+import com.simplify.model.vo.BusinessCustomerVO;
+import com.simplify.model.vo.BusinessLinkmanVO;
 import com.simplify.service.BusinessDTOService;
 import org.springframework.stereotype.Service;
 
@@ -15,12 +17,12 @@ public class BusinessDTOServiceImpl implements BusinessDTOService {
     private BusinessDTOMapper businessDTOMapper;
 
     @Override
-    public List<Customer> listCustomerIDAndCustomerName() {
+    public List<BusinessCustomerVO> listCustomerIDAndCustomerName() {
         return businessDTOMapper.listCustomerIDAndCustomerName();
     }
 
     @Override
-    public List<Linkman> getLinkmanByCustomerId(Long CustomerId) { return businessDTOMapper.getLinkmanByCustomerId(CustomerId); }
+    public List<BusinessLinkmanVO> getLinkmanByCustomerId(Long CustomerId) { return businessDTOMapper.getLinkmanByCustomerId(CustomerId); }
 
     @Override
     public List<BusinessType> listBusinessType() {
