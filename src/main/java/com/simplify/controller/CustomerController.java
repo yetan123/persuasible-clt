@@ -117,7 +117,6 @@ public class CustomerController {
         Map<String, Object> parmas = new HashMap<>();
         parmas.put("userId", id);
         List<CustomerVO> customerVOS = customerService.listCustomerAndLinkman(parmas);
-        System.out.println(customerVOS);
         return ExcelUtil.exportExcel(customerVOS);
     }
 
@@ -209,10 +208,9 @@ public class CustomerController {
 
     @ResponseBody
     @GetMapping("/selectById")
-    public List<CustomerVO> selectById(String id){
-        String l = "407151960928550912";
-        List<CustomerVO> list = customerService.selectByID(id);
-        return list;
+    public CustomerVO selectById(String id){
+       CustomerVO customerVO = customerService.selectByID(id);
+        return customerVO;
     }
 
     @ResponseBody
