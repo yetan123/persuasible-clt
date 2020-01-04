@@ -5,6 +5,7 @@ import com.simplify.model.entity.Clue;
 import com.simplify.model.entity.ClueState;
 import com.simplify.model.entity.ClueTask;
 import com.simplify.model.entity.CustomerSource;
+import org.apache.ibatis.annotations.Delete;
 import com.simplify.model.vo.ClueAndTaskVO;
 import com.simplify.model.vo.ClueTaskDVO;
 import com.simplify.model.vo.ClueTaskVO;
@@ -43,5 +44,7 @@ public interface ClueMapper extends Mapper<Clue> {
   int updateByClueId(ClueTaskDVO clueTaskDVO);
   /*删除*/
   int deleteByClueId(ClueTaskDVO clueTaskDVO);
+  /*修改状态*/
+  int updateByState(ClueTaskDVO clueTaskDVO);
   List<ClueTaskDVO> findByName();
 }

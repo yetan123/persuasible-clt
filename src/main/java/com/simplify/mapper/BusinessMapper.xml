@@ -27,6 +27,25 @@
             <result property="companyName" column="COMPANY_NAME"/>
         </association>
     </resultMap>
+    <resultMap id="businessDetailsVO" type="BusinessDetailsVO">
+        <id property="id" column="id"/>
+        <result property="businessName" column="business_name"/>
+        <result property="estimatedSales" column="estimated_sales"/>
+        <result property="estimatedDate" column="estimated_date"/>
+        <result property="estimatedSuccess" column="estimated_success"/>
+        <result property="findDate" column="find_date"/>
+        <result property="businessDescription" column="business_description"/>
+        <result property="businessPhases" column="business_phases"/>
+        <result property="username" column="username"/>
+        <result property="createTime" column="create_time"/>
+        <result property="businessType" column="business_type"/>
+        <result property="businessSource" column="business_source"/>
+        <result property="businessState" column="business_state"/>
+        <association property="businessDetailsCustomerVO" column="customer_id" select="findCustomerByBusinessCustomerId">
+            <result property="companyName" column="company_name"/>
+            <result property="customerName" column="customer_name"/>
+        </association>
+    </resultMap>
 
     <select id="listBusiness" resultMap="BusinessAndCustomerAndCustomer">
        SELECT
@@ -103,4 +122,14 @@
         business_description = #{businessDescription},business_source_id = #{businessSourceId},customer_id = #{customerId},
         business_type = #{businessType} where id = #{id}
     </update>
+
+    <select id="findBusinessDetails" resultMap="businessDetailsVO">
+        select business.id,business.business_name,business.estimated_date,business.estimated_sales,business.estimated_success,business.find_date,business.business_description,business.business_phases,consumer.username,business.create_time,business.business_type,business_source.business_source,business.business_state,business.customer_id  from tb_business business
+        left join tb_user consumer on consumer.id = business.user_id
+        left join tb_business_source business_source on business_source.id = business.business_source_id where business.id = #{id}
+    </select>
+    <select id="findCustomerByBusinessCustomerId" resultType="BusinessDetailsCustomerVO">
+        select distinct customer.company_name,linkman.customer_name from tb_customer customer
+        left join tb_linkman linkman on customer.id = linkman.customer_id where customer.id = #{id}
+    </select>
 </mapper>

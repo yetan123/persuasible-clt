@@ -17,10 +17,8 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BusinessTaskPrincipal {
-
     @Id
     private Long id;
     private Long taskId;
     private Long userId;
-
 }

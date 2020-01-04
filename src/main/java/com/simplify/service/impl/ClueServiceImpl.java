@@ -33,6 +33,7 @@ public class ClueServiceImpl implements ClueService {
             return sourceAndStateVO;
     }
 
+
     @CacheEvict(value = {"getAllClue"}, allEntries = true)
     @Override
     public int updateClue(Clue clue) {
@@ -79,9 +80,13 @@ public class ClueServiceImpl implements ClueService {
     }
 
     @Override
+    public int updateByState(ClueTaskDVO clueTaskDVO) {
+        return clueMapper.updateByState(clueTaskDVO);
+    }
+
+    @Override
     public List<ClueTaskDVO> findByName() {
         return clueMapper.findByName();
     }
-
 
 }

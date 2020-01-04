@@ -34,6 +34,8 @@ public interface ClueService {
     int updateByClueId(ClueTaskDVO clueTaskDVO);
     /*删除*/
     int deleteByClueId(ClueTaskDVO clueTaskDVO);
+    /*修改状态*/
+    int updateByState(ClueTaskDVO clueTaskDVO);
 
     List<ClueTaskDVO> findByName();
 }
