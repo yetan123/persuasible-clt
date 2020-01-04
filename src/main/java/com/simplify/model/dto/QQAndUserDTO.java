@@ -1,32 +1,27 @@
-package com.simplify.model.entity;
+package com.simplify.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Id;
-import javax.persistence.Table;
-
 /**
- * 封装QQ登录后相关信息
+ * qq绑定用户数据传输对象
  * @author yuntian
- * @date 2019-12-29
+ * @date 2020-1-4
  */
-@Table(name = "tb_qq")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class QQ {
-    @Id
+public class QQAndUserDTO {
     private String openId;
 
-    private String nickname;
+    private String nickName;
 
     private String figureUrl;
 
     private String gender;
 
-    private Long userId;
+    private String account;
 
     private String password;
 }
