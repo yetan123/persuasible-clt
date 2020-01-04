@@ -27,8 +27,110 @@
             <result column="task_finish_time" property="taskFinishTime" />
         </collection>
     </resultMap>
+    <resultMap id="clues" type="com.simplify.model.vo.ClueVO">
+        <id property="id" column="id"/>
+        <result property="customerName" column="customer_name"/>
+        <result property="enterprise" column="enterprise"/>
+        <result property="department" column="department"/>
+        <result property="position" column="position"/>
+        <result property="genders" column="genders"/>
+        <result property="birthday" column="birthday"/>
+        <result property="mobilePhone" column="mobile_phone"/>
+        <result property="email" column="email"/>
+        <result property="address" column="address"/>
+        <result property="remark" column="remark"/>
+        <result property="clueState" column="clue_state"/>
+        <result property="clueSourceId" column="clue_source_id"/>
+    </resultMap>
+    <resultMap id="clueMap" type="com.simplify.model.vo.ClueTaskDVO">
+    <id property="id" column="id"/>
+    <result property="taskContent" column="task_Content"/>
+    <result property="taskStartTime" column="task_Start_Time"/>
+    <result property="taskState" column="task_State"/>
+    <result property="taskFinishTime" column="task_Finish_Time"/>
+    <result property="clueId" column="clue_Id"/>
+    <result property="clueParticipant" column="clue_Participant"/>
+    <collection property="tasks"   ofType="ClueAndTaskVO" >
+        <result property="customerName" column="customer_name"/>
+        <result property="enterprise" column="enterprise"/>
+        <result property="department" column="department"/>
+        <result property="position" column="position"/>
+        <result property="genders" column="genders"/>
+        <result property="birthday" column="birthday"/>
+        <result property="mobilePhone" column="mobile_phone"/>
+        <result property="email" column="email"/>
+        <result property="address" column="address"/>
+        <result property="remark" column="remark"/>
+        <result property="clueState" column="clue_state"/>
+        <result property="clueSourceId" column="clue_source_id"/>
+    </collection>
+</resultMap>
 
-    <select id="getAllClue" resultMap="clue">
-         select * from TB_CLUE c left join TB_SOURCE s on c.CLUE_SOURCE_ID = s.ID left join TB_CLUE_TASK ct on c.id = ct.clue_id
+    <delete id="deleteByClueId">
+        delete from PERSUASIBLE.TB_CLUE_TASK where id =#{id}
+    </delete>
+
+    <update id="updateByClueId">
+        update PERSUASIBLE.TB_CLUE_TASK
+        <set>
+            <if test="taskContent!=null">
+                TASK_CONTENT = #{taskContent},
+            </if>
+            <if test="taskStartTime!=null">
+                task_start_time = to_date(#{taskStartTime},'yyyy-mm-dd'),
+            </if>
+            <if test="taskFinishTime!=null">
+                TASK_FINISH_TIME = to_date(#{taskFinishTime},'yyyy-mm-dd'),
+            </if>
+            <if test="clueId!=null">
+                clue_id = #{clueId}
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+    <update id="updateByState">
+        update PERSUASIBLE.TB_CLUE_TASK
+        <set>
+            <if test="taskState!=null">
+                task_State = 1
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="findByName" resultMap="clues">
+        select *from PERSUASIBLE.TB_CLUE
     </select>
+
+    <insert id="insertClueTask">
+            insert into PERSUASIBLE.TB_CLUE_TASK values(#{id},#{taskContent},to_date(#{taskStartTime},'yyyy-MM-dd'),0,to_date(#{taskFinishTime},'yyyy-MM-dd'),#{clueId},null)
+    </insert>
+
+    <select id="findAll" resultMap="clueMap">
+        select * from PERSUASIBLE.TB_CLUE_TASK  t inner join PERSUASIBLE.TB_CLUE c on t.clue_id=c.id where t.clue_id =#{id}
+    </select>
+
+
+    <select id="getAllClue" resultMap="clue" >
+        select * from TB_CLUE c left join TB_SOURCE s on c.CLUE_SOURCE_ID = s.ID left join TB_CLUE_TASK ct on c.id = ct.clue_id
+        left join TB_USER u on u.Id = c.USER_ID
+        <where>
+            <if test="userId != null and userId!='' ">
+                user_id = #{userId}
+            </if>
+            <if test="clueName != null and clueName!=''">
+                <bind name="clueName" value="'%'+clueName+'%'"/>
+                customer_Name like #{clueName} or enterprise like #{clueName}
+            </if>
+            <if test="username != null and username!=''">
+                <bind name="username" value="'%'+username+'%'"/>
+                username like #{username}
+            </if>
+        </where>
+    </select>
+
+    <select id="getClueById" resultMap="clue">
+        select * from TB_CLUE c left join TB_SOURCE s on c.CLUE_SOURCE_ID = s.ID left join TB_CLUE_TASK ct on c.id = ct.clue_id where c.id = #{id}
+    </select>
+
 </mapper>

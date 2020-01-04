@@ -17,14 +17,16 @@ import java.util.Map;
  */
 
 public interface BusinessService {
+
+
+    BusinessDetailsVO findBusinessDetails(Long id);
+
+    Integer changeBusinessState(BusinessStateDTO businessStateDTO);
+
     List<Business> selectALl();
     List<BusinessVO> listBusiness();
     List<BusinessVO> listBusinessById(Long id);
     void deleteBusinessById(Long id);
     int insertBusiness(BusinessInfoDTO businessInfoDTO);
     int updateBusiness(BusinessInfoDTO businessInfoDTO);
-
-    BusinessDetailsVO findBusinessDetails(Long id);
-
-    Integer changeBusinessState(BusinessStateDTO businessStateDTO);
 }

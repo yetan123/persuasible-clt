@@ -8,6 +8,7 @@ import com.simplify.model.entity.Business;
 import com.simplify.model.vo.BusinessDetailsVO;
 import com.simplify.service.BusinessService;
 import com.simplify.utils.SnowFlake;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -24,8 +25,18 @@ import java.util.List;
 @Service
 public class BusinessServiceImpl implements BusinessService {
 
-    @Resource
+    @Autowired
     private BusinessMapper businessMapper;
+
+    @Override
+    public BusinessDetailsVO findBusinessDetails(Long id) {
+        return businessMapper.findBusinessDetails(id);
+    }
+
+    @Override
+    public Integer changeBusinessState(BusinessStateDTO businessStateDTO) {
+        return businessMapper.updateBusinessState(businessStateDTO);
+    }
 
     @Override
     public List<Business> selectALl() {
@@ -61,16 +72,6 @@ public class BusinessServiceImpl implements BusinessService {
     @Override
     public int updateBusiness (BusinessInfoDTO businessInfoDTO){
         return businessMapper.updateBusiness(businessInfoDTO);
-    }
-
-    @Override
-    public BusinessDetailsVO findBusinessDetails(Long id) {
-        return businessMapper.findBusinessDetails(id);
-    }
-
-    @Override
-    public Integer changeBusinessState(BusinessStateDTO businessStateDTO) {
-        return businessMapper.updateBusinessState(businessStateDTO);
     }
 
 }

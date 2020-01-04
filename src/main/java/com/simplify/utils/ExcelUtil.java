@@ -100,9 +100,11 @@ public class ExcelUtil {
             for (int i = 1; i < customers.size(); i++) {
                 Row row = sheet.createRow(i);
                 CustomerVO customerVO = customers.get(i);
-                row.createCell(0).setCellValue(customerVO.getLinkmanList() == null ? "" : customerVO.getLinkmanList().get(0).getCustomerName());
-                row.createCell(1).setCellValue(customerVO.getLinkmanList() == null ? "" : customerVO.getLinkmanList().get(0).getGenders());
-                row.createCell(2).setCellValue(customerVO.getLinkmanList() == null ? "" : customerVO.getLinkmanList().get(0).getPhone());
+                if(customerVO.getLinkmanList() != null && customerVO.getLinkmanList().size() != 0) {
+                    row.createCell(0).setCellValue(customerVO.getLinkmanList().get(0).getCustomerName());
+                    row.createCell(1).setCellValue(customerVO.getLinkmanList().get(0).getGenders());
+                    row.createCell(2).setCellValue(customerVO.getLinkmanList().get(0).getPhone());
+                }
                 row.createCell(3).setCellValue(customerVO.getCompanyName());
                 row.createCell(4).setCellValue(customerVO.getCompanyEmail());
                 row.createCell(5).setCellValue(customerVO.getSpecialPlane());
@@ -149,6 +151,7 @@ public class ExcelUtil {
         }
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Disposition", "attchement;filename=" + "customer.xlsx");
+        headers.add("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
         HttpStatus statusCode = HttpStatus.OK;
         ResponseEntity<byte[]> entity = new ResponseEntity<byte[]>(body, headers, statusCode);
         return entity;

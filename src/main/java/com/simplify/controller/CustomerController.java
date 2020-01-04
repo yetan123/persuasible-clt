@@ -45,10 +45,7 @@ public class CustomerController {
 
     @PostMapping("/list")
     public PageInfo<CustomerVO> listCustomer(@RequestBody Map params) throws ParseException {
-        String pageType = params.get("pageType").toString();
-        PageInfo<CustomerVO> pageInfo = getPageInfo(filterParamsConver(params), pageType);
-        PageHelper.clearPage();
-        return pageInfo;
+        return getPageInfo(filterParamsConver(params), params.get("pageType").toString());
     }
 
     @PostMapping("/import")
@@ -97,7 +94,6 @@ public class CustomerController {
 
         Linkman linkman = customer.getLinkman();
         linkman.setCustomerId(customer.getId());
-        linkman.setId(new SnowFlake(0, 0).nextId());
         int linkmanResult = linkmanService.saveLinkman(linkman);
         return customerResult + linkmanResult;
     }
@@ -118,10 +114,16 @@ public class CustomerController {
 
     @GetMapping("/exportExcel")
     public ResponseEntity<byte[]> exportExcel(String id) {
-        Map parmas = new HashMap();
+        Map<String, Object> parmas = new HashMap<>();
         parmas.put("userId", id);
         List<CustomerVO> customerVOS = customerService.listCustomerAndLinkman(parmas);
+        System.out.println(customerVOS);
         return ExcelUtil.exportExcel(customerVOS);
+    }
+
+    @PostMapping("/saveLinkman")
+    public int saveLinkman(@RequestBody Linkman linkman) {
+        return linkmanService.saveLinkman(linkman);
     }
 
     /**
@@ -208,10 +210,8 @@ public class CustomerController {
     @ResponseBody
     @GetMapping("/selectById")
     public List<CustomerVO> selectById(String id){
-        System.out.println(id);
         String l = "407151960928550912";
         List<CustomerVO> list = customerService.selectByID(id);
-        System.out.println(list);
         return list;
     }
 
