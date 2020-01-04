@@ -31,4 +31,5 @@
     <select id="getAllClue" resultMap="clue">
          select * from TB_CLUE c left join TB_SOURCE s on c.CLUE_SOURCE_ID = s.ID left join TB_CLUE_TASK ct on c.id = ct.clue_id
     </select>
+
 </mapper>

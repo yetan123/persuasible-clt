@@ -4,6 +4,7 @@ import com.simplify.model.dto.ClueVO;
 import com.simplify.model.entity.Clue;
 import com.simplify.model.entity.ClueState;
 import com.simplify.model.entity.CustomerSource;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
@@ -26,4 +27,5 @@ public interface ClueMapper extends Mapper<Clue> {
   //查询线索状态
   @Select("select * from tb_source")
   List<ClueState> getAllClueState();
+
 }

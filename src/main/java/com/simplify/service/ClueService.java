@@ -14,4 +14,5 @@ public interface ClueService {
     List<Clue> getAllClue();
 
     ClueVO getClueVO();
+
 }
