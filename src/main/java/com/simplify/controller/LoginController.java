@@ -47,13 +47,6 @@ public class LoginController {
     @GetMapping("getUserInfo")
     @ResponseBody
     public GitHub getUserInfo(String token, HttpServletRequest request){
-        if(StringUtils.isEmpty(token)
-                || Objects.equals("{\"type\":\"webpackClose\"}",token)
-                || Objects.equals("{\"type\":\"webpackOk\"}",token)
-                ||Objects.equals("{\"type\":\"webpackInvalid\"}",token)
-                ||Objects.equals("{\"source\":\"vue-devtools-proxy\",\"payload\":\"init\"}",token)){
-            return null;
-        }
         //根据token发送请求获取登录人的信息  ，通过令牌去获得用户信息
         String responseStr = null;
         String userinfo_url = GitHubConstant.USER_INFO_URL.replace("TOKEN", token);
@@ -64,9 +57,9 @@ public class LoginController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return new GitHub(Long.parseLong(responseMap.get("id")),responseMap.get("name")
+        return Objects.nonNull(responseMap)?new GitHub(Long.parseLong(responseMap.get("id")),responseMap.get("name")
                 ,responseMap.get("login"),
-                responseMap.get("email"),responseMap.get("avatar_url"),null,null);
+                responseMap.get("email"),responseMap.get("avatar_url"),null,null):null;
     }
 
     @GetMapping("checkGithub")
