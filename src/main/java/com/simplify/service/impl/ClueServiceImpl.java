@@ -63,6 +63,11 @@ public class ClueServiceImpl implements ClueService {
     }
 
     @Override
+    public int updateByState(ClueTaskDVO clueTaskDVO) {
+        return clueMapper.updateByState(clueTaskDVO);
+    }
+
+    @Override
     public List<ClueTaskDVO> findByName() {
         return clueMapper.findByName();
     }

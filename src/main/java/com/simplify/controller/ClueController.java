@@ -71,7 +71,7 @@ public class ClueController {
 
     //跟进任务
     @GetMapping(value = "/getTask")
-    public List<ClueTaskDVO> getTask(ClueTaskDVO clueTaskVO) {
+    public List<ClueTaskDVO> getTask(ClueTaskDVO clueTaskVO)  {
         System.out.println(clueTaskVO);
         List<ClueTaskDVO> list= clueService.findAll(clueTaskVO);
         System.out.println(list);
@@ -99,10 +99,17 @@ public class ClueController {
     @PostMapping("/update")
     public int update(@RequestBody ClueTaskDVO clueTaskVO) throws ParseException {
         System.out.println("进入修改方法");
+        System.out.println(clueTaskVO);
         clueTaskVO.setTaskStartTime(convet(clueTaskVO.getTaskStartTime()));
         clueTaskVO.setTaskFinishTime(convet(clueTaskVO.getTaskFinishTime()));
         System.out.println(clueTaskVO);
         return clueService.updateByClueId(clueTaskVO);
+    }
+    @PostMapping("/updateState")
+    public int updatestate(@RequestBody ClueTaskDVO clueTaskVO){
+        System.out.println("进入修改状态方法");
+        System.out.println(clueTaskVO);
+        return clueService.updateByState(clueTaskVO);
     }
 
     @GetMapping("/deleteById")

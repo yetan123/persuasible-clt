@@ -77,13 +77,22 @@
                 TASK_CONTENT = #{taskContent},
             </if>
             <if test="taskStartTime!=null">
-                task_start_time = to_date(#{taskStartTime},'yyyy-mm-dd hh24:mi:ss'),
+                task_start_time = to_date(#{taskStartTime},'yyyy-mm-dd'),
             </if>
             <if test="taskFinishTime!=null">
-                task_finish_time = to_date(#{taskFinishTime},'yyyy-mm-dd hh24:mi:ss'),
+                TASK_FINISH_TIME = to_date(#{taskFinishTime},'yyyy-mm-dd'),
             </if>
             <if test="clueId!=null">
                 clue_id = #{clueId}
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+    <update id="updateByState">
+        update PERSUASIBLE.TB_CLUE_TASK
+        <set>
+            <if test="taskState!=null">
+                task_State = 1
             </if>
         </set>
         WHERE id = #{id}
@@ -94,7 +103,7 @@
     </select>
 
     <insert id="insertClueTask">
-            insert into PERSUASIBLE.TB_CLUE_TASK values(#{id},#{taskContent},to_date(#{taskStartTime},'yyyy-MM-dd'),1,to_date(#{taskFinishTime},'yyyy-MM-dd'),#{clueId},null)
+            insert into PERSUASIBLE.TB_CLUE_TASK values(#{id},#{taskContent},to_date(#{taskStartTime},'yyyy-MM-dd'),0,to_date(#{taskFinishTime},'yyyy-MM-dd'),#{clueId},null)
     </insert>
 
     <select id="findAll" resultMap="clueMap">
