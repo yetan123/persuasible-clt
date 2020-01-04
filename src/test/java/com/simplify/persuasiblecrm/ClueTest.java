@@ -21,22 +21,31 @@ public class ClueTest {
     private ClueService clueService;
     @Autowired
     private ClueMapper clueMapper;
+<<<<<<< HEAD
     @Test
     public void show(){
-        List<ClueVO> clueList = clueService.getAllClue();
-        for (ClueVO clue: clueList
+        List<Clue> clueList = clueService.getAllClue();
+        for (Clue clue: clueList
              ) {
             System.out.println(clue);
         }
     }
     @Test
     public void getClue(){
-        ClueTaskDVO c = new ClueTaskDVO();
-        c.setTaskContent("12");
-        c.setTaskStartTime("2019-1-1");
-        c.setTaskFinishTime("2020-8-8");
-        c.setClueId("410547641085067264");
-        c.setId("31312");
-        System.out.println(c);
+//        List<Clue> clueList = clueMapper.selectAll();
+//        for (Clue clue: clueList
+//        ) {
+//            System.out.println(clue);
+//        }
+        // 根据id查询
+        List<Clue> clueList = clueService.getAllClue();
+        for (Clue clue: clueList
+        ) {
+            System.out.println(clue);
+        }
     }
+=======
+
+>>>>>>> 7fd7e22b035ebeec6752b86f94a201aa47e28caf
+
 }

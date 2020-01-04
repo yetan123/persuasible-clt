@@ -19,55 +19,7 @@ import java.util.List;
  * @date 2019-12-18
  */
 @Service
-// implements BusinessService
-public class BusinessServiceImpl {
-//
-//    @Resource
-//    private BusinessMapper businessMapper;
-//
-//    @Override
-//    public List<Business> selectALl() {
-//        return businessMapper.selectAll();
-//    }
-//
-//    @Cacheable("listBusiness")
-//    @Override
-//    public List<BusinessVO> listBusiness() {
-//        return null;
-//    }
-//
-//    @Cacheable("listBusinessById")
-//    @Override
-//    public List<BusinessVO> listBusinessById(Long id) {
-//        return businessMapper.listBusinessById(id);
-//    }
-//    @CacheEvict(cacheNames = {"listBusiness", "listBusinessById"})
-//    @Override
-//    public void deleteBusinessById (Long id){
-//        businessMapper.deleteBusinessById(id);
-//        return null;
-//    }
-//
-//    @Override
-//    public void deleteBusinessById(Long id) {
-//    }
-//
-//    @CacheEvict(cacheNames = {"listBusiness", "listBusinessById"})
-//    @Override
-//    public int insertBusiness (BusinessInfoDTO businessInfoDTO){
-//        Long id=new SnowFlake(0,0).nextId();
-//        businessInfoDTO.setId(id);
-//        return businessMapper.insertBusiness(businessInfoDTO);
-//    public int insertBusiness(BusinessVO businessVO) {
-//        return 0;
-//    }
-//
-//    @CacheEvict(cacheNames = {"listBusiness", "listBusinessById"})
-//    @Override
-//    public int updateBusiness (BusinessInfoDTO businessInfoDTO){
-//        return businessMapper.updateBusiness(businessInfoDTO);
-//    }
-//    public int updateBusiness(BusinessVO businessVO) {
-//        return 0;
-//    }
+public class BusinessServiceImpl implements BusinessService {
+
+
 }

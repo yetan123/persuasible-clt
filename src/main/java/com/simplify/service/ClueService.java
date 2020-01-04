@@ -5,8 +5,8 @@ import com.simplify.model.entity.Clue;
 import com.simplify.model.vo.ClueTaskDVO;
 import com.simplify.model.vo.ClueTaskVO;
 import com.simplify.model.vo.ClueVO;
-
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author JoJo
@@ -14,11 +14,13 @@ import java.util.List;
  * 线索表业务接口
  */
 public interface ClueService {
-    List<ClueVO> getAllClue();
+    List<ClueVO> getAllClue(Map map);
 
     SourceAndStateVO getSourceAndStateVO();
 
     int addClue(Clue clue);
+
+    int updateClue(Clue clue);
 
     int deleteClue(String clueId);
 
@@ -34,6 +36,8 @@ public interface ClueService {
     int deleteByClueId(ClueTaskDVO clueTaskDVO);
     /*修改状态*/
     int updateByState(ClueTaskDVO clueTaskDVO);
+
+    ClueVO getClueVO();
 
     List<ClueTaskDVO> findByName();
 }
