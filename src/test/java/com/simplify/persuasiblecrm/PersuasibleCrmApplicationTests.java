@@ -1,48 +1,33 @@
 package com.simplify.persuasiblecrm;
 
 
-import com.simplify.model.dto.UserAuthorizeDTO;
-import com.simplify.mapper.UserMapper;
-import com.simplify.model.entity.Business;
-import com.simplify.model.entity.CustomerRecord;
-import com.simplify.model.entity.User;
-import com.simplify.service.*;
-import com.simplify.service.BusinessService;
-import com.simplify.service.CustomerRecordService;
-import com.simplify.service.CustomerTasksService;
+
+import com.simplify.mapper.ChartMapper;
+import com.simplify.model.dto.ChartDateDTO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+
+import java.util.*;
 
 
 @SpringBootTest
 class PersuasibleCrmApplicationTests {
-
     @Autowired
-    private CustomerService customerService;
-    private CustomerRecordService customerRecordService;
-
-
-    private CustomerTasksService customerTasksService;
-
-
-
+    private ChartMapper chartMapper;
     @Test
     void contextLoads() {
-        CustomerRecord c = new CustomerRecord();
-        c.setCustomerId(5l);
-        c.setRecordContent("测试");
-        c.setRecordType("QQ");
-        c.setRecordProgress("开始测试");
-        c.setCustomerId(407016855044096000l);
-        c.setLinkmanId(407016855044096000l);
-
-        System.out.println(c);
-        int i = customerRecordService.insertCustomerRecord(c);
+        List<ChartDateDTO> chartDateDTOS = chartMapper.countChartGroupByDay();
+        Map<Integer,Integer> dateMap = new HashMap<>();
+        GregorianCalendar gregorianCalendar = new GregorianCalendar();
+        gregorianCalendar.set(Calendar.MONTH,gregorianCalendar.get(Calendar.MONTH)-1);
+        for(int day = 1;day<=gregorianCalendar.get(Calendar.DATE);day++){
+            dateMap.put(day,0);
+            gregorianCalendar.set(Calendar.DATE,gregorianCalendar.get(Calendar.DATE)+1);
+        }
+        chartDateDTOS.forEach(chartDate-> dateMap.put(chartDate.getDay(),chartDate.getCount()));
+        System.out.println(dateMap);
     }
 
 }

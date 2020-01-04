@@ -5,10 +5,6 @@ import com.simplify.model.entity.Customer;
 import com.simplify.service.CustomerService;
 import com.simplify.service.LinkmanService;
 import com.simplify.utils.ExcelUtil;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 

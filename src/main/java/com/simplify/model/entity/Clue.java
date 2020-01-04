@@ -1,8 +1,10 @@
 package com.simplify.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -25,7 +27,9 @@ public class Clue {
     private String enterprise; //企业
     private String department; //部门
     private String position; //职位
-    private char genders; //性别
+    private String genders; //性别
+    @DateTimeFormat(pattern = "yyyy-mm-dd")
+    @JsonFormat(pattern = "yyyy-mm-dd")
     private Date birthday; //生日
     private String mobilePhone; //手机
     private String email; //邮件

@@ -1,5 +1,7 @@
 package com.simplify.model.entity;
 
+import com.simplify.model.vo.CustomerBusinessVO;
+import com.simplify.model.vo.UserBusinessVO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,26 +24,35 @@ import java.util.List;
 public class Business {
     @Id
     private Long id;
-    private String businessName;
-    private Long estimatedSales;
-    private Date estimatedDate;
-    private Double estimatedSuccess;
-    private String customerDecision;
-    private Date findDate;
-    private String businessDescription;
-    private Long userId;
-    private Long businessSourceId;
-    private Long customerId;
-    private String businessType;
-    private String businessPhases;
-    private Integer businessState;
-    private Date createTime;
-    private User user;
-    private Customer customer;
 
-//    public Double getEstimatedSuccess() {
-//        estimatedSuccess=estimatedSuccess*100;
-//        return estimatedSuccess;
-//    }
+    private String businessName;
+
+    private Long estimatedSales;
+
+    private Date estimatedDate;
+
+    private Double estimatedSuccess;
+
+    private Date findDate;
+
+    private String businessDescription;
+
+    private Long userId;
+
+    private Long businessSourceId;
+
+    private Long customerId;
+
+    private String businessType;
+
+    private String businessPhases;
+
+    private Integer businessState;
+
+    private Date createTime;
+
+    private UserBusinessVO user;
+
+    private CustomerBusinessVO customer;
 
 }

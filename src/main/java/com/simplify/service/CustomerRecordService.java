@@ -1,5 +1,6 @@
 package com.simplify.service;
 
+import com.simplify.model.entity.Customer;
 import com.simplify.model.entity.CustomerRecord;
 import com.simplify.model.entity.CustomerTasks;
 

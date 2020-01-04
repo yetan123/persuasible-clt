@@ -41,7 +41,7 @@ public class DeptServiceImpl implements DeptService {
         return deptMapper.findAll();
     }*/
     @Override
-    public PageBean<DeptVO> listDeptUser(String deptname, Integer currentPage) {
+    public PageBean<DeptVO> listDeptUser(String deptname,String oldDate,String newDate, Integer currentPage) {
         PageBean<DeptVO> pageBean = new PageBean<DeptVO>();
         //封装当前页数
         pageBean.setPageNum(currentPage);
@@ -49,7 +49,7 @@ public class DeptServiceImpl implements DeptService {
         int pageSize=5;
         pageBean.setPageSize(pageSize);
         //封装总记录数
-        int totalCount = deptMapper.selectCounts(deptname);
+        int totalCount = deptMapper.selectCounts(deptname,oldDate,newDate);
         pageBean .setTotalCount(totalCount);
         //封装总页数
         double tc = totalCount;
@@ -58,19 +58,9 @@ public class DeptServiceImpl implements DeptService {
         int start=(currentPage-1)*pageSize;
         int size = pageBean.getPageSize() * pageBean.getPageNum();
         //封装每页显示的数据
-        List<DeptVO> lists = deptMapper.listDeptUser(deptname,start,size);
+        List<DeptVO> lists = deptMapper.listDeptUser(deptname,oldDate,newDate,start,size);
         pageBean.setLists(lists);
         return pageBean;
-    }
-
-    @Override
-    public List<DeptVO>  tree() {
-        return deptMapper.tree();
-    }
-
-    @Override
-    public List<DeptVO> tree2(String id) {
-        return deptMapper.tree2(id);
     }
 
     @Override

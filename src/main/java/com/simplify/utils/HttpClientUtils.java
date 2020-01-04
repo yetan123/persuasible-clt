@@ -6,6 +6,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.springframework.util.StringUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,9 +25,10 @@ public class HttpClientUtils {
      * @throws Exception
      */
     public static String doGet(String url) throws Exception{
-
+        if(StringUtils.isEmpty(url)){
+            return null;
+        }
         CloseableHttpClient httpclient = HttpClients.createDefault();
-
         HttpGet httpGet = new HttpGet(url);
         // 发送了一个http请求
         CloseableHttpResponse response = httpclient.execute(httpGet);
@@ -34,8 +36,8 @@ public class HttpClientUtils {
         if(response.getStatusLine().getStatusCode()==200){
             // 获取响应的内容
             HttpEntity responseEntity = response.getEntity();
-
-            return EntityUtils.toString(responseEntity);
+            String result = EntityUtils.toString(responseEntity);
+            return result;
         }
         return null;
     }

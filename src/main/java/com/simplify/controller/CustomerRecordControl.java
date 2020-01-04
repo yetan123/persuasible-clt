@@ -2,12 +2,9 @@ package com.simplify.controller;
 
 
 import com.simplify.model.dto.RecordDTO;
-import com.simplify.model.entity.Customer;
 import com.simplify.model.entity.CustomerRecord;
 import com.simplify.service.CustomerRecordService;
 import com.simplify.service.CustomerService;
-import com.simplify.utils.SnowFlake;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;

@@ -1,6 +1,7 @@
 package com.simplify.service;
 
 import com.simplify.model.dto.BusinessDTO;
+import com.simplify.model.dto.BusinessInfoDTO;
 import com.simplify.model.dto.BusinessVO;
 import com.simplify.model.entity.Business;
 
@@ -14,11 +15,6 @@ import java.util.Map;
  */
 
 public interface BusinessService {
-    List<Business> selectALl();
-    List<BusinessVO> listBusiness();
-    List<BusinessVO> listBusinessById(Long id);
-    void deleteBusinessById(Long id);
-    int insertBusiness(BusinessVO businessVO);
-    int updateBusiness(BusinessVO businessVO);
+
 
 }

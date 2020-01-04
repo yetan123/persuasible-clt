@@ -1,6 +1,5 @@
 package com.simplify.mapper;
 
-import com.simplify.model.entity.Customer;
 import com.simplify.model.entity.CustomerRecord;
 import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.common.Mapper;

@@ -4,6 +4,7 @@ import com.simplify.model.entity.Menu;
 import com.simplify.model.entity.Role;
 import com.simplify.model.vo.ResourceVO;
 import com.simplify.model.vo.RoleAuthorizeVO;
+import com.simplify.model.vo.RoleVO;
 import com.simplify.service.MenuService;
 import com.simplify.service.ResourceService;
 import com.simplify.service.RoleService;
@@ -33,16 +34,28 @@ public class RoleController {
     ResourceService resourceServiceImpl;
     @GetMapping("")
     public Map<String,Object> selectRoleAuthorize(@RequestParam(defaultValue = "1",value ="pageNum",required = false)Integer pageNum,
+                                                  @RequestParam(value ="oldDate",required = false)String oldDate,
+                                                  @RequestParam(value ="newDate",required = false)String newDate,
                                                   @RequestParam(value ="roleName",required = false)String roleName){
         PageBean<RoleAuthorizeVO> pages;
         Map<String,Object> roleMap = new HashMap<>();
-        if (roleName!=null) {
+        if (roleName!=null || oldDate!=null || newDate!=null) {
             if (roleName=="" || roleName==null){
                 roleName=null;
             }
-            pages= roleServiceImpl.listRoleAuthorize(roleName,pageNum);
+
+
+            if (oldDate == "" || newDate == null){
+                oldDate=null;
+            }
+
+
+            if (newDate=="" || newDate==null){
+                newDate=null;
+            }
+            pages= roleServiceImpl.listRoleAuthorize(roleName,oldDate,newDate,pageNum);
         }else{
-            pages= roleServiceImpl.listRoleAuthorize(null,pageNum);
+            pages= roleServiceImpl.listRoleAuthorize(null,null,null,pageNum);
         }
         List<Menu> menus = menuServiceImpl.listMenu();
         List<ResourceVO> resourceVOS = resourceServiceImpl.listResourceViewObject();
@@ -51,21 +64,17 @@ public class RoleController {
         roleMap.put("resources",resourceVOS);
         return roleMap;
     }
-   /* public Map<String,Object> selectRoleAuthorize(@RequestParam(defaultValue = "1",value ="pageNum",required = false)Integer pageNum){
-        Map<String,Object> roleMap = new HashMap<>();
-        List<RoleAuthorizeVO> roleAuthorizeVOS = roleServiceImpl.listRoleAuthorize();
-        List<Menu> menus = menuServiceImpl.listMenu();
-        List<ResourceVO> resourceVOS = resourceServiceImpl.listResourceViewObject();
-        roleMap.put("roleAuthorize",roleAuthorizeVOS);
-        roleMap.put("menus",menus);
-        roleMap.put("resources",resourceVOS);
-        return roleMap;
-    }*/
+
     @PutMapping("")
     @PreAuthorize("hasAuthority('修改角色:PUT')")
     public Integer updateRole(@RequestBody Role role){
         Integer integer = roleServiceImpl.updateRole(role);
         return integer;
+    }
+
+    @GetMapping("roleInfo")
+    public List<RoleVO> getRoleVO(){
+        return roleServiceImpl.listRoleVO();
     }
 
     @PreAuthorize("hasAuthority('删除角色:DELETE')")
