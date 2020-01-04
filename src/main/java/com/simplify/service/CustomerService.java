@@ -38,6 +38,6 @@ public interface CustomerService {
     List<CustomerState> listCustomerState();
     List<CustomerRank> listCustomerRank();
 
-    List<CustomerVO> selectByID(String id);
+   CustomerVO selectByID(String id);
     List<Customer> selectALL();
 }

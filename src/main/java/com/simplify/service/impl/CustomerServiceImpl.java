@@ -7,7 +7,6 @@ import com.simplify.service.CustomerService;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-import tk.mybatis.mapper.entity.Example;
 
 import org.springframework.transaction.annotation.Transactional;
 
@@ -99,7 +98,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public List<CustomerVO> selectByID(String id) {
+    public CustomerVO selectByID(String id) {
         return customerMapper.selectByID(id);
     }
 

@@ -51,5 +51,5 @@ public interface CustomerMapper extends Mapper<Customer> {
     @Select("select * from TB_CUSTOMER_RANK")
     List<CustomerRank> listCustomerRank();
 
-    List<CustomerVO> selectByID(String id);
+    CustomerVO selectByID(String id);
 }
