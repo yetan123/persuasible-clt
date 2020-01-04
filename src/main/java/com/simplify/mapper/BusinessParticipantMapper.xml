@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.simplify.mapper.BusinessParticipantMapper">
+    <insert id="addBusinessParticipant">
+        MERGE INTO  TB_BUSINESS_TASK_principal task_principal
+            USING (select #{taskId}  taskId, #{userId} userId from dual) t2
+            on (task_principal.task_id=t2.taskId and task_principal.user_id = t2.userId)
+            WHEN NOT MATCHED  THEN insert values(#{id},t2.taskId, t2.userId)
+    </insert>
+
+    <delete id="removeBusinessParticipant">
+        delete tb_business_task_principal <where>
+           <if test="userIds.size > 0 and userIds != null">
+            and user_id not in
+            <foreach collection="userIds" item="userId" open="(" separator="," close=")">
+               #{userId}
+            </foreach>
+           </if>
+           and task_id = #{taskId}
+        </where>
+    </delete>
+</mapper>

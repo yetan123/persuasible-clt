@@ -2,7 +2,10 @@ package com.simplify.controller;
 
 import com.simplify.model.dto.BusinessDTO;
 import com.simplify.model.dto.BusinessInfoDTO;
+import com.simplify.model.dto.BusinessStateDTO;
 import com.simplify.model.dto.BusinessVO;
+import com.simplify.model.vo.BusinessDetailsCustomerVO;
+import com.simplify.model.vo.BusinessDetailsVO;
 import com.simplify.model.vo.BusinessLinkmanVO;
 import com.simplify.service.BusinessDTOService;
 import com.simplify.service.BusinessService;
@@ -74,4 +77,15 @@ public class BusinessController {
         businessServiceImpl.updateBusiness(businessInfoDTO);
     }
 
+    @GetMapping("getBusinessDetailsCustomerVOList")
+    public BusinessDetailsVO businessDetailsCustomerVOList(Long id){
+        BusinessDetailsVO businessDetails = businessServiceImpl.findBusinessDetails(id);
+        return businessDetails;
+    }
+
+    @PutMapping("changeBusinessState")
+    public Integer changeBusinessState(@RequestBody BusinessStateDTO businessStateDTO){
+        System.out.println(businessStateDTO);
+        return businessServiceImpl.changeBusinessState(businessStateDTO);
+    }
 }

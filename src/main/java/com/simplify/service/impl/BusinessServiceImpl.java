@@ -2,13 +2,16 @@ package com.simplify.service.impl;
 
 import com.simplify.mapper.BusinessMapper;
 import com.simplify.model.dto.BusinessInfoDTO;
+import com.simplify.model.dto.BusinessStateDTO;
 import com.simplify.model.dto.BusinessVO;
 import com.simplify.model.entity.Business;
+import com.simplify.model.vo.BusinessDetailsVO;
 import com.simplify.service.BusinessService;
 import com.simplify.utils.SnowFlake;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -58,6 +61,16 @@ public class BusinessServiceImpl implements BusinessService {
     @Override
     public int updateBusiness (BusinessInfoDTO businessInfoDTO){
         return businessMapper.updateBusiness(businessInfoDTO);
+    }
+
+    @Override
+    public BusinessDetailsVO findBusinessDetails(Long id) {
+        return businessMapper.findBusinessDetails(id);
+    }
+
+    @Override
+    public Integer changeBusinessState(BusinessStateDTO businessStateDTO) {
+        return businessMapper.updateBusinessState(businessStateDTO);
     }
 
 }

@@ -168,9 +168,13 @@
     </update>
 
     <delete id="deleteUserRole">
-        delete tb_user_role where user_id = #{id} and
-        role_id not in <foreach collection="roleIds" item="roleId" open="(" separator="," close=")">
-        #{roleId}
-        </foreach>
+        delete from tb_user_role where user_id = #{id}
+        <if test="roleIds != null and roleIds.size>0">
+            and role_id not in
+            <foreach collection="roleIds" item="roleId" open="(" separator="," close=")">
+             #{roleId}
+            </foreach>
+        </if>
+
     </delete>
 </mapper>

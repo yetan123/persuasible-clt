@@ -4,7 +4,7 @@ import com.simplify.model.dto.UserAuthorizeDTO;
 import com.simplify.model.dto.UserRoleDTO;
 import com.simplify.model.dto.UserVO;
 import com.simplify.model.entity.User;
-import com.simplify.model.vo.RoleMiddleVO;
+import com.simplify.model.vo.PrincipalBusinessTaskVO;
 import com.simplify.model.vo.UserRoleVO;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -12,7 +12,6 @@ import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * 用户映射层
@@ -59,5 +58,6 @@ public interface UserMapper extends Mapper<User> {
      */
     @Select(" select * from tb_user where ( ( id <> #{0} ) ) ")
     List<UserVO>listUserByNotId(String id);
+
 
 }

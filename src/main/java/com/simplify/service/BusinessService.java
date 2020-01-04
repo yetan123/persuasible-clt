@@ -2,8 +2,10 @@ package com.simplify.service;
 
 import com.simplify.model.dto.BusinessDTO;
 import com.simplify.model.dto.BusinessInfoDTO;
+import com.simplify.model.dto.BusinessStateDTO;
 import com.simplify.model.dto.BusinessVO;
 import com.simplify.model.entity.Business;
+import com.simplify.model.vo.BusinessDetailsVO;
 
 import java.util.List;
 import java.util.Map;
@@ -22,4 +24,7 @@ public interface BusinessService {
     int insertBusiness(BusinessInfoDTO businessInfoDTO);
     int updateBusiness(BusinessInfoDTO businessInfoDTO);
 
+    BusinessDetailsVO findBusinessDetails(Long id);
+
+    Integer changeBusinessState(BusinessStateDTO businessStateDTO);
 }
