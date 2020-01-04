@@ -24,54 +24,5 @@ import java.util.List;
 @CrossOrigin
 public class BusinessController {
 
-    @Resource
-    BusinessService businessServiceImpl;
-
-    @Resource
-    BusinessDTOService businessDTOService;
-
-    @PreAuthorize("hasAuthority('查看全部商机:GET')")
-    @GetMapping("listBusiness")
-    public List<BusinessVO> listBusiness() {
-        return businessServiceImpl.listBusiness();
-    }
-
-    @GetMapping("/listBusinessById")
-    public List<BusinessVO> listBusinessById(Long id) {
-        return businessServiceImpl.listBusinessById(id);
-    }
-
-
-    @ResponseBody
-    @GetMapping("/deleteBusinessById")
-    public void deleteBusinessById(Long id) {
-        businessServiceImpl.deleteBusinessById(id);
-    }
-
-    @PostMapping("insertBusiness")
-    public void insertBusiness(@RequestBody BusinessInfoDTO businessInfoDTO) {
-        System.out.println(businessInfoDTO);
-        businessServiceImpl.insertBusiness(businessInfoDTO);
-    }
-
-
-    @GetMapping("getBusinessDTO")
-    public BusinessDTO getBusinessDTO(){
-        BusinessDTO businessDTO = new BusinessDTO();
-        businessDTO.setCustomer(businessDTOService.listCustomerIDAndCustomerName());
-        businessDTO.setBusinessType(businessDTOService.listBusinessType());
-        businessDTO.setBusinessSource(businessDTOService.listBusinessSource());
-        return businessDTO;
-    }
-
-    @GetMapping("getLinkman")
-    public List<BusinessLinkmanVO> getLinkman(Long id){
-        return businessDTOService.getLinkmanByCustomerId(id);
-    }
-
-    @PutMapping("updateBusiness")
-    public void updateBusiness(@RequestBody BusinessInfoDTO businessInfoDTO) {
-        businessServiceImpl.updateBusiness(businessInfoDTO);
-    }
 
 }

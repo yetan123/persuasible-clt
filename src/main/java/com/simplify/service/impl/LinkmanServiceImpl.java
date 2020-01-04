@@ -3,6 +3,7 @@ package com.simplify.service.impl;
 import com.simplify.mapper.LinkmanMapper;
 import com.simplify.model.entity.Linkman;
 import com.simplify.service.LinkmanService;
+import com.simplify.utils.SnowFlake;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
@@ -18,6 +19,7 @@ import java.util.List;
 public class LinkmanServiceImpl implements LinkmanService {
     @Resource
     LinkmanMapper linkmanMapper;
+    private SnowFlake snowFlake = new SnowFlake(0, 0);
 
 
     @Override
@@ -31,6 +33,7 @@ public class LinkmanServiceImpl implements LinkmanService {
 
     @Override
     public int saveLinkman(Linkman linkman) {
+        linkman.setId(snowFlake.nextId());
         return linkmanMapper.insertSelective(linkman);
     }
 }
