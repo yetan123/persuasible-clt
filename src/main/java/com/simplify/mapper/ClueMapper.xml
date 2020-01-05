@@ -92,7 +92,7 @@
     </insert>
 
     <select id="findAll" resultMap="clueMap">
-        select * from PERSUASIBLE.TB_CLUE_TASK  t innNer join PERSUASIBLE.TB_CLUE c on t.clue_id=c.id where t.clue_id =#{id}
+        select * from PERSUASIBLE.TB_CLUE_TASK  t inner join PERSUASIBLE.TB_CLUE c on t.clue_id=c.id where t.clue_id =#{id}
     </select>
 
 
