@@ -37,8 +37,10 @@ public class Clue {
     private String remark; //备注
     private String clueState; // 状态
     private Integer clueSourceId; //来源
+    private String clueIds;
     private Long userId; // 负责人id
     private Long createUserId; // 创建人id
+
 
     private CustomerSource customerSource; // 客户来源
     private User user; // 线索负责人

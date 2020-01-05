@@ -33,7 +33,7 @@ public class CustomerVO {
     private String customerRank;
     private Date createTime;
     private Long userId;
-    private CustomerTasks customerTasks;
+    private List<CustomerTasks> customerTasks;
     private Linkman linkman;
     private List<Linkman> linkmanList;
     private User user;

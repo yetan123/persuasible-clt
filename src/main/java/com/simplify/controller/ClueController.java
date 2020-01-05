@@ -112,6 +112,7 @@ public class ClueController {
     /*添加任务*/
     @PostMapping("/add")
     public int add(@RequestBody ClueTaskDVO clueTaskVO) throws ParseException {
+        System.out.println(clueTaskVO);
         long longVal =new SnowFlake(0,0).nextId();
         String id=String.valueOf(longVal);
         clueTaskVO.setId(id);

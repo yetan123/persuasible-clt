@@ -21,7 +21,7 @@ public class ClueTask {
     private Date taskStartTime;
     private Integer taskState;
     private Date taskFinishTime;
-    private Long clueId;
+    private Long clueIds;
     private String clueParticipant;
     private ClueVO clue;
 }

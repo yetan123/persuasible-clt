@@ -194,6 +194,7 @@ public class CustomerController {
                 params.put("createEndDate", null);
             }
         }
+        System.out.println("params：" + params);
         return params;
     }
 

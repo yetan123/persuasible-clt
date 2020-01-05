@@ -55,13 +55,13 @@ public class BusinessServiceImpl implements BusinessService {
     public List<BusinessVO> listBusinessById(Map map) {
         return businessMapper.listBusinessById(map);
     }
-    @CacheEvict(cacheNames = {"listBusiness", "listBusinessById"})
+    @CacheEvict(cacheNames = {"listBusiness", "listBusinessById"}, allEntries = true)
     @Override
     public void deleteBusinessById (Long id){
         businessMapper.deleteBusinessById(id);
     }
 
-    @CacheEvict(cacheNames = {"listBusiness", "listBusinessById"})
+    @CacheEvict(cacheNames = {"listBusiness", "listBusinessById"}, allEntries = true)
     @Override
     public int insertBusiness (BusinessInfoDTO businessInfoDTO){
         Long id=new SnowFlake(0,0).nextId();
