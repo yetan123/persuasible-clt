@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.simplify.mapper.ClueTaskMapper">
+    <resultMap id="findUserAndClueByClueId" type="ClueTaskVO">
+        <id property="id" column="id"/>
+        <association property="clueVO" column="cid" select="com.simplify.mapper.ClueMapper.getClueById"/>
+    </resultMap>
+    <select id="listClueTaskAndClueAndUser" parameterType="java.util.Map" resultMap="findUserAndClueByClueId">
+        select
+        t.*,
+        c.id as cid,c.CUSTOMER_NAME CUSTOMER_NAME,c.ENTERPRISE ENTERPRISE, c.DEPARTMENT DEPARTMENT,c.POSITION POSITION,
+        c.GENDERS genders, c.birthday birthday, c.MOBILE_PHONE MOBILE_PHONE,c.EMAIL email, c.ADDRESS address, c.REMARK remark,
+        c.CLUE_STATE CLUE_STATE,c.CLUE_SOURCE_ID CLUE_SOURCE_ID,c.USER_ID user_id,c.CREATE_USER_ID CREATE_USER_ID
+        from TB_CLUE_TASK t right join tb_clue c on t.CLUE_ID = c.id
+        <where>
+            <if test="userId != null and userId!='' ">
+                user_id = #{userId}
+            </if>
+            <if test="clueName != null and clueName!=''">
+                <bind name="clueName" value="'%'+clueName+'%'"/>
+                customer_Name like #{clueName} or enterprise like #{clueName}
+            </if>
+            <if test="username != null and username!=''">
+                <bind name="username" value="'%'+username+'%'"/>
+                username like #{username}
+            </if>
+        </where>
+    </select>
+</mapper>

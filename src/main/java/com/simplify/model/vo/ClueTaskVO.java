@@ -17,4 +17,5 @@ public class ClueTaskVO {
     private String taskFinishTime;
     private Long clueId;
     private String clueParticipant;
+    private ClueVO clueVO;
 }

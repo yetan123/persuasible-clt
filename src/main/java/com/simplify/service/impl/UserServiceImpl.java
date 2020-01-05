@@ -7,6 +7,7 @@ import com.simplify.service.UserService;
 import com.simplify.utils.PageBean;
 import com.simplify.utils.SnowFlake;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -42,11 +43,13 @@ public class UserServiceImpl implements UserService
         return userMapper.findUserAndRoleByUserId(id);
     }
 
+    @CacheEvict(cacheNames = {"businessTaskPrincipal"})
     @Override
     public int insertUser(UserAndDeptVO user) {
         return userMapper.insertUser(user);
     }
 
+    @CacheEvict(cacheNames = {"businessTaskPrincipal"})
     @Override
     public int updateByUserId(UserAndDeptVO u) {
         return userMapper.updateByUserId(u);
@@ -110,6 +113,7 @@ public class UserServiceImpl implements UserService
         return i;
     }
 
+    @CacheEvict(cacheNames = {"businessTaskPrincipal"})
     @Override
     public int deleteByUserId(UserAndDeptVO userAndDeptVO) {
         return userMapper.deleteByUserId(userAndDeptVO);

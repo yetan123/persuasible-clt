@@ -1,5 +1,6 @@
 package com.simplify.model.entity;
 
+import com.simplify.model.vo.ClueVO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,4 +23,5 @@ public class ClueTask {
     private Date taskFinishTime;
     private Long clueId;
     private String clueParticipant;
+    private ClueVO clue;
 }

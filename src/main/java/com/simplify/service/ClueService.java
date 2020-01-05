@@ -37,7 +37,5 @@ public interface ClueService {
     /*修改状态*/
     int updateByState(ClueTaskDVO clueTaskDVO);
 
-    ClueVO getClueVO();
-
     List<ClueTaskDVO> findByName();
 }

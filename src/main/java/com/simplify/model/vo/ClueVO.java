@@ -1,6 +1,7 @@
 package com.simplify.model.vo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.simplify.model.dto.UserVO;
 import com.simplify.model.entity.ClueTask;
 import com.simplify.model.entity.CustomerSource;
 import com.simplify.model.entity.User;
@@ -35,7 +36,7 @@ public class ClueVO {
     private Long createUserId; // 创建人id
 
     private CustomerSource customerSource; // 客户来源
-    private User user; // 线索负责人
-    private User createUser; //线索创建人
-    private List<ClueTask> clueTasks; // 线索任务集合
+    private UserVO user; // 线索负责人
+    private UserVO createUser; //线索创建人
+    private List<ClueTaskVO> clueTasks; // 线索任务集合
 }

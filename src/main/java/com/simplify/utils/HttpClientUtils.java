@@ -8,6 +8,7 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.springframework.util.StringUtils;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -83,5 +84,17 @@ public class HttpClientUtils {
             map.put(key, value);
         }
         return map;
+    }
+
+    public static Map<String,String> url2Map(String responseStr){
+        Map<String,String> responseMap = new HashMap<>();
+        String[] keyValues = responseStr.split("&");
+        Arrays.stream(keyValues).forEach((keyValue) -> {
+            String[] values = keyValue.split("=");
+            if(values.length >= 1){
+                responseMap.put(values[0],values[1]);
+            }
+        });
+        return responseMap;
     }
 }

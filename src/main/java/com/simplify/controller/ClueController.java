@@ -5,15 +5,12 @@ import com.github.pagehelper.PageInfo;
 import com.simplify.model.dto.SourceAndStateVO;
 import com.simplify.model.entity.Clue;
 import com.simplify.model.entity.CustomerSource;
-import com.simplify.model.vo.ClueAndTaskVO;
 import com.simplify.model.vo.ClueTaskDVO;
-import com.simplify.model.vo.ClueTaskVO;
 import com.simplify.model.vo.ClueVO;
 import com.simplify.service.ClueService;
-
+import com.simplify.service.ClueTaskService;
 import com.simplify.service.CustomerService;
 import com.simplify.utils.SnowFlake;
-import org.apache.commons.collections4.Get;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -31,6 +28,9 @@ public class ClueController {
 
     @Resource
     CustomerService customerService;
+
+    @Resource
+    ClueTaskService clueTaskService;
 
     //获取全部线索
     @PostMapping(value = "list")
@@ -52,7 +52,6 @@ public class ClueController {
     @PostMapping(value = "addClue")
     public int addClue(@RequestBody Clue clue) {
         clue.setId(new SnowFlake(0, 0).nextId());
-        System.out.println(clue);
 //        clueService.addClue(clue);
         return clueService.addClue(clue);
     }
@@ -102,7 +101,6 @@ public class ClueController {
     //跟进任务
     @GetMapping(value = "/getTask")
     public List<ClueTaskDVO> getTask(ClueTaskDVO clueTaskVO)  {
-        System.out.println(clueTaskVO);
         List<ClueTaskDVO> list= clueService.findAll(clueTaskVO);
         return clueService.findAll(clueTaskVO);
     }
@@ -129,13 +127,12 @@ public class ClueController {
         return clueService.updateByClueId(clueTaskVO);
     }
     @PostMapping("/updateState")
-    public int updatestate(@RequestBody ClueTaskDVO clueTaskVO)   {
+    public int updatestate(@RequestBody ClueTaskDVO clueTaskVO){
         return clueService.updateByState(clueTaskVO);
     }
 
     @GetMapping("/deleteById")
     public int deleteUser(ClueTaskDVO clueTaskVO){
-        System.out.println(clueTaskVO);
         return clueService.deleteByClueId(clueTaskVO);
     }
 

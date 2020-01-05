@@ -22,8 +22,8 @@ public class BusinessTask {
     @Id
     private Long id;
     private String taskContent;
-    private Date taskDate;
-    private Date taskFinishDate;
+    private Date taskTime;
+    private Date taskFinishTime;
     private Long businessId;
     private Integer taskState;
 
