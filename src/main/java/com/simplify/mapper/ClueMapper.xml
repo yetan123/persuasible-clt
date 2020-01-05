@@ -92,7 +92,10 @@
         update PERSUASIBLE.TB_CLUE_TASK
         <set>
             <if test="taskState!=null">
-                task_State = 1
+                task_State = 1,
+            </if>
+            <if test="taskFinishTime!=null">
+                task_Finish_Time = to_date(sysdate)
             </if>
         </set>
         WHERE id = #{id}

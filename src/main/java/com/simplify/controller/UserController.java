@@ -73,7 +73,6 @@ public class UserController {
     @PreAuthorize("hasAuthority('添加用户:POST')")
     @PostMapping("/add")
     public int add(@RequestBody UserAndDeptVO user) {
-        System.out.println("添加");
         long longVal =new SnowFlake(0,0).nextId();
         String id=String.valueOf(longVal);
         user.setId(id);
@@ -90,7 +89,6 @@ public class UserController {
     @PreAuthorize("hasAuthority('删除用户:DELETE')")
     @DeleteMapping("/deleteById")
     public int deleteUser( UserAndDeptVO userAndDeptVO){
-        System.out.println("根据id删除");
         return userService.deleteByUserId(userAndDeptVO);
     }
     @PreAuthorize("hasAuthority('修改用户状态:PUT')")
@@ -133,17 +131,12 @@ public class UserController {
     /*以短信的方式修改密码*/
     @PostMapping("/updateCodeByID")
     public int CodeById(@RequestBody UserAndDeptVO user) {
-        System.out.println("根据验证码修改密码");
-        System.out.println(user+"修改之前");
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
-        System.out.println(user+"修改之后");
         return userService.updateCodeById(user);
     }
     /*以短信的方式修改密码*/
     @GetMapping("/findByName")
     public UserAndDeptVO findByName(@RequestParam(value ="account",required = false)String account) {
-        System.out.println("查看账号");
-        System.out.println(account);
         return userService.selectByName(account);
     }
 }

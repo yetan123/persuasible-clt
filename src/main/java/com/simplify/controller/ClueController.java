@@ -60,7 +60,6 @@ public class ClueController {
     //删除线索
     @GetMapping(value = "deleteClue")
     public int deleteClue( String id){
-        System.out.println("删除方法跳转成功");
         return clueService.deleteClue(id);
     }
 
@@ -105,52 +104,38 @@ public class ClueController {
     public List<ClueTaskDVO> getTask(ClueTaskDVO clueTaskVO)  {
         System.out.println(clueTaskVO);
         List<ClueTaskDVO> list= clueService.findAll(clueTaskVO);
-        System.out.println(list);
         return clueService.findAll(clueTaskVO);
     }
     //下拉
     @GetMapping(value = "/getName")
     public List<ClueTaskDVO> getName() {
-        System.out.println(clueService.findByName());
         return clueService.findByName();
 }
     /*添加任务*/
     @PostMapping("/add")
     public int add(@RequestBody ClueTaskDVO clueTaskVO) throws ParseException {
-        System.out.println("进入添加");
         long longVal =new SnowFlake(0,0).nextId();
         String id=String.valueOf(longVal);
         clueTaskVO.setId(id);
         clueTaskVO.setTaskStartTime(convertTime(clueTaskVO.getTaskStartTime()));
         clueTaskVO.setTaskFinishTime(convertTime(clueTaskVO.getTaskFinishTime()));
-        System.out.println(clueTaskVO);
         return clueService.insertClueTask(clueTaskVO);
     }
 
     @PostMapping("/update")
     public int update(@RequestBody ClueTaskDVO clueTaskVO) throws ParseException {
-        System.out.println("进入修改方法");
-<<<<<<< HEAD
-        System.out.println(clueTaskVO);
-        clueTaskVO.setTaskStartTime(convet(clueTaskVO.getTaskStartTime()));
-        clueTaskVO.setTaskFinishTime(convet(clueTaskVO.getTaskFinishTime()));
-=======
         clueTaskVO.setTaskStartTime(convertTime(clueTaskVO.getTaskStartTime()));
         clueTaskVO.setTaskFinishTime(convertTime(clueTaskVO.getTaskFinishTime()));
->>>>>>> e0db85fba958a26c513aeb2159b94ffae4587cfb
-        System.out.println(clueTaskVO);
         return clueService.updateByClueId(clueTaskVO);
     }
     @PostMapping("/updateState")
-    public int updatestate(@RequestBody ClueTaskDVO clueTaskVO){
-        System.out.println("进入修改状态方法");
-        System.out.println(clueTaskVO);
+    public int updatestate(@RequestBody ClueTaskDVO clueTaskVO)   {
         return clueService.updateByState(clueTaskVO);
     }
 
     @GetMapping("/deleteById")
     public int deleteUser(ClueTaskDVO clueTaskVO){
-        System.out.println("进入删除方法");
+        System.out.println(clueTaskVO);
         return clueService.deleteByClueId(clueTaskVO);
     }
 
