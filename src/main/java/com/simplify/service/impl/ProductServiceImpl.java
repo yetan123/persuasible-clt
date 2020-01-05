@@ -27,7 +27,7 @@ public class ProductServiceImpl implements ProductService {
     @CacheEvict(value = {"listProduct"}, allEntries = true)
     @Override
     public int updateProduct(Product product) {
-        return productMapper.updateByPrimaryKey(product);
+        return productMapper.updateByPrimaryKeySelective(product);
     }
 
     @CacheEvict(value = {"listProductClassify"}, allEntries = true)

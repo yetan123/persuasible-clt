@@ -4,10 +4,7 @@ import com.simplify.model.vo.ProductVO;
 import com.simplify.model.entity.Product;
 import com.simplify.model.entity.ProductClassify;
 import com.simplify.model.vo.ProductClassifyVO;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.common.Mapper;
 
@@ -18,8 +15,9 @@ import java.util.List;
  */
 @Repository
 public interface ProductMapper extends Mapper<Product> {
-    @Select("select * from tb_product where PRODUCT_STATUS = #{0}")
-    List<ProductVO> listProduct(Integer productState);
+
+    List<ProductVO> listProduct(@Param("productState") Integer productState);
+
     @Select("select * from TB_PRODUCT_CLASSIFY")
     List<ProductClassifyVO> listProductClassify();
 

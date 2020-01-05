@@ -20,6 +20,6 @@ public class ProductVO {
     private Integer productRepertory;
     private Integer productStatus;
     private Date establishDate;
-    private Long userId;
+    private String userId;
     private User user;
 }

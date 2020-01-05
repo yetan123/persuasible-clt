@@ -31,12 +31,8 @@ public class ClueTest {
     @Test
     public void show(){
         Map map = new HashMap<>();
-        map.put("userId", 1);
-        List<ClueTaskVO> clueTaskVOS = clueTaskMapper.listClueTaskAndClueAndUser(map);
-        for (ClueTaskVO clueTask : clueTaskVOS) {
-            System.out.println(clueTask);
+        for(Object key : map.keySet()){
         }
-        System.out.println();
     }
 
 }

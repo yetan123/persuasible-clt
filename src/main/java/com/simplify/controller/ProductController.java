@@ -22,7 +22,7 @@ public class ProductController {
     @GetMapping("/listProduct")
     public PageInfo<ProductVO> listProduct(@RequestParam(defaultValue = "1", required = false) Integer pageNum,
                                            @RequestParam(defaultValue = "5", required = false) Integer pageSize,
-                                           @RequestParam(defaultValue = "1", required = false, name = "productStatus") Integer productStatus) {
+                                           @RequestParam(defaultValue = "", required = false, name = "productStatus") Integer productStatus) {
         PageHelper.startPage(pageNum, pageSize, true);
         PageInfo<ProductVO> page = new PageInfo<>(productService.listProduct(productStatus));
         PageHelper.clearPage();
