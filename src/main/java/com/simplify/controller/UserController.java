@@ -78,11 +78,18 @@ public class UserController {
         String id=String.valueOf(longVal);
         user.setId(id);
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+        RoleMiddleVO r= new RoleMiddleVO();
+        r.setId(id);
+        r.setUserId(user.getId());
+        int i = userService.insertRole(r);
+        user.setGenders(user.getGenders().trim());
         return userService.insertUser(user);
     }
     @PreAuthorize("hasAuthority('修改用户:PUT')")
     @PutMapping("/update")
     public int update(@RequestBody UserAndDeptVO user) {
+        System.out.println(user);
+        System.out.println(user.getGenders().length());
         int updateByUserId = userService.updateByUserId(user);
         int i = userService.updateUserRole(user);
         return updateByUserId + i;
@@ -112,7 +119,6 @@ public class UserController {
     /*以短信的方式修改密码*/
     @PostMapping("/SMS")
     public JSONObject  SMS(HttpSession httpSession,@RequestBody UserAndDeptVO user) throws Exception {
-        System.out.println(user);
         JSONObject json =null;
             String code = String.valueOf(new Random().nextInt(99999));
             ZhenziSmsClient client = new ZhenziSmsClient(apiUrl, appId, appSecret);
@@ -148,7 +154,6 @@ public class UserController {
     /*修改名称与电话*/
     @PostMapping("/updateUserInfo")
     public int updateUserInfo(@RequestBody UserAndDeptDTO userAndDeptDTO) {
-        System.out.println(userAndDeptDTO);
         return userService.updateUserInfo(userAndDeptDTO);
     }
 }

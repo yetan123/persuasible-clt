@@ -4,6 +4,7 @@ import com.simplify.model.dto.UserAndDeptVO;
 import com.simplify.model.dto.UserAuthorizeDTO;
 import com.simplify.model.dto.UserVO;
 import com.simplify.model.entity.User;
+import com.simplify.model.vo.RoleMiddleVO;
 import com.simplify.model.vo.UserRoleVO;
 import com.simplify.utils.PageBean;
 import java.util.List;
@@ -48,5 +49,7 @@ public interface UserService {
         UserAndDeptDTO getUserInfo(UserAndDeptDTO userAndDeptVO);
         //修改用户名称和手机号
         int updateUserInfo(UserAndDeptDTO userAndDeptVO);
+        //给予默认权限
+        int insertRole(RoleMiddleVO userAndRoleVO);
 
 }

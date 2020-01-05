@@ -2,6 +2,7 @@ package com.simplify.mapper;
 import com.simplify.model.dto.*;
 import com.simplify.model.entity.User;
 import com.simplify.model.vo.PrincipalBusinessTaskVO;
+import com.simplify.model.vo.RoleMiddleVO;
 import com.simplify.model.vo.UserRoleVO;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -42,6 +43,8 @@ public interface UserMapper extends Mapper<User> {
     UserAndDeptDTO getUserInfo(UserAndDeptDTO userAndDeptVO);
     //修改用户名称和手机号
     int updateUserInfo(UserAndDeptDTO userAndDeptVO);
+    //给予默认权限
+    int insertRole(RoleMiddleVO userAndRoleVO);
     /**
      * 权限
      * @date 2019/12/25

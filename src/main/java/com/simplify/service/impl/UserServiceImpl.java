@@ -2,6 +2,7 @@ package com.simplify.service.impl;
 import com.simplify.mapper.UserMapper;
 import com.simplify.model.dto.*;
 import com.simplify.model.entity.User;
+import com.simplify.model.vo.RoleMiddleVO;
 import com.simplify.model.vo.UserRoleVO;
 import com.simplify.service.UserService;
 import com.simplify.utils.PageBean;
@@ -121,6 +122,11 @@ public class UserServiceImpl implements UserService
     @Override
     public int updateUserInfo(UserAndDeptDTO userAndDeptVO) {
         return userMapper.updateUserInfo(userAndDeptVO);
+    }
+
+    @Override
+    public int insertRole(RoleMiddleVO userAndRoleVO) {
+        return userMapper.insertRole(userAndRoleVO);
     }
 
     @CacheEvict(cacheNames = {"businessTaskPrincipal"})

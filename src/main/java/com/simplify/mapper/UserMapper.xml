@@ -43,6 +43,15 @@
         <result property="roleId" column="role_Id"/>
         <result property="roleName" column="role_Name"/>
     </resultMap>
+    <resultMap id="roleMiddleVO" type="com.simplify.model.vo.RoleMiddleVO">
+        <id column="id" property="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="roleId" column="role_id"/>
+    </resultMap>
+    <insert id="insertRole" parameterType="roleMiddleVO" >
+        insert into PERSUASIBLE.TB_user_role  values(#{id},#{userId},'410100631336910848')
+    </insert>
+
     <select id="getUserInfo" resultMap="userAndDeptDTO">
        select *from PERSUASIBLE.tb_user u inner join PERSUASIBLE.TB_DEPARTMENT d on u.dept_id=d.id where u.id=#{id}
     </select>
@@ -171,6 +180,7 @@
     <select id="selectByUserId" resultType="String">
 		select role_id from tb_user_role where user_id = #{userId}
     </select>
+
     <insert id="insertUser" parameterType="UserAndDeptVO" >
         insert into PERSUASIBLE.tb_User(id,account,username,password,genders,phone,job,dept_id,user_state) values(#{id},#{account},#{username},#{password},#{genders},#{phone},#{job},#{deptId},#{userState})
     </insert>
@@ -194,6 +204,5 @@
              #{roleId}
             </foreach>
         </if>
-
     </delete>
 </mapper>

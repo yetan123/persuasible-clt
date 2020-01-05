@@ -2,6 +2,7 @@ package com.simplify.mapper;
 
 import com.simplify.model.entity.Role;
 import com.simplify.model.vo.RoleAuthorizeVO;
+import com.simplify.model.vo.RoleMiddleVO;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.common.Mapper;
@@ -20,4 +21,5 @@ public interface RoleMapper extends Mapper<Role> {
 
     //查询总记录
     int selectCounts(@Param("roleName") String roleName,@Param("oldDate") String oldDate,@Param("newDate") String newDate);
+
 }
