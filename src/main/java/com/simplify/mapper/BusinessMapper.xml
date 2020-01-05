@@ -47,7 +47,7 @@
         </association>
     </resultMap>
 
-    <select id="listBusiness" resultMap="BusinessAndCustomerAndCustomer">
+    <select id="listBusiness" parameterType="java.util.Map" resultMap="BusinessAndCustomerAndCustomer">
        SELECT
         bu.ID,
         bu.BUSINESS_NAME,
@@ -69,7 +69,7 @@
 	Order BY bu.ID
     </select>
 
-    <select id="listBusinessById" resultMap="BusinessAndCustomerAndCustomer">
+    <select id="listBusinessById"  parameterType="java.util.Map" resultMap="BusinessAndCustomerAndCustomer">
         SELECT
             bu.ID,
             bu.BUSINESS_NAME,
@@ -89,7 +89,7 @@
             INNER JOIN TB_CUSTOMER cu ON bu.CUSTOMER_ID = cu.ID
             INNER JOIN TB_USER u ON bu.USER_ID = u.id
         WHERE
-	u.id =#{id}
+	    u.id =#{id}
     </select>
 
     <delete id="deleteBusinessById" parameterType="java.lang.Long">

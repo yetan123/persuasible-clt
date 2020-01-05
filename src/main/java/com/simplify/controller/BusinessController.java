@@ -1,5 +1,7 @@
 package com.simplify.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.simplify.model.dto.BusinessDTO;
 import com.simplify.model.dto.BusinessInfoDTO;
 import com.simplify.model.dto.BusinessStateDTO;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 商机控制器,负责对商机实体的业务分发
@@ -34,16 +37,28 @@ public class BusinessController {
     BusinessDTOService businessDTOService;
 
     @PreAuthorize("hasAuthority('查看全部商机:GET')")
-    @GetMapping("listBusiness")
-    public List<BusinessVO> listBusiness() {
-        return businessServiceImpl.listBusiness();
+    @PostMapping("listBusiness")
+    public PageInfo<BusinessVO> listBusiness(@RequestBody Map params) {
+        return getPageInfo(params, "all");
     }
 
-    @GetMapping("/listBusinessById")
-    public List<BusinessVO> listBusinessById(Long id) {
-        return businessServiceImpl.listBusinessById(id);
+    @PostMapping("/listBusinessById")
+    public PageInfo<BusinessVO> listBusinessById(@RequestBody Map params) {
+        return getPageInfo(params, "my");
     }
 
+    private PageInfo<BusinessVO> getPageInfo(Map map, String type) {
+        Integer pageNum = map.get("pageNum") == null ? 0 : Integer.valueOf(map.get("pageNum").toString());
+        Integer pageSize = map.get("pageSize") == null ? 5 : Integer.valueOf(map.get("pageSize").toString());
+        PageHelper.startPage(pageNum, pageSize, true);
+        PageInfo<BusinessVO> pageInfo = null;
+        if ("all".equals(type)) {
+            pageInfo = new PageInfo<>(businessServiceImpl.listBusiness(map));
+        } else if ("my".equals(type)) {
+            pageInfo = new PageInfo<>(businessServiceImpl.listBusinessById(map));
+        }
+        return pageInfo;
+    }
 
     @ResponseBody
     @GetMapping("/deleteBusinessById")

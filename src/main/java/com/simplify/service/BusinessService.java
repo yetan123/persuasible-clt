@@ -24,8 +24,10 @@ public interface BusinessService {
     Integer changeBusinessState(BusinessStateDTO businessStateDTO);
 
     List<Business> selectALl();
-    List<BusinessVO> listBusiness();
-    List<BusinessVO> listBusinessById(Long id);
+//    List<BusinessVO> listBusiness();
+//    List<BusinessVO> listBusinessById(Long id);
+    List<BusinessVO> listBusiness(Map map);
+    List<BusinessVO> listBusinessById(Map map);
     void deleteBusinessById(Long id);
     int insertBusiness(BusinessInfoDTO businessInfoDTO);
     int updateBusiness(BusinessInfoDTO businessInfoDTO);

@@ -16,6 +16,7 @@ import org.thymeleaf.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 商机业务实现类,是商机业务接口的具体实现
@@ -45,14 +46,14 @@ public class BusinessServiceImpl implements BusinessService {
 
     @Cacheable("listBusiness")
     @Override
-    public List<BusinessVO> listBusiness() {
-        return businessMapper.listBusiness();
+    public List<BusinessVO> listBusiness(Map map) {
+        return businessMapper.listBusiness(map);
     }
 
     @Cacheable("listBusinessById")
     @Override
-    public List<BusinessVO> listBusinessById(Long id) {
-        return businessMapper.listBusinessById(id);
+    public List<BusinessVO> listBusinessById(Map map) {
+        return businessMapper.listBusinessById(map);
     }
     @CacheEvict(cacheNames = {"listBusiness", "listBusinessById"})
     @Override
