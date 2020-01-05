@@ -145,7 +145,7 @@ public class UserController {
     public UserAndDeptDTO getUserInfo(UserAndDeptDTO userAndDeptDTO) {
         return userService.getUserInfo(userAndDeptDTO);
     }
-
+    /*修改名称与电话*/
     @PostMapping("/updateUserInfo")
     public int updateUserInfo(@RequestBody UserAndDeptDTO userAndDeptDTO) {
         System.out.println(userAndDeptDTO);
