@@ -5,16 +5,12 @@ import com.github.pagehelper.PageInfo;
 import com.simplify.model.dto.SourceAndStateVO;
 import com.simplify.model.entity.Clue;
 import com.simplify.model.entity.CustomerSource;
-import com.simplify.model.vo.ClueAndTaskVO;
 import com.simplify.model.vo.ClueTaskDVO;
-import com.simplify.model.vo.ClueTaskVO;
 import com.simplify.model.vo.ClueVO;
 import com.simplify.service.ClueService;
-
 import com.simplify.service.ClueTaskService;
 import com.simplify.service.CustomerService;
 import com.simplify.utils.SnowFlake;
-import org.apache.commons.collections4.Get;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -121,7 +117,6 @@ public class ClueController {
         clueTaskVO.setId(id);
         clueTaskVO.setTaskStartTime(convertTime(clueTaskVO.getTaskStartTime()));
         clueTaskVO.setTaskFinishTime(convertTime(clueTaskVO.getTaskFinishTime()));
-        System.out.println(clueTaskVO);
         return clueService.insertClueTask(clueTaskVO);
     }
 
