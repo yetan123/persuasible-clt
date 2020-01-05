@@ -88,7 +88,7 @@
     </select>
 
     <insert id="insertClueTask">
-            insert into PERSUASIBLE.TB_CLUE_TASK values(#{id},#{taskContent},to_date(#{taskStartTime},'yyyy-MM-dd'),0,to_date(#{taskFinishTime},'yyyy-MM-dd'),#{clueId},null)
+            insert into PERSUASIBLE.TB_CLUE_TASK values(#{id},#{taskContent},to_date(#{taskStartTime},'yyyy-MM-dd'),0,to_date(#{taskFinishTime},'yyyy-MM-dd'),#{clueId}, #{clueParticipant})
     </insert>
 
     <select id="findAll" resultMap="clueMap">
