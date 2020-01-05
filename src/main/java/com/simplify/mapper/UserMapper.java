@@ -1,8 +1,5 @@
 package com.simplify.mapper;
-import com.simplify.model.dto.UserAndDeptVO;
-import com.simplify.model.dto.UserAuthorizeDTO;
-import com.simplify.model.dto.UserRoleDTO;
-import com.simplify.model.dto.UserVO;
+import com.simplify.model.dto.*;
 import com.simplify.model.entity.User;
 import com.simplify.model.vo.PrincipalBusinessTaskVO;
 import com.simplify.model.vo.UserRoleVO;
@@ -41,6 +38,10 @@ public interface UserMapper extends Mapper<User> {
     int deleteUserRole(UserAndDeptVO userAndDeptVO);
     //根据账号名称查找避免重复
     UserAndDeptVO selectByName(@Param("account") String account);
+    //个人信息
+    UserAndDeptDTO getUserInfo(UserAndDeptDTO userAndDeptVO);
+    //修改用户名称和手机号
+    int updateUserInfo(UserAndDeptDTO userAndDeptVO);
     /**
      * 权限
      * @date 2019/12/25

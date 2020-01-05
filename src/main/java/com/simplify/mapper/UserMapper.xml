@@ -43,6 +43,24 @@
         <result property="roleId" column="role_Id"/>
         <result property="roleName" column="role_Name"/>
     </resultMap>
+    <select id="getUserInfo" resultMap="userAndDeptDTO">
+       select *from PERSUASIBLE.tb_user u inner join PERSUASIBLE.TB_DEPARTMENT d on u.dept_id=d.id where u.id=#{id}
+    </select>
+    <update id="updateUserInfo" parameterType="com.simplify.model.dto.UserAndDeptDTO">
+        UPDATE PERSUASIBLE.tb_user
+        <set>
+            <if test="username!=null">
+                username = #{username},
+            </if>
+            <if test="genders!=null">
+                genders = #{genders},
+            </if>
+            <if test="phone!=null">
+                phone = #{phone}
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
     <!--权限-->
     <select id="selectRoleName" resultMap="userRoleVO">
         select u.id as user_id,tr.id as trole_id,r.id as role_id,r.role_name
@@ -91,6 +109,7 @@
         </set>
         WHERE id = #{id}
     </update>
+
 
     <update id="updateByState" parameterType="com.simplify.model.dto.UserAndDeptDTO">
         UPDATE PERSUASIBLE.tb_user

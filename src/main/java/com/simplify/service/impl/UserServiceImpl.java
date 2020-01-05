@@ -113,6 +113,16 @@ public class UserServiceImpl implements UserService
         return i;
     }
 
+    @Override
+    public UserAndDeptDTO getUserInfo(UserAndDeptDTO userAndDeptVO) {
+        return userMapper.getUserInfo(userAndDeptVO);
+    }
+
+    @Override
+    public int updateUserInfo(UserAndDeptDTO userAndDeptVO) {
+        return userMapper.updateUserInfo(userAndDeptVO);
+    }
+
     @CacheEvict(cacheNames = {"businessTaskPrincipal"})
     @Override
     public int deleteByUserId(UserAndDeptVO userAndDeptVO) {

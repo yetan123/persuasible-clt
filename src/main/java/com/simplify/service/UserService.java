@@ -44,4 +44,9 @@ public interface UserService {
 
         int updateUserRole(UserAndDeptVO userAndDeptVO);
 
+        //个人信息
+        UserAndDeptDTO getUserInfo(UserAndDeptDTO userAndDeptVO);
+        //修改用户名称和手机号
+        int updateUserInfo(UserAndDeptDTO userAndDeptVO);
+
 }

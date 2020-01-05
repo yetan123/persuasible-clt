@@ -33,10 +33,7 @@ public class ClueServiceImpl implements ClueService {
             return sourceAndStateVO;
     }
 
-<<<<<<< HEAD
-=======
 
->>>>>>> c9a9d85e36c19feed06c0d190d390b1f3d90e311
     @CacheEvict(value = {"getAllClue"}, allEntries = true)
     @Override
     public int updateClue(Clue clue) {
@@ -88,17 +85,8 @@ public class ClueServiceImpl implements ClueService {
     }
 
     @Override
-    public ClueVO getClueVO() {
-        return null;
-    }
-
-    @Override
     public List<ClueTaskDVO> findByName() {
         return clueMapper.findByName();
     }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> c9a9d85e36c19feed06c0d190d390b1f3d90e311
 }

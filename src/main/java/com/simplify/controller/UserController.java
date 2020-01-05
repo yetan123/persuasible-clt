@@ -1,6 +1,7 @@
 package com.simplify.controller;
 import com.alibaba.fastjson.JSONObject;
 
+import com.simplify.model.dto.UserAndDeptDTO;
 import com.simplify.model.dto.UserAndDeptVO;
 import com.simplify.model.entity.User;
 import com.simplify.model.vo.RoleMiddleVO;
@@ -138,5 +139,16 @@ public class UserController {
     @GetMapping("/findByName")
     public UserAndDeptVO findByName(@RequestParam(value ="account",required = false)String account) {
         return userService.selectByName(account);
+    }
+    /*查询用户信息*/
+    @GetMapping("/getUserInfo")
+    public UserAndDeptDTO getUserInfo(UserAndDeptDTO userAndDeptDTO) {
+        return userService.getUserInfo(userAndDeptDTO);
+    }
+
+    @PostMapping("/updateUserInfo")
+    public int updateUserInfo(@RequestBody UserAndDeptDTO userAndDeptDTO) {
+        System.out.println(userAndDeptDTO);
+        return userService.updateUserInfo(userAndDeptDTO);
     }
 }

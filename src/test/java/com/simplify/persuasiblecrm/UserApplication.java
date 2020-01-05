@@ -4,6 +4,8 @@ import com.simplify.mapper.DeptMapper;
 import com.simplify.mapper.RoleMapper;
 import com.simplify.mapper.RoleMiddleMapper;
 import com.simplify.mapper.UserMapper;
+import com.simplify.model.dto.UserAndDeptDTO;
+import com.simplify.model.dto.UserAndDeptVO;
 import com.simplify.service.DeptService;
 import com.simplify.service.MenuService;
 import com.simplify.service.UserService;
@@ -28,7 +30,9 @@ public class UserApplication {
     private RoleMiddleMapper roleMiddleMapper;
     @Test
     void contextLoads() {
-        System.out.println(roleMiddleMapper.listRole());
+        UserAndDeptDTO u =new UserAndDeptDTO();
+        u.setId("409138416777691136");
+        System.out.println(userMapper.getUserInfo(u));
     }
 
 }
