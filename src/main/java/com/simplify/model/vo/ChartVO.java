@@ -19,5 +19,5 @@ public class ChartVO {
 
     private Integer businessCount;
 
-    private Integer contractCount;
+    private Integer productCount;
 }

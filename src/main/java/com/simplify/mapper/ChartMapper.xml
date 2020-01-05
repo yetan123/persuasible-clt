@@ -8,7 +8,7 @@
          (select count(*) from TB_CUSTOMER) consumerCount,
          (select count(*) from tb_clue) clueCount,
          (select count(*) from tb_business) businessCount,
-         (select count(*) from TB_CONTRACT) contractCount
+         (select count(*) from TB_product) productCount
          from dual
     </select>
 

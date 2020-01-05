@@ -36,7 +36,7 @@ public interface BusinessDTOMapper {
     @Select("select * from TB_BUSINESS_SOURCE")
     @Results({
             @Result(column = "id",property = "id",id = true),
-            @Result(column = "BUISNESS_SOURCE",property = "businessSource")
+            @Result(column = "BUSINESS_SOURCE",property = "businessSource")
     })
     List<BusinessSource> listBusinessSource();
 

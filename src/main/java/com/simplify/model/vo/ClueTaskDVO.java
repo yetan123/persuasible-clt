@@ -15,7 +15,7 @@ public class ClueTaskDVO {
     private String taskStartTime;
     private Integer taskState;
     private String taskFinishTime;
-    private String clueId;
+    private List<Long> clueIds;
     private String clueParticipant;
     private List<ClueAndTaskVO> tasks;
 }
