@@ -4,28 +4,10 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.simplify.mapper.ClueMapper">
     <resultMap id="clue" type="com.simplify.model.vo.ClueVO">
-        <id property="id" column="id"/>
-        <result property="customerName" column="customer_name"/>
-        <result property="enterprise" column="enterprise"/>
-        <result property="department" column="department"/>
-        <result property="position" column="position"/>
-        <result property="genders" column="genders"/>
-        <result property="birthday" column="birthday"/>
-        <result property="mobilePhone" column="mobile_phone"/>
-        <result property="email" column="email"/>
-        <result property="address" column="address"/>
-        <result property="remark" column="remark"/>
-        <result property="clueState" column="clue_state"/>
-        <result property="clueSourceId" column="clue_source_id"/>
-
-        <association property="user" column="user_id" select="com.simplify.mapper.UserMapper.selectByPrimaryKey"></association>
-
-        <association property="createUser" column="create_user_id" select="com.simplify.mapper.UserMapper.selectByPrimaryKey"> </association>
-
-        <collection property="clueTasks" column="clue_id" ofType="com.simplify.model.entity.ClueTask">
-            <id column="id" property="id"/>
-            <result column="task_finish_time" property="taskFinishTime" />
-        </collection>
+        <id column="id" property="id"/>
+        <association property="user" column="user_id" select="com.simplify.mapper.UserMapper.getUserVOById"/>
+        <association property="createUser" column="user_id" select="com.simplify.mapper.UserMapper.getUserVOById"/>
+        <collection property="clueTasks" column="id"  select="com.simplify.mapper.ClueTaskMapper.listClueTaskByCuleId"/>
     </resultMap>
     <resultMap id="clues" type="com.simplify.model.vo.ClueVO">
         <id property="id" column="id"/>
@@ -107,16 +89,15 @@
     </insert>
 
     <select id="findAll" resultMap="clueMap">
-        select * from PERSUASIBLE.TB_CLUE_TASK  t inner join PERSUASIBLE.TB_CLUE c on t.clue_id=c.id where t.clue_id =#{id}
+        select * from PERSUASIBLE.TB_CLUE_TASK  t innNer join PERSUASIBLE.TB_CLUE c on t.clue_id=c.id where t.clue_id =#{id}
     </select>
 
 
     <select id="getAllClue" resultMap="clue" >
-        select * from TB_CLUE c left join TB_SOURCE s on c.CLUE_SOURCE_ID = s.ID left join TB_CLUE_TASK ct on c.id = ct.clue_id
-        left join TB_USER u on u.Id = c.USER_ID
+        select * from tb_clue c  inner join tb_user u on c.USER_ID = u.id
         <where>
             <if test="userId != null and userId!='' ">
-                user_id = #{userId}
+               user_id = #{userId}
             </if>
             <if test="clueName != null and clueName!=''">
                 <bind name="clueName" value="'%'+clueName+'%'"/>
@@ -130,7 +111,7 @@
     </select>
 
     <select id="getClueById" resultMap="clue">
-        select * from TB_CLUE c left join TB_SOURCE s on c.CLUE_SOURCE_ID = s.ID left join TB_CLUE_TASK ct on c.id = ct.clue_id where c.id = #{id}
+        select * from TB_CLUE where id = #{0}
     </select>
 
 </mapper>

@@ -59,5 +59,7 @@ public interface UserMapper extends Mapper<User> {
     @Select(" select * from tb_user where ( ( id <> #{0} ) ) ")
     List<UserVO>listUserByNotId(String id);
 
+    @Select("select * from tb_user where id = #{0}")
+    UserVO getUserVOById(Long id);
 
 }

@@ -11,6 +11,7 @@ import com.simplify.model.vo.ClueTaskVO;
 import com.simplify.model.vo.ClueVO;
 import com.simplify.service.ClueService;
 
+import com.simplify.service.ClueTaskService;
 import com.simplify.service.CustomerService;
 import com.simplify.utils.SnowFlake;
 import org.apache.commons.collections4.Get;
@@ -31,6 +32,9 @@ public class ClueController {
 
     @Resource
     CustomerService customerService;
+
+    @Resource
+    ClueTaskService clueTaskService;
 
     //获取全部线索
     @PostMapping(value = "list")
